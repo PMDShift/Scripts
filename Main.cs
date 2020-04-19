@@ -7276,69 +7276,69 @@ namespace Script
                             {
                                 case 0:
                                     {
-                                        ChangeAttackBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeAttackBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
                                     }
                                     break;
                                 case 1:
                                     {
-                                        ChangeDefenseBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeDefenseBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
                                     }
                                     break;
                                 case 2:
                                     {
-                                        ChangeSpAtkBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeSpAtkBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
                                     }
                                     break;
                                 case 3:
                                     {
-                                        ChangeSpDefBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeSpDefBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
                                     }
                                     break;
                                 case 4:
                                     {
-                                        ChangeSpeedBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeSpeedBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
                                     }
                                     break;
                                 case 5:
                                     {
-                                        ChangeAccuracyBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeAccuracyBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
                                     }
                                     break;
                                 case 6:
                                     {
-                                        ChangeEvasionBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeEvasionBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
                                     }
                                     break;
                                 case 7:
                                     {
-                                        ChangeAttackBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
-                                        ChangeDefenseBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
-                                        ChangeSpAtkBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
-                                        ChangeSpDefBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
-                                        ChangeSpeedBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeAttackBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeDefenseBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeSpAtkBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeSpDefBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeSpeedBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
                                     }
                                     break;
                                 case 8:
                                     {
-                                        ChangeAttackBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
-                                        ChangeDefenseBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
-                                        ChangeSpAtkBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
-                                        ChangeSpDefBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
-                                        ChangeSpeedBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
-                                        ChangeAccuracyBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
-                                        ChangeEvasionBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeAttackBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeDefenseBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeSpAtkBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeSpDefBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeSpeedBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeAccuracyBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeEvasionBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
                                     }
                                     break;
                                 case 9:
                                     {
-                                        ChangeAttackBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
-                                        ChangeSpAtkBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeAttackBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeSpAtkBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
                                     }
                                     break;
                                 case 10:
                                     {
-                                        ChangeDefenseBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
-                                        ChangeSpDefBuff(setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeDefenseBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
+                                        ChangeSpDefBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, diff, setup.PacketStack);
                                     }
                                     break;
                             }
@@ -8227,37 +8227,37 @@ namespace Script
                             {
                                 case 0:
                                     {
-                                        ChangeAttackBuff(setup.Attacker, setup.AttackerMap, 20, setup.PacketStack);
+                                        ChangeAttackBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, 20, setup.PacketStack);
                                     }
                                     break;
                                 case 1:
                                     {
-                                        ChangeDefenseBuff(setup.Attacker, setup.AttackerMap, 20, setup.PacketStack);
+                                        ChangeDefenseBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, 20, setup.PacketStack);
                                     }
                                     break;
                                 case 2:
                                     {
-                                        ChangeSpAtkBuff(setup.Attacker, setup.AttackerMap, 20, setup.PacketStack);
+                                        ChangeSpAtkBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, 20, setup.PacketStack);
                                     }
                                     break;
                                 case 3:
                                     {
-                                        ChangeSpDefBuff(setup.Attacker, setup.AttackerMap, 20, setup.PacketStack);
+                                        ChangeSpDefBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, 20, setup.PacketStack);
                                     }
                                     break;
                                 case 4:
                                     {
-                                        ChangeSpeedBuff(setup.Attacker, setup.AttackerMap, 20, setup.PacketStack);
+                                        ChangeSpeedBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, 20, setup.PacketStack);
                                     }
                                     break;
                                 case 5:
                                     {
-                                        ChangeAccuracyBuff(setup.Attacker, setup.AttackerMap, 20, setup.PacketStack);
+                                        ChangeAccuracyBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, 20, setup.PacketStack);
                                     }
                                     break;
                                 case 6:
                                     {
-                                        ChangeEvasionBuff(setup.Attacker, setup.AttackerMap, 20, setup.PacketStack);
+                                        ChangeEvasionBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, 20, setup.PacketStack);
                                     }
                                     break;
                             }
@@ -8362,7 +8362,7 @@ namespace Script
                     case 84:
                         {//Evasion Orb
                             TakeItemSlotFromCharacter(setup.Attacker, invNum, 1);
-                            ChangeEvasionBuff(setup.Attacker, setup.AttackerMap, 2, setup.PacketStack);
+                            ChangeEvasionBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, 2, setup.PacketStack);
 
                         }
                         break;

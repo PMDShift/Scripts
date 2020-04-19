@@ -4055,62 +4055,62 @@ namespace Script {
                 if (Server.Math.Rand(0, 3) == 0) {
                     switch (Server.Math.Rand(0, 7)) {
                         case 0: {
-                                ChangeAttackBuff(setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
+                                ChangeAttackBuff(setup.Defender, setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
                             }
                             break;
                         case 1: {
-                                ChangeDefenseBuff(setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
+                                ChangeDefenseBuff(setup.Defender, setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
                             }
                             break;
                         case 2: {
-                                ChangeSpAtkBuff(setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
+                                ChangeSpAtkBuff(setup.Defender, setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
                             }
                             break;
                         case 3: {
-                                ChangeSpDefBuff(setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
+                                ChangeSpDefBuff(setup.Defender, setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
                             }
                             break;
                         case 4: {
-                                ChangeSpeedBuff(setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
+                                ChangeSpeedBuff(setup.Defender, setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
                             }
                             break;
                         case 5: {
-                                ChangeAccuracyBuff(setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
+                                ChangeAccuracyBuff(setup.Defender, setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
                             }
                             break;
                         case 6: {
-                                ChangeEvasionBuff(setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
+                                ChangeEvasionBuff(setup.Defender, setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
                             }
                             break;
                     }
 
                     switch (Server.Math.Rand(0, 7)) {
                         case 0: {
-                                ChangeAttackBuff(setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
+                                ChangeAttackBuff(setup.Defender, setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
                             }
                             break;
                         case 1: {
-                                ChangeDefenseBuff(setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
+                                ChangeDefenseBuff(setup.Defender, setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
                             }
                             break;
                         case 2: {
-                                ChangeSpAtkBuff(setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
+                                ChangeSpAtkBuff(setup.Defender, setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
                             }
                             break;
                         case 3: {
-                                ChangeSpDefBuff(setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
+                                ChangeSpDefBuff(setup.Defender, setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
                             }
                             break;
                         case 4: {
-                                ChangeSpeedBuff(setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
+                                ChangeSpeedBuff(setup.Defender, setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
                             }
                             break;
                         case 5: {
-                                ChangeAccuracyBuff(setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
+                                ChangeAccuracyBuff(setup.Defender, setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
                             }
                             break;
                         case 6: {
-                                ChangeEvasionBuff(setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
+                                ChangeEvasionBuff(setup.Defender, setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
                             }
                             break;
                     }
