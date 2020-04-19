@@ -2912,8 +2912,24 @@ namespace Script
         {
             try
             {
+                PacketHitList hitlist = null;
+                PacketHitList.MethodStart(ref hitlist);
+
                 switch (script)
                 {
+                    case 1:
+                        {//Level
+                            if(client.Player.GetActiveRecruit().Species == 745) // Lycanroc forme
+                            {
+                                switch(Server.Globals.ServerTime)
+                                {
+                                    case Enums.Time.Day: client.Player.GetActiveRecruit().SetOriginalForm(0, hitlist); break;
+                                    case Enums.Time.Night: client.Player.GetActiveRecruit().SetOriginalForm(1, hitlist); break;
+                                    case Enums.Time.Dusk: case Enums.Time.Dawn: client.Player.GetActiveRecruit().SetOriginalForm(2, hitlist); break;
+                                }
+                            }
+                        }
+                        break;
                     case 2:
                         {//Item
                             client.Player.TakeItem(data1, 1);
@@ -2955,6 +2971,9 @@ namespace Script
                         }
                         break;
                 }
+
+                PacketHitList.MethodEnded(ref hitlist);
+
             }
             catch (Exception ex)
             {
