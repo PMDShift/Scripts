@@ -37,7 +37,7 @@ namespace Script.Events
             "WARNING: Restarting the event will cause all your current progress to be reset!"
         };
 
-        public override TimeSpan? Duration => new TimeSpan(0, 1, 0);
+        public override TimeSpan? Duration => new TimeSpan(0, 20, 0);
 
         private readonly List<int> bossNpcs = new List<int>();
         private readonly List<int> minionNpcs = new List<int>();
