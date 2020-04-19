@@ -86,13 +86,12 @@ namespace Script {
 
         public static void PostChangeStatBuff(ICharacter character, ICharacter attacker, IMap map, int counter, PacketHitList hitlist)
         {
-            if (counter < 0 && HasAbility(character, "Defiant")) {
-                //hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " defied the stat change!", Text.WhiteSmoke), character.X, character.Y, 10);
-                ChangeAttackBuff(character, map, 2, hitlist);
-            }
-            if (counter < 0 && HasAbility(character, "Competitive")) {
-                //hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " defied the stat change!", Text.WhiteSmoke), character.X, character.Y, 10);
-                ChangeSpAtkBuff(character, map, 2, hitlist);
+            if (counter < 0 && attacker != character)
+            {
+                if (HasAbility(character, "Defiant"))
+                    ChangeAttackBuff(character, map, 2, hitlist);
+                if (HasAbility(character, "Competitive"))
+                    ChangeSpAtkBuff(character, map, 2, hitlist);
             }
         }
 
