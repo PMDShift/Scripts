@@ -124,6 +124,8 @@ namespace Script.Events
 
         public override void OnboardNewPlayer(Client client) 
         {
+            base.OnboardNewPlayer(client);
+
             var playerData = Data.ExtendPlayer(client);
 
             playerData.CurrentRoom = 0;
