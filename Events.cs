@@ -120,11 +120,6 @@ namespace Script
             Task.Run(() => DiscordManager.Instance.SendAnnouncement(eventStartMessage.ToString()));
             Messenger.SendAnnouncement("Weekly Event", eventStartMessage.ToString());
 
-            foreach (var registeredClient in EventManager.GetRegisteredClients())
-            {
-                ActiveEvent.ConfigurePlayer(registeredClient);
-            }
-
             if (ActiveEvent.Duration.HasValue) 
             {
                 var endTime = DateTime.UtcNow.Add(ActiveEvent.Duration.Value);

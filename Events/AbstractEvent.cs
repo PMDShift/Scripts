@@ -197,6 +197,7 @@ namespace Script.Events
 
         public virtual void OnboardNewPlayer(Client client)
         {
+            this.ConfigurePlayer(client);
         }
 
         public virtual void OnServerTick(TickCount tickCount)
