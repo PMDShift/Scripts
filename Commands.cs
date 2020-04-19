@@ -451,8 +451,8 @@ namespace Script
                         {
                             if (ActiveEvent != null && ActiveEvent.IsStarted)
                             {
-                                ActiveEvent.ConfigurePlayer(client);
                                 ActiveEvent.OnboardNewPlayer(client);
+                                ActiveEvent.ConfigurePlayer(client);
                             }
                         }
                         break;

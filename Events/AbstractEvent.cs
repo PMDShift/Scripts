@@ -177,8 +177,8 @@ namespace Script.Events
 
             foreach (var client in GetRegisteredClients())
             {
-                ConfigurePlayer(client);
                 OnboardNewPlayer(client);
+                ConfigurePlayer(client);
             }
         }
 
