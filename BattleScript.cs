@@ -3383,7 +3383,7 @@ namespace Script
                                 var attacker = ((Recruit)setup.Attacker).Owner;
                                 var defender = ((Recruit)setup.Defender).Owner;
 
-                                if (ActiveEvent != null)
+                                if (ActiveEvent != null && ActiveEvent.IsStarted)
                                 {
                                     ActiveEvent.OnMoveHitCharacter(attacker, defender);
                                 }
@@ -9256,7 +9256,7 @@ namespace Script
 
         public static void HandleDeath(PacketHitList hitlist, Client client, Enums.KillType killType, bool autoSwitch)
         {
-            if (ActiveEvent != null)
+            if (ActiveEvent != null && ActiveEvent.IsStarted)
             {
                 if (EventManager.IsRegistered(client))
                 {
@@ -9587,7 +9587,7 @@ namespace Script
                 // Called when a npc faints
                 PacketHitList.MethodStart(ref hitlist);
 
-                if (ActiveEvent != null)
+                if (ActiveEvent != null && ActiveEvent.IsStarted)
                 {
                     ActiveEvent.OnNpcDeath(hitlist, attacker, npc);
                 }

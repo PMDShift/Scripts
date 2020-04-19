@@ -146,7 +146,7 @@ namespace Script
                 client.Player.ExPlayer = new exPlayer(client);
                 exPlayer.Get(client).Load();
 
-                if (ActiveEvent != null)
+                if (ActiveEvent != null && ActiveEvent.IsStarted)
                 {
                     if (EventManager.IsRegistered(client))
                     {
@@ -262,7 +262,7 @@ namespace Script
         {
             try
             {
-                if (ActiveEvent != null)
+                if (ActiveEvent != null && ActiveEvent.IsStarted)
                 {
                     if (EventManager.IsRegistered(client))
                     {
@@ -1315,7 +1315,7 @@ namespace Script
         {
             try
             {
-                if (ActiveEvent != null)
+                if (ActiveEvent != null && ActiveEvent.IsStarted)
                 {
                     ActiveEvent.OnNpcSpawn(map, npc, spawnedNpc, hitlist);
                 }
@@ -2584,7 +2584,7 @@ namespace Script
 
         public static void RecruitAddedToTeam(Client client, int teamSlot, int recruitIndex)
         {
-            if (ActiveEvent != null)
+            if (ActiveEvent != null && ActiveEvent.IsStarted)
             {
                 if (EventManager.IsRegistered(client))
                 {
@@ -8862,7 +8862,7 @@ namespace Script
 
         public static void OnActivateMap(IMap map)
         {
-            if (ActiveEvent != null)
+            if (ActiveEvent != null && ActiveEvent.IsStarted)
             {
                 ActiveEvent.OnActivateMap(map);
             }
@@ -10856,7 +10856,7 @@ namespace Script
 
         public static void OnServerTick(TickCount tickCount) 
         {
-            if (ActiveEvent != null)
+            if (ActiveEvent != null && ActiveEvent.IsStarted)
             {
                 ActiveEvent.OnServerTick(tickCount);
             }
@@ -10866,7 +10866,7 @@ namespace Script
 
         public static void ScriptTimer(string identifier, string arguments)
         {
-            if (ActiveEvent != null)
+            if (ActiveEvent != null && ActiveEvent.IsStarted)
             {
                 ActiveEvent.OnScriptTimer(identifier, arguments);
             }

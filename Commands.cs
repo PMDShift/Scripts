@@ -5555,7 +5555,7 @@ namespace Script
                     default:
                         {
                             var processed = false;
-                            if (ActiveEvent != null)
+                            if (ActiveEvent != null && ActiveEvent.IsStarted)
                             {
                                 if (ActiveEvent.ProcessCommand(client, command, joinedArgs))
                                 {

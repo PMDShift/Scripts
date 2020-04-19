@@ -195,11 +195,11 @@ namespace Script.Events
 
         public override void OnNpcDeath(PacketHitList hitlist, ICharacter attacker, MapNpc npc)
         {
-            var map = MapManager.RetrieveActiveMap(attacker.MapID);
+            var map = MapManager.RetrieveActiveMap(npc.MapID);
 
             if (!map.ActiveNpc.Enumerate().Where(x => x.Num > 0).Where(x => x != npc).Any())
             {
-                SetCompletionTile(MapManager.RetrieveActiveMap(attacker.MapID));
+                SetCompletionTile(MapManager.RetrieveActiveMap(npc.MapID));
             }
         }
 

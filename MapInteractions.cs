@@ -53,7 +53,7 @@ namespace Script
         {
             try
             {
-                if (ActiveEvent != null)
+                if (ActiveEvent != null && ActiveEvent.IsStarted)
                 {
                     ActiveEvent.OnPickupItem(character, itemSlot, invItem);
                 }
@@ -137,7 +137,7 @@ namespace Script
                 PacketHitList hitlist = null;
                 PacketHitList.MethodStart(ref hitlist);
 
-                if (ActiveEvent != null)
+                if (ActiveEvent != null && ActiveEvent.IsStarted)
                 {
                     ActiveEvent.OnMapTick(map);
                 }
