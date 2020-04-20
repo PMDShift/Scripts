@@ -51,46 +51,25 @@ namespace Script {
             character.AccuracyBuff = 0;
             character.EvasionBuff = 0;
         }
-
-        public static void ChangeAttackBuff(ICharacter character, IMap map, int counter, PacketHitList hitlist) {
-            ChangeAttackBuff(character, null, map, counter, hitlist);
-        }
-
-        public static void ChangeAttackBuff(ICharacter character, ICharacter attacker, IMap map, int counter, PacketHitList hitlist) {
+        
+        public static bool PreChangeStatBuff(ICharacter character, ICharacter attacker, IMap map, ref int counter, PacketHitList hitlist)
+        {
             if (counter < 0) {
                 if (character.VolatileStatus.GetStatus("Mist") != null) {
                     hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s stats didn't drop due to the mist!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
+                    return false;
                 }
                 if (attacker != character && character.VolatileStatus.GetStatus("Substitute") != null) {
                     hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " is protected by Substitute!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
+                    return false;
                 }
-                
-                //twist band
-                if (character.HasActiveItem(172)) {
-                	hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s Twist Band prevented its Attack stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-                
-                if (HasActiveBagItem(character, 49, 0, 0)) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s item prevented its stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-
                 if (HasAbility(character, "White Smoke") && !HasAbility(attacker, "Mold Breaker")) {
                     hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s White Smoke prevented its stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
+                    return false;
                 }
-
                 if (HasAbility(character, "Clear Body") && !HasAbility(attacker, "Mold Breaker")) {
                     hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s Clear Body prevented its stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-
-                if (HasAbility(character, "Hyper Cutter") && !HasAbility(attacker, "Mold Breaker")) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s Hyper Cutter prevented its Attack from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
+                    return false;
                 }
             }
 
@@ -100,6 +79,43 @@ namespace Script {
 
             if (HasAbility(character, "Simple") && !HasAbility(attacker, "Mold Breaker")) {
                 counter *= 2;
+            }
+
+            return true;
+        }
+
+        public static void PostChangeStatBuff(ICharacter character, ICharacter attacker, IMap map, int counter, PacketHitList hitlist)
+        {
+            if (counter < 0 && attacker != character)
+            {
+                if (HasAbility(character, "Defiant"))
+                    ChangeAttackBuff(character, map, 2, hitlist);
+                if (HasAbility(character, "Competitive"))
+                    ChangeSpAtkBuff(character, map, 2, hitlist);
+            }
+        }
+
+        public static void ChangeAttackBuff(ICharacter character, IMap map, int counter, PacketHitList hitlist) {
+            ChangeAttackBuff(character, null, map, counter, hitlist);
+        }
+
+        public static void ChangeAttackBuff(ICharacter character, ICharacter attacker, IMap map, int counter, PacketHitList hitlist) {
+            if(!PreChangeStatBuff(character, attacker, map, ref counter, hitlist)) return;
+
+            if (counter < 0) {
+                //twist band
+                if (character.HasActiveItem(172)) {
+                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s Twist Band prevented its Attack stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
+                    return;
+                }
+                if (HasActiveBagItem(character, 49, 0, 0)) {
+                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s item prevented its stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
+                    return;
+                }
+                if (HasAbility(character, "Hyper Cutter") && !HasAbility(attacker, "Mold Breaker")) {
+                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s Hyper Cutter prevented its Attack from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
+                    return;
+                }
             }
 
             if (character.AttackBuff >= 10 && counter > 0) {
@@ -133,15 +149,7 @@ namespace Script {
             }
             character.AttackBuff += counter;
 
-            if (counter < 0 && HasAbility(character, "Defiant")) {
-                //hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " defied the stat change!", Text.WhiteSmoke), character.X, character.Y, 10);
-                ChangeAttackBuff(character, map, 2, hitlist);
-            }
-            if (counter < 0 && HasAbility(character, "Competitive")) {
-                //hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " defied the stat change!", Text.WhiteSmoke), character.X, character.Y, 10);
-                ChangeSpAtkBuff(character, map, 2, hitlist);
-            }
-
+            PostChangeStatBuff(character, attacker, map, counter, hitlist);
         }
 
         public static void ChangeDefenseBuff(ICharacter character, IMap map, int counter, PacketHitList hitlist) {
@@ -149,49 +157,22 @@ namespace Script {
         }
 
         public static void ChangeDefenseBuff(ICharacter character, ICharacter attacker, IMap map, int counter, PacketHitList hitlist) {
+            if(!PreChangeStatBuff(character, attacker, map, ref counter, hitlist)) return;
+
             if (counter < 0) {
-                if (character.VolatileStatus.GetStatus("Mist") != null) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s stats didn't drop due to the mist!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-                if (attacker != character && character.VolatileStatus.GetStatus("Substitute") != null) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " is protected by Substitute!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-                
                 //spin band
                 if (character.HasActiveItem(719)) {
-                	hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s Spin Band prevented its Defense stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
+                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s Spin Band prevented its Defense stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
                     return;
                 }
-                
                 if (HasActiveBagItem(character, 49, 0, 0)) {
                     hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s item prevented its stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
                     return;
                 }
-
-                if (HasAbility(character, "White Smoke") && !HasAbility(attacker, "Mold Breaker")) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s White Smoke prevented its stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-
-                if (HasAbility(character, "Clear Body") && !HasAbility(attacker, "Mold Breaker")) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s Clear Body prevented its stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-
                 if (HasAbility(character, "Big Pecks") && !HasAbility(attacker, "Mold Breaker")) {
                     hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s Big Pecks prevented its Defense from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
                     return;
                 }
-            }
-
-            if (HasAbility(character, "Contrary") && !HasAbility(attacker, "Mold Breaker")) {
-                counter *= -1;
-            }
-
-            if (HasAbility(character, "Simple") && !HasAbility(attacker, "Mold Breaker")) {
-                counter *= 2;
             }
 
             if (character.DefenseBuff >= 10 && counter > 0) {
@@ -225,15 +206,7 @@ namespace Script {
             }
             character.DefenseBuff += counter;
 
-            if (counter < 0 && HasAbility(character, "Defiant")) {
-                //hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " defied the stat change!", Text.WhiteSmoke), character.X, character.Y, 10);
-                ChangeAttackBuff(character, map, 2, hitlist);
-            }
-            if (counter < 0 && HasAbility(character, "Competitive")) {
-                //hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " defied the stat change!", Text.WhiteSmoke), character.X, character.Y, 10);
-                ChangeSpAtkBuff(character, map, 2, hitlist);
-            }
-
+            PostChangeStatBuff(character, attacker, map, counter, hitlist);
         }
 
         public static void ChangeSpAtkBuff(ICharacter character, IMap map, int counter, PacketHitList hitlist) {
@@ -241,45 +214,18 @@ namespace Script {
         }
 
         public static void ChangeSpAtkBuff(ICharacter character, ICharacter attacker, IMap map, int counter, PacketHitList hitlist) {
+            if(!PreChangeStatBuff(character, attacker, map, ref counter, hitlist)) return;
+
             if (counter < 0) {
-                if (character.VolatileStatus.GetStatus("Mist") != null) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s stats didn't drop due to the mist!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-                if (attacker != character && character.VolatileStatus.GetStatus("Substitute") != null) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " is protected by Substitute!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-                
                 //twist band
                 if (character.HasActiveItem(172)) {
-                	hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s Twist Band prevented its Attack stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
+                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s Twist Band prevented its Attack stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
                     return;
                 }
-                
                 if (HasActiveBagItem(character, 49, 0, 0)) {
                     hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s item prevented its stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
                     return;
                 }
-
-                if (HasAbility(character, "White Smoke") && !HasAbility(attacker, "Mold Breaker")) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s White Smoke prevented its stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-
-                if (HasAbility(character, "Clear Body") && !HasAbility(attacker, "Mold Breaker")) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s Clear Body prevented its stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-            }
-
-
-            if (HasAbility(character, "Contrary") && !HasAbility(attacker, "Mold Breaker")) {
-                counter *= -1;
-            }
-
-            if (HasAbility(character, "Simple") && !HasAbility(attacker, "Mold Breaker")) {
-                counter *= 2;
             }
 
             if (character.SpAtkBuff >= 10 && counter > 0) {
@@ -313,15 +259,7 @@ namespace Script {
             }
             character.SpAtkBuff += counter;
 
-            if (counter < 0 && HasAbility(character, "Defiant")) {
-                //hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " defied the stat change!", Text.WhiteSmoke), character.X, character.Y, 10);
-                ChangeAttackBuff(character, map, 2, hitlist);
-            }
-            if (counter < 0 && HasAbility(character, "Competitive")) {
-                //hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " defied the stat change!", Text.WhiteSmoke), character.X, character.Y, 10);
-                ChangeSpAtkBuff(character, map, 2, hitlist);
-            }
-
+            PostChangeStatBuff(character, attacker, map, counter, hitlist);
         }
 
         public static void ChangeSpDefBuff(ICharacter character, IMap map, int counter, PacketHitList hitlist) {
@@ -329,44 +267,18 @@ namespace Script {
         }
 
         public static void ChangeSpDefBuff(ICharacter character, ICharacter attacker, IMap map, int counter, PacketHitList hitlist) {
+            if(!PreChangeStatBuff(character, attacker, map, ref counter, hitlist)) return;
+
             if (counter < 0) {
-                if (character.VolatileStatus.GetStatus("Mist") != null) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s stats didn't drop due to the mist!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-                if (attacker != character && character.VolatileStatus.GetStatus("Substitute") != null) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " is protected by Substitute!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-                
                 //spin band
                 if (character.HasActiveItem(719)) {
-                	hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s Spin Band prevented its Defense stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
+                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s Spin Band prevented its Defense stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
                     return;
                 }
-                
                 if (HasActiveBagItem(character, 49, 0, 0)) {
                     hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s item prevented its stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
                     return;
                 }
-
-                if (HasAbility(character, "White Smoke") && !HasAbility(attacker, "Mold Breaker")) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s White Smoke prevented its stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-
-                if (HasAbility(character, "Clear Body") && !HasAbility(attacker, "Mold Breaker")) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s Clear Body prevented its stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-            }
-
-            if (HasAbility(character, "Contrary") && !HasAbility(attacker, "Mold Breaker")) {
-                counter *= -1;
-            }
-
-            if (HasAbility(character, "Simple") && !HasAbility(attacker, "Mold Breaker")) {
-                counter *= 2;
             }
 
             if (character.SpDefBuff >= 10 && counter > 0) {
@@ -400,15 +312,7 @@ namespace Script {
             }
             character.SpDefBuff += counter;
 
-            if (counter < 0 && HasAbility(character, "Defiant")) {
-                //hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " defied the stat change!", Text.WhiteSmoke), character.X, character.Y, 10);
-                ChangeAttackBuff(character, map, 2, hitlist);
-            }
-            if (counter < 0 && HasAbility(character, "Competitive")) {
-                //hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " defied the stat change!", Text.WhiteSmoke), character.X, character.Y, 10);
-                ChangeSpAtkBuff(character, map, 2, hitlist);
-            }
-
+            PostChangeStatBuff(character, attacker, map, counter, hitlist);
         }
 
         public static void ChangeSpeedBuff(ICharacter character, IMap map, int counter, PacketHitList hitlist) {
@@ -416,38 +320,13 @@ namespace Script {
         }
 
         public static void ChangeSpeedBuff(ICharacter character, ICharacter attacker, IMap map, int counter, PacketHitList hitlist) {
+            if(!PreChangeStatBuff(character, attacker, map, ref counter, hitlist)) return;
+
             if (counter < 0) {
-                if (character.VolatileStatus.GetStatus("Mist") != null) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s stats didn't drop due to the mist!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-                if (attacker != character && character.VolatileStatus.GetStatus("Substitute") != null) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " is protected by Substitute!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-                
                 if (HasActiveBagItem(character, 49, 0, 0)) {
                     hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s item prevented its stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
                     return;
                 }
-
-                if (HasAbility(character, "White Smoke") && !HasAbility(attacker, "Mold Breaker")) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s White Smoke prevented its stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-
-                if (HasAbility(character, "Clear Body") && !HasAbility(attacker, "Mold Breaker")) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s Clear Body prevented its stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-            }
-
-            if (HasAbility(character, "Contrary") && !HasAbility(attacker, "Mold Breaker")) {
-                counter *= -1;
-            }
-
-            if (HasAbility(character, "Simple") && !HasAbility(attacker, "Mold Breaker")) {
-                counter *= 2;
             }
 
             if (character.SpeedBuff >= 10 && counter > 0) {
@@ -481,15 +360,7 @@ namespace Script {
             }
             character.SpeedBuff += counter;
 
-            if (counter < 0 && HasAbility(character, "Defiant")) {
-                //hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " defied the stat change!", Text.WhiteSmoke), character.X, character.Y, 10);
-                ChangeAttackBuff(character, map, 2, hitlist);
-            }
-            if (counter < 0 && HasAbility(character, "Competitive")) {
-                //hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " defied the stat change!", Text.WhiteSmoke), character.X, character.Y, 10);
-                ChangeSpAtkBuff(character, map, 2, hitlist);
-            }
-
+            PostChangeStatBuff(character, attacker, map, counter, hitlist);
         }
 
         public static void ChangeAccuracyBuff(ICharacter character, IMap map, int counter, PacketHitList hitlist) {
@@ -497,38 +368,13 @@ namespace Script {
         }
 
         public static void ChangeAccuracyBuff(ICharacter character, ICharacter attacker, IMap map, int counter, PacketHitList hitlist) {
+            if(!PreChangeStatBuff(character, attacker, map, ref counter, hitlist)) return;
+
             if (counter < 0) {
-                if (character.VolatileStatus.GetStatus("Mist") != null) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s stats didn't drop due to the mist!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-                if (attacker != character && character.VolatileStatus.GetStatus("Substitute") != null) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " is protected by Substitute!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-
-                if (HasAbility(character, "White Smoke") && !HasAbility(attacker, "Mold Breaker")) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s White Smoke prevented its stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-
-                if (HasAbility(character, "Clear Body") && !HasAbility(attacker, "Mold Breaker")) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s Clear Body prevented its stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-
                 if (HasAbility(character, "Keen Eye") && !HasAbility(attacker, "Mold Breaker")) {
                     hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s Keen Eye prevented its Accuracy from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
                     return;
                 }
-            }
-
-            if (HasAbility(character, "Contrary") && !HasAbility(attacker, "Mold Breaker")) {
-                counter *= -1;
-            }
-
-            if (HasAbility(character, "Simple") && !HasAbility(attacker, "Mold Breaker")) {
-                counter *= 2;
             }
 
             if (character.AccuracyBuff >= 10 && counter > 0) {
@@ -562,15 +408,7 @@ namespace Script {
             }
             character.AccuracyBuff += counter;
 
-            if (counter < 0 && HasAbility(character, "Defiant")) {
-                //hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " defied the stat change!", Text.WhiteSmoke), character.X, character.Y, 10);
-                ChangeAttackBuff(character, map, 2, hitlist);
-            }
-            if (counter < 0 && HasAbility(character, "Competitive")) {
-                //hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " defied the stat change!", Text.WhiteSmoke), character.X, character.Y, 10);
-                ChangeSpAtkBuff(character, map, 2, hitlist);
-            }
-
+            PostChangeStatBuff(character, attacker, map, counter, hitlist);
         }
 
         public static void ChangeEvasionBuff(ICharacter character, IMap map, int counter, PacketHitList hitlist) {
@@ -578,33 +416,9 @@ namespace Script {
         }
 
         public static void ChangeEvasionBuff(ICharacter character, ICharacter attacker, IMap map, int counter, PacketHitList hitlist) {
+            if(!PreChangeStatBuff(character, attacker, map, ref counter, hitlist)) return;
+
             if (counter < 0) {
-                if (character.VolatileStatus.GetStatus("Mist") != null) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s stats didn't drop due to the mist!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-                if (attacker != character && character.VolatileStatus.GetStatus("Substitute") != null) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " is protected by Substitute!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-
-                if (HasAbility(character, "White Smoke") && !HasAbility(attacker, "Mold Breaker")) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s White Smoke prevented its stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-
-                if (HasAbility(character, "Clear Body") && !HasAbility(attacker, "Mold Breaker")) {
-                    hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + "'s Clear Body prevented its stats from dropping!", Text.WhiteSmoke), character.X, character.Y, 10);
-                    return;
-                }
-            }
-
-            if (HasAbility(character, "Contrary") && !HasAbility(attacker, "Mold Breaker")) {
-                counter *= -1;
-            }
-
-            if (HasAbility(character, "Simple") && !HasAbility(attacker, "Mold Breaker")) {
-                counter *= 2;
             }
 
             if (character.EvasionBuff >= 10 && counter > 0) {
@@ -638,21 +452,13 @@ namespace Script {
             }
             character.EvasionBuff += counter;
 
-            if (counter < 0 && HasAbility(character, "Defiant")) {
-                //hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " defied the stat change!", Text.WhiteSmoke), character.X, character.Y, 10);
-                ChangeAttackBuff(character, map, 2, hitlist);
-            }
-            if (counter < 0 && HasAbility(character, "Competitive")) {
-                //hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " defied the stat change!", Text.WhiteSmoke), character.X, character.Y, 10);
-                ChangeSpAtkBuff(character, map, 2, hitlist);
-            }
-
+            PostChangeStatBuff(character, attacker, map, counter, hitlist);
         }
-        
+
         public static void Flinch(ICharacter character, IMap map, PacketHitList hitlist) {
         	Flinch(character, null, map, hitlist);
         }
-        
+
         public static void Flinch(ICharacter character, ICharacter attacker, IMap map, PacketHitList hitlist) {
         	if (!CheckStatusProtection(character, attacker, map, "Cringe", true, hitlist)) {
                 if (character.AttackTimer == null || character.AttackTimer.Tick < Core.GetTickCount().Tick) {
@@ -4249,62 +4055,62 @@ namespace Script {
                 if (Server.Math.Rand(0, 3) == 0) {
                     switch (Server.Math.Rand(0, 7)) {
                         case 0: {
-                                ChangeAttackBuff(setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
+                                ChangeAttackBuff(setup.Defender, setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
                             }
                             break;
                         case 1: {
-                                ChangeDefenseBuff(setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
+                                ChangeDefenseBuff(setup.Defender, setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
                             }
                             break;
                         case 2: {
-                                ChangeSpAtkBuff(setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
+                                ChangeSpAtkBuff(setup.Defender, setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
                             }
                             break;
                         case 3: {
-                                ChangeSpDefBuff(setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
+                                ChangeSpDefBuff(setup.Defender, setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
                             }
                             break;
                         case 4: {
-                                ChangeSpeedBuff(setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
+                                ChangeSpeedBuff(setup.Defender, setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
                             }
                             break;
                         case 5: {
-                                ChangeAccuracyBuff(setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
+                                ChangeAccuracyBuff(setup.Defender, setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
                             }
                             break;
                         case 6: {
-                                ChangeEvasionBuff(setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
+                                ChangeEvasionBuff(setup.Defender, setup.Defender, setup.DefenderMap, -1, setup.PacketStack);
                             }
                             break;
                     }
 
                     switch (Server.Math.Rand(0, 7)) {
                         case 0: {
-                                ChangeAttackBuff(setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
+                                ChangeAttackBuff(setup.Defender, setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
                             }
                             break;
                         case 1: {
-                                ChangeDefenseBuff(setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
+                                ChangeDefenseBuff(setup.Defender, setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
                             }
                             break;
                         case 2: {
-                                ChangeSpAtkBuff(setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
+                                ChangeSpAtkBuff(setup.Defender, setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
                             }
                             break;
                         case 3: {
-                                ChangeSpDefBuff(setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
+                                ChangeSpDefBuff(setup.Defender, setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
                             }
                             break;
                         case 4: {
-                                ChangeSpeedBuff(setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
+                                ChangeSpeedBuff(setup.Defender, setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
                             }
                             break;
                         case 5: {
-                                ChangeAccuracyBuff(setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
+                                ChangeAccuracyBuff(setup.Defender, setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
                             }
                             break;
                         case 6: {
-                                ChangeEvasionBuff(setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
+                                ChangeEvasionBuff(setup.Defender, setup.Defender, setup.DefenderMap, 2, setup.PacketStack);
                             }
                             break;
                     }

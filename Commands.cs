@@ -28,6 +28,7 @@ namespace Script
     using Server.RDungeons;
     using Server.Combat;
     using Server.Pokedex;
+    using Server.Evolutions;
     using Server.Items;
     using Server.Moves;
     using Server.Npcs;
@@ -3163,6 +3164,27 @@ namespace Script
                                         Messenger.PlayerMsg(client, ItemManager.Items[i].Name, Text.Yellow);
                                     }
                                 }
+                            }
+
+                        }
+                        break;
+                    case "/reloaddex":
+                        {
+                            if (Ranks.IsAllowed(client, Enums.Rank.Developer))
+                            {
+                                Messenger.PlayerMsg(client, "Loading Pokedex...", Text.Yellow);
+                                Pokedex.Initialize();
+                                Pokedex.LoadAllPokemon();
+                                Messenger.PlayerMsg(client, "Loading evolutions...", Text.Yellow);
+                                EvolutionManager.Initialize();
+                                EvolutionManager.LoadEvos(null);
+                                Messenger.PlayerMsg(client, "Loading moves...", Text.Yellow);
+                                MoveManager.Initialize();
+                                MoveManager.LoadMoves(null);
+                                Messenger.PlayerMsg(client, "Loading items...", Text.Yellow);
+                                ItemManager.Initialize();
+                                ItemManager.LoadItems(null);
+                                Messenger.PlayerMsg(client, "Reload complete.", Text.Yellow);
                             }
 
                         }

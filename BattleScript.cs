@@ -5916,7 +5916,7 @@ namespace Script
                             {
                                 if (Server.Math.Rand(0, 100) < setup.Move.AdditionalEffectData2)
                                 {
-                                    ChangeAttackBuff(setup.Attacker, setup.AttackerMap, setup.Move.AdditionalEffectData3, setup.PacketStack);
+                                    ChangeAttackBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, setup.Move.AdditionalEffectData3, setup.PacketStack);
                                 }
                             }
                         }
@@ -5927,7 +5927,7 @@ namespace Script
                             {
                                 if (Server.Math.Rand(0, 100) < setup.Move.AdditionalEffectData2)
                                 {
-                                    ChangeDefenseBuff(setup.Attacker, setup.AttackerMap, setup.Move.AdditionalEffectData3, setup.PacketStack);
+                                    ChangeDefenseBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, setup.Move.AdditionalEffectData3, setup.PacketStack);
                                 }
                             }
                         }
@@ -5938,7 +5938,7 @@ namespace Script
                             {
                                 if (Server.Math.Rand(0, 100) < setup.Move.AdditionalEffectData2)
                                 {
-                                    ChangeSpAtkBuff(setup.Attacker, setup.AttackerMap, setup.Move.AdditionalEffectData3, setup.PacketStack);
+                                    ChangeSpAtkBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, setup.Move.AdditionalEffectData3, setup.PacketStack);
                                 }
                             }
                         }
@@ -5949,7 +5949,7 @@ namespace Script
                             {
                                 if (Server.Math.Rand(0, 100) < setup.Move.AdditionalEffectData2)
                                 {
-                                    ChangeSpDefBuff(setup.Attacker, setup.AttackerMap, setup.Move.AdditionalEffectData3, setup.PacketStack);
+                                    ChangeSpDefBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, setup.Move.AdditionalEffectData3, setup.PacketStack);
                                 }
                             }
                         }
@@ -5960,7 +5960,7 @@ namespace Script
                             {
                                 if (Server.Math.Rand(0, 100) < setup.Move.AdditionalEffectData2)
                                 {
-                                    ChangeSpeedBuff(setup.Attacker, setup.AttackerMap, setup.Move.AdditionalEffectData3, setup.PacketStack);
+                                    ChangeSpeedBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, setup.Move.AdditionalEffectData3, setup.PacketStack);
                                 }
                             }
                         }
@@ -5971,7 +5971,7 @@ namespace Script
                             {
                                 if (Server.Math.Rand(0, 100) < setup.Move.AdditionalEffectData2)
                                 {
-                                    ChangeAccuracyBuff(setup.Attacker, setup.AttackerMap, setup.Move.AdditionalEffectData3, setup.PacketStack);
+                                    ChangeAccuracyBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, setup.Move.AdditionalEffectData3, setup.PacketStack);
                                 }
                             }
                         }
@@ -5982,7 +5982,7 @@ namespace Script
                             {
                                 if (Server.Math.Rand(0, 100) < setup.Move.AdditionalEffectData2)
                                 {
-                                    ChangeEvasionBuff(setup.Attacker, setup.AttackerMap, setup.Move.AdditionalEffectData3, setup.PacketStack);
+                                    ChangeEvasionBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, setup.Move.AdditionalEffectData3, setup.PacketStack);
                                 }
                             }
                         }
@@ -6184,27 +6184,27 @@ namespace Script
                                 {
                                     case 1:
                                         {
-                                            ChangeAttackBuff(setup.Attacker, setup.AttackerMap, -1, setup.PacketStack);
+                                            ChangeAttackBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, -1, setup.PacketStack);
                                         }
                                         break;
                                     case 2:
                                         {
-                                            ChangeDefenseBuff(setup.Attacker, setup.AttackerMap, -1, setup.PacketStack);
+                                            ChangeDefenseBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, -1, setup.PacketStack);
                                         }
                                         break;
                                     case 3:
                                         {
-                                            ChangeSpAtkBuff(setup.Attacker, setup.AttackerMap, -1, setup.PacketStack);
+                                            ChangeSpAtkBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, -1, setup.PacketStack);
                                         }
                                         break;
                                     case 4:
                                         {
-                                            ChangeSpDefBuff(setup.Attacker, setup.AttackerMap, -1, setup.PacketStack);
+                                            ChangeSpDefBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, -1, setup.PacketStack);
                                         }
                                         break;
                                     case 5:
                                         {
-                                            ChangeSpeedBuff(setup.Attacker, setup.AttackerMap, -1, setup.PacketStack);
+                                            ChangeSpeedBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, -1, setup.PacketStack);
                                         }
                                         break;
                                 }
@@ -6212,27 +6212,27 @@ namespace Script
                                 {
                                     case 1:
                                         {
-                                            ChangeAttackBuff(setup.Attacker, setup.AttackerMap, -1, setup.PacketStack);
+                                            ChangeAttackBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, -1, setup.PacketStack);
                                         }
                                         break;
                                     case 2:
                                         {
-                                            ChangeDefenseBuff(setup.Attacker, setup.AttackerMap, -1, setup.PacketStack);
+                                            ChangeDefenseBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, -1, setup.PacketStack);
                                         }
                                         break;
                                     case 3:
                                         {
-                                            ChangeSpAtkBuff(setup.Attacker, setup.AttackerMap, -1, setup.PacketStack);
+                                            ChangeSpAtkBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, -1, setup.PacketStack);
                                         }
                                         break;
                                     case 4:
                                         {
-                                            ChangeSpDefBuff(setup.Attacker, setup.AttackerMap, -1, setup.PacketStack);
+                                            ChangeSpDefBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, -1, setup.PacketStack);
                                         }
                                         break;
                                     case 5:
                                         {
-                                            ChangeSpeedBuff(setup.Attacker, setup.AttackerMap, -1, setup.PacketStack);
+                                            ChangeSpeedBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, -1, setup.PacketStack);
                                         }
                                         break;
                                 }
@@ -6246,11 +6246,11 @@ namespace Script
                             {
                                 if (Server.Math.Rand(0, 100) < setup.Move.AdditionalEffectData2)
                                 {
-                                    ChangeAttackBuff(setup.Attacker, setup.AttackerMap, 1, setup.PacketStack);
-                                    ChangeDefenseBuff(setup.Attacker, setup.AttackerMap, 1, setup.PacketStack);
-                                    ChangeSpAtkBuff(setup.Attacker, setup.AttackerMap, 1, setup.PacketStack);
-                                    ChangeSpDefBuff(setup.Attacker, setup.AttackerMap, 1, setup.PacketStack);
-                                    ChangeSpeedBuff(setup.Attacker, setup.AttackerMap, 1, setup.PacketStack);
+                                    ChangeAttackBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, 1, setup.PacketStack);
+                                    ChangeDefenseBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, 1, setup.PacketStack);
+                                    ChangeSpAtkBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, 1, setup.PacketStack);
+                                    ChangeSpDefBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, 1, setup.PacketStack);
+                                    ChangeSpeedBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, 1, setup.PacketStack);
                                 }
                             }
                         }
@@ -7645,7 +7645,7 @@ namespace Script
                         if (setup.KnockedOut && setup.Defender.HP <= 0
                          && HasAbility(setup.Attacker, "Moxie") && Server.Math.Rand(0, 3) == 0)
                         {
-                            ChangeAttackBuff(setup.Attacker, setup.AttackerMap, 1, setup.PacketStack);
+                            ChangeAttackBuff(setup.Attacker, setup.Attacker, setup.AttackerMap, 1, setup.PacketStack);
                         }
                     }
 
