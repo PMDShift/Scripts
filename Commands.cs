@@ -438,7 +438,7 @@ namespace Script
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
                             {
-                                var startTime = new DateTime(DateTime.UtcNow.Year, 4, 19, 17, 0, 0, DateTimeKind.Utc);
+                                var startTime = new DateTime(DateTime.UtcNow.Year, 4, 26, 17, 0, 0, DateTimeKind.Utc);
 
                                 if (Main.SetEvent(client, joinedArgs, false))
                                 {
