@@ -4883,8 +4883,14 @@ namespace Script
                         {//rollcall
                             if (setup.DefenderMap.MapType == Enums.MapType.RDungeonMap)
                             {
-                                if (GetBattleTagArg(setup.BattleTags, "Rollcall", 1) != null)
+                                if (GetBattleTagArg(setup.BattleTags, "Rollcall", 1) != null
+                                    && ((status = setup.Defender.VolatileStatus.GetStatus("RollcallCooldown")) == null || status.Counter < Core.GetTickCount().Tick))
                                 {
+                                    int rollcallCooldown = Core.GetTickCount().Tick + 3000;
+                                    if(status == null)
+                                        AddExtraStatus(setup.Defender, setup.DefenderMap, "RollcallCooldown", rollcallCooldown, null, "", setup.PacketStack);
+                                    else
+                                        status.Counter = rollcallCooldown;
                                     //setup.PacketStack.AddPacketToMap(setup.DefenderMap, PacketBuilder.CreateBattleMsg(setup.Defender.Name + " warped!", Text.WhiteSmoke), setup.Defender.X, setup.Defender.Y, 10);
                                     RandomWarp(setup.Defender, setup.DefenderMap, true, setup.PacketStack, GetBattleTagArg(setup.BattleTags, "Rollcall", 1).ToInt() - 1, GetBattleTagArg(setup.BattleTags, "Rollcall", 1).ToInt() + 1, GetBattleTagArg(setup.BattleTags, "Rollcall", 2).ToInt() - 1, GetBattleTagArg(setup.BattleTags, "Rollcall", 2).ToInt() + 1, false);
                                 }
