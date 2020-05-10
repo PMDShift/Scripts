@@ -9686,13 +9686,14 @@ namespace Script
                 {
                     var owner = client;
 
-                    for (int i = 0; i < owner.Player.JobList.JobList.Count; i++)
+                    for (int i = 0; i < owner.Player.JobList.Count; i++)
                     {
-                        var job = owner.Player.JobList.JobList[i];
+                        var job = owner.Player.JobList[i];
+                        var task = job.GetActiveTask();
 
-                        if (job.Mission.MissionType == Enums.MissionType.Outlaw && job.Accepted == Enums.JobStatus.Taken && Generator.IsGoalMap(job.Mission, map))
+                        if (task.MissionType == Enums.MissionType.Outlaw && job.Accepted == Enums.JobStatus.Taken && Generator.IsGoalMap(task, map))
                         {
-                            if (job.Mission.Data1 == npc.Num)
+                            if (task.Data1 == npc.Num)
                             {
                                 owner.Player.HandleMissionComplete(i);
                                 break;

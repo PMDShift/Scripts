@@ -9746,13 +9746,13 @@ namespace Script
             }
         }
 
-        public static bool IsMissionAcceptable(Client client, WonderMail mail)
+        public static bool IsMissionAcceptable(Client client, MissionJobTask task)
         {
             bool noItems = false;
 
-            if (DungeonManager.Dungeons[mail.DungeonIndex].ScriptList.Count >= 2)
+            if (DungeonManager.Dungeons[task.DungeonIndex].ScriptList.Count >= 2)
             {
-                string[] reqString = DungeonManager.Dungeons[mail.DungeonIndex].ScriptList[1].Split(';');
+                string[] reqString = DungeonManager.Dungeons[task.DungeonIndex].ScriptList[1].Split(';');
 
                 for (int i = 0; i < reqString.Length; i++)
                 {
@@ -9763,25 +9763,25 @@ namespace Script
                     }
                 }
 
-                if (mail.MissionType == Enums.MissionType.ItemRetrieval && noItems)
+                if (task.MissionType == Enums.MissionType.ItemRetrieval && noItems)
                 {
                     return false;
                 }
             }
 
-            if (mail.Difficulty >= Enums.JobDifficulty.SixStar && client.Player.ExplorerRank < Enums.ExplorerRank.Super)
+            if (task.Difficulty >= Enums.JobDifficulty.SixStar && client.Player.ExplorerRank < Enums.ExplorerRank.Super)
             {
                 return false;
             }
-            else if (mail.Difficulty >= Enums.JobDifficulty.Star && client.Player.ExplorerRank < Enums.ExplorerRank.Gold)
+            else if (task.Difficulty >= Enums.JobDifficulty.Star && client.Player.ExplorerRank < Enums.ExplorerRank.Gold)
             {
                 return false;
             }
-            else if (mail.Difficulty >= Enums.JobDifficulty.S && client.Player.ExplorerRank < Enums.ExplorerRank.Silver)
+            else if (task.Difficulty >= Enums.JobDifficulty.S && client.Player.ExplorerRank < Enums.ExplorerRank.Silver)
             {
                 return false;
             }
-            else if (mail.Difficulty >= Enums.JobDifficulty.B && client.Player.ExplorerRank < Enums.ExplorerRank.Bronze)
+            else if (task.Difficulty >= Enums.JobDifficulty.B && client.Player.ExplorerRank < Enums.ExplorerRank.Bronze)
             {
                 return false;
             }
@@ -9789,15 +9789,15 @@ namespace Script
             return true;
         }
 
-        public static void CreateMissionInfo(WonderMail mail)
+        public static void CreateMissionInfo(MissionJobTask task)
         {
-            MissionPool pool = WonderMailManager.Missions[(int)mail.Difficulty - 1];
+            MissionPool pool = WonderMailManager.Missions[(int)task.Difficulty - 1];
 
-            var total = mail.DungeonIndex * pool.MissionClients.Count * pool.Rewards.Count
-                        + mail.MissionClientIndex * pool.Rewards.Count
-                        + mail.RewardIndex;
+            var total = task.DungeonIndex * pool.MissionClients.Count * pool.Rewards.Count
+                        + task.MissionClientIndex * pool.Rewards.Count
+                        + task.RewardIndex;
 
-            switch (mail.MissionType)
+            switch (task.MissionType)
             {
                 case Enums.MissionType.Rescue:
                     {
@@ -9805,50 +9805,50 @@ namespace Script
                         {
                             case 0:
                                 {
-                                    mail.Title = "I can't get home!";
-                                    mail.Summary = "Whoa!  It's too rough in here... Please, I need help!";
+                                    task.Title = "I can't get home!";
+                                    task.Summary = "Whoa!  It's too rough in here... Please, I need help!";
                                 }
                                 break;
                             case 1:
                                 {
-                                    mail.Title = "I can't get home!";
-                                    mail.Summary = "I was set upon by bandits!  Whoa!  Someone!  Help!";
+                                    task.Title = "I can't get home!";
+                                    task.Summary = "I was set upon by bandits!  Whoa!  Someone!  Help!";
                                 }
                                 break;
                             case 2:
                                 {
-                                    mail.Title = "I was KO'd...";
-                                    mail.Summary = "I can't get back!  I'm fading... Help...";
+                                    task.Title = "I was KO'd...";
+                                    task.Summary = "I can't get back!  I'm fading... Help...";
                                 }
                                 break;
                             case 3:
                                 {
-                                    mail.Title = "I'm scared!";
-                                    mail.Summary = "My exploration went astray!  I'm fading... Help...";
+                                    task.Title = "I'm scared!";
+                                    task.Summary = "My exploration went astray!  I'm fading... Help...";
                                 }
                                 break;
                             case 4:
                                 {
-                                    mail.Title = "Where am I?";
-                                    mail.Summary = "I can't take another step...";
+                                    task.Title = "Where am I?";
+                                    task.Summary = "I can't take another step...";
                                 }
                                 break;
                             case 5:
                                 {
-                                    mail.Title = "I fainted...";
-                                    mail.Summary = "I got lost in this dungeon!  Someone, please!";
+                                    task.Title = "I fainted...";
+                                    task.Summary = "I got lost in this dungeon!  Someone, please!";
                                 }
                                 break;
                             case 6:
                                 {
-                                    mail.Title = "I'm sad and lonely...";
-                                    mail.Summary = "Fighting that tough foe was a mistake... Aiyeeeeeeeeh!";
+                                    task.Title = "I'm sad and lonely...";
+                                    task.Summary = "Fighting that tough foe was a mistake... Aiyeeeeeeeeh!";
                                 }
                                 break;
                             case 7:
                                 {
-                                    mail.Title = "I'm sad and lonely...";
-                                    mail.Summary = "This dungeon is scary! My consciousness is slipping... Help...";
+                                    task.Title = "I'm sad and lonely...";
+                                    task.Summary = "This dungeon is scary! My consciousness is slipping... Help...";
                                 }
                                 break;
                         }
@@ -9856,19 +9856,19 @@ namespace Script
                     break;
                 case Enums.MissionType.ItemRetrieval:
                     {
-                        Item item = ItemManager.Items[mail.Data1];
+                        Item item = ItemManager.Items[task.Data1];
                         switch (total % 2)
                         {
                             case 0:
                                 {
-                                    mail.Title = "Find " + item.Name + ".";
-                                    mail.Summary = "I'm looking for a " + item.Name + "!  Please help me find it!";
+                                    task.Title = "Find " + item.Name + ".";
+                                    task.Summary = "I'm looking for a " + item.Name + "!  Please help me find it!";
                                 }
                                 break;
                             case 1:
                                 {
-                                    mail.Title = "Deliver one " + item.Name + ".";
-                                    mail.Summary = "I can't even find one " + item.Name + ".  Please share one with me!";
+                                    task.Title = "Deliver one " + item.Name + ".";
+                                    task.Summary = "I can't even find one " + item.Name + ".  Please share one with me!";
                                 }
                                 break;
                         }
@@ -9881,14 +9881,14 @@ namespace Script
                         {
                             case 0:
                                 {
-                                    mail.Title = "Take me!";
-                                    mail.Summary = "I want to see " + Pokedex.GetPokemon(mail.Data1).Name + ", but I can't make it alone... can somebody help?";
+                                    task.Title = "Take me!";
+                                    task.Summary = "I want to see " + Pokedex.GetPokemon(task.Data1).Name + ", but I can't make it alone... can somebody help?";
                                 }
                                 break;
                             case 1:
                                 {
-                                    mail.Title = "Please, take me with you!";
-                                    mail.Summary = "I want to meet with " + Pokedex.GetPokemon(mail.Data1).Name + ".  Someone, please escort me!";
+                                    task.Title = "Please, take me with you!";
+                                    task.Summary = "I want to meet with " + Pokedex.GetPokemon(task.Data1).Name + ".  Someone, please escort me!";
                                 }
                                 break;
                         }
@@ -9896,34 +9896,33 @@ namespace Script
                     break;
                 case Enums.MissionType.Outlaw:
                     {
-                        var npc = NpcManager.Npcs[mail.Data1];
+                        var npc = NpcManager.Npcs[task.Data1];
                         var pokemon = Pokedex.GetPokemon(npc.Species);
 
                         switch (total % 3)
                         {
                             case 0:
                                 {
-                                    mail.Title = "Catch the outlaw!";
-                                    mail.Summary = $"{npc.Name} has escaped! Please catch them!";
+                                    task.Title = "Catch the outlaw!";
+                                    task.Summary = $"{npc.Name} has escaped! Please catch them!";
                                 }
                                 break;
                             case 1:
                                 {
-                                    mail.Title = $"Find that outlaw!";
-                                    mail.Summary = $"A {pokemon.Name} is on the loose! They must be brought to justice!";
+                                    task.Title = $"Find that outlaw!";
+                                    task.Summary = $"A {pokemon.Name} is on the loose! They must be brought to justice!";
                                 }
                                 break;
                             case 2:
                                 {
-                                    mail.Title = $"{npc.Name} escaped!";
-                                    mail.Summary = $"We're looking for {npc.Name}! Find them, and you will be rewarded!";
+                                    task.Title = $"{npc.Name} escaped!";
+                                    task.Summary = $"We're looking for {npc.Name}! Find them, and you will be rewarded!";
                                 }
                                 break;
                         }
                     }
                     break;
             }
-            mail.Mugshot = WonderMailManager.Missions.MissionPools[(int)mail.Difficulty - 1].MissionClients[mail.MissionClientIndex].Species;
         }
 
         public static void OnMissionComplete(Client client, int missionIndex)
@@ -9940,6 +9939,22 @@ namespace Script
             catch (Exception ex)
             {
                 Messenger.AdminMsg("Error: OnMissionComplete", Text.Black);
+            }
+        }
+
+        public static void OnMissionTaskComplete(Client client, MissionJob missionJob, MissionJobTask task, int taskIndex)
+        {
+            if (task.WinStoryScript <= 0)
+            {
+                var remainingTasks = missionJob.Tasks.Count - taskIndex - 1;
+
+                var story = new Story();
+                var segment = StoryBuilder.BuildStory();
+                StoryBuilder.AppendSaySegment(segment, "You have completed a job task!", -1, 0, 0);
+                StoryBuilder.AppendSaySegment(segment, $"There are {remainingTasks} remaining in this job.", -1, 0, 0);
+                StoryBuilder.AppendSaySegment(segment, "Check your job list for details about the next task.", -1, 0, 0);
+                segment.AppendToStory(story);
+                StoryManager.PlayStory(client, story);
             }
         }
 
@@ -9962,54 +9977,56 @@ namespace Script
                 StoryBuilderSegment segment = StoryBuilder.BuildStory();
                 StoryBuilder.AppendWarpAction(segment, winMap, winX, winY);
                 // StoryBuilder.AppendPlayMusicAction(segment, "PMD2) Job Clear!.ogg", true, true);
-                foreach (WonderMailJob mission in client.Player.JobList.JobList)
+                foreach (var mission in client.Player.JobList)
                 {
+                    var task = mission.GetActiveTask();
+
                     if (mission.Accepted == Enums.JobStatus.Finished)
                     {
                         completedJobs++;
-                        MissionPool missionPool = WonderMailManager.Missions[(int)mission.Mission.Difficulty - 1];
+                        MissionPool missionPool = WonderMailManager.Missions[(int)task.Difficulty - 1];
 
 
-                        StoryBuilder.AppendCreateFNPCAction(segment, "0", winMap, winX, winY - 1, missionPool.MissionClients[mission.Mission.MissionClientIndex].Species);
+                        StoryBuilder.AppendCreateFNPCAction(segment, "0", winMap, winX, winY - 1, task.ClientSpecies);
                         StoryBuilder.AppendChangeFNPCDirAction(segment, "0", Enums.Direction.Down);
-                        if (mission.Mission.MissionType == Enums.MissionType.Escort)
+                        if (task.MissionType == Enums.MissionType.Escort)
                         {
-                            PokemonForm target = Pokedex.GetPokemonForm(mission.Mission.Data1, 0);
-                            StoryBuilder.AppendCreateFNPCAction(segment, "1", winMap, winX - 1, winY - 1, mission.Mission.Data1);
+                            PokemonForm target = Pokedex.GetPokemonForm(task.Data1, 0);
+                            StoryBuilder.AppendCreateFNPCAction(segment, "1", winMap, winX - 1, winY - 1, task.Data1);
                             StoryBuilder.AppendChangeFNPCDirAction(segment, "1", Enums.Direction.Down);
                         }
-                        if (mission.Mission.MissionType == Enums.MissionType.Escort)
+                        if (task.MissionType == Enums.MissionType.Escort)
                         {
-                            StoryBuilder.AppendSaySegment(segment, "Thank you for taking me to " + Pokedex.GetPokemon(mission.Mission.Data1).Name + "! Please accept our reward!", missionPool.MissionClients[mission.Mission.MissionClientIndex].Species, 0, 0);
+                            StoryBuilder.AppendSaySegment(segment, "Thank you for taking me to " + Pokedex.GetPokemon(task.Data1).Name + "! Please accept our reward!", task.ClientSpecies, 0, 0);
                         }
-                        else if (mission.Mission.MissionType == Enums.MissionType.ItemRetrieval)
+                        else if (task.MissionType == Enums.MissionType.ItemRetrieval)
                         {
-                            StoryBuilder.AppendSaySegment(segment, "Thank you for the " + ItemManager.Items[mission.Mission.Data1].Name + "! Please accept this reward!", missionPool.MissionClients[mission.Mission.MissionClientIndex].Species, 0, 0);
+                            StoryBuilder.AppendSaySegment(segment, "Thank you for the " + ItemManager.Items[task.Data1].Name + "! Please accept this reward!", task.ClientSpecies, 0, 0);
                         }
-                        else if (mission.Mission.MissionType == Enums.MissionType.Rescue)
+                        else if (task.MissionType == Enums.MissionType.Rescue)
                         {
-                            StoryBuilder.AppendSaySegment(segment, "Thank you for rescuing me! Please accept this reward!", missionPool.MissionClients[mission.Mission.MissionClientIndex].Species, 0, 0);
+                            StoryBuilder.AppendSaySegment(segment, "Thank you for rescuing me! Please accept this reward!", task.ClientSpecies, 0, 0);
                         }
 
                         //List<Server.WonderMails.MissionReward> rewards = Server.WonderMails.WonderMailSystem.RewardInfo[mission.WonderMail.RewardIndex].Rewards;
                         //for (int i = 0; i < rewards.Count; i++) {
                         //    StoryBuilder.AppendSaySegment(segment, "Obtained " + rewards[i].Amount + " " + ItemManager.Items[rewards[i].ItemNum].Name + "!", -1, 0, 0);
                         //}
-                        if (ItemManager.Items[missionPool.Rewards[mission.Mission.RewardIndex].ItemNum].StackCap > 0)
+                        if (ItemManager.Items[task.RewardItem].StackCap > 0)
                         {
-                            StoryBuilder.AppendSaySegment(segment, "Obtained " + missionPool.Rewards[mission.Mission.RewardIndex].Amount + " " + ItemManager.Items[missionPool.Rewards[mission.Mission.RewardIndex].ItemNum].Name + "!", -1, 0, 0);
+                            StoryBuilder.AppendSaySegment(segment, "Obtained " + task.RewardItemAmount + " " + ItemManager.Items[task.RewardItem].Name + "!", -1, 0, 0);
                         }
                         else
                         {
-                            StoryBuilder.AppendSaySegment(segment, "Obtained a " + ItemManager.Items[missionPool.Rewards[mission.Mission.RewardIndex].ItemNum].Name + "!", -1, 0, 0);
+                            StoryBuilder.AppendSaySegment(segment, "Obtained a " + ItemManager.Items[task.RewardItem].Name + "!", -1, 0, 0);
                         }
                         StoryBuilder.AppendMapVisibilityAction(segment, false);
                         StoryBuilder.AppendDeleteFNPCAction(segment, "0");
-                        if (mission.Mission.MissionType == Enums.MissionType.Escort)
+                        if (task.MissionType == Enums.MissionType.Escort)
                         {
                             StoryBuilder.AppendDeleteFNPCAction(segment, "1");
                         }
-                        int expRewarded = MissionManager.DetermineMissionExpReward(mission.Mission.Difficulty);
+                        int expRewarded = MissionManager.DetermineMissionExpReward(task.Difficulty);
                         //if (mission.WonderMail.MissionExp == -1) {
                         //    expRewarded = MissionManager.DetermineMissionExpReward(mission.WonderMail.Difficulty);
                         //} else {

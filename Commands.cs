@@ -51,6 +51,7 @@ namespace Script
     using System.Threading.Tasks;
     using Script.Models;
     using Server.Events.World;
+    using Server.Quests;
 
     public partial class Main
     {
@@ -129,6 +130,11 @@ namespace Script
 
                 switch (command[0])
                 {
+                    case "/testquest":
+                        {
+                            client.Player.TestQuest(joinedArgs.ToInt());
+                        }
+                        break;
                     case "/myoutlawpoints":
                         {
                             var lockedPoints = client.Player.PlayerData.PendingOutlawPoints - (client.Player.PlayerData.PendingOutlawPoints % OutlawPointInterval);
@@ -1399,7 +1405,7 @@ namespace Script
                                 Client n = ClientManager.FindClient(joinedArgs);
                                 if (n != null)
                                 {
-                                    n.Player.JobList.JobList.Clear();
+                                    n.Player.JobList.Clear();
                                     Messenger.SendJobList(n);
                                     Messenger.PlayerMsg(n, "Your job list has been cleared!", Text.BrightGreen);
                                     Messenger.PlayerMsg(client, "You have cleared " + joinedArgs + "'s job list!", Text.BrightGreen);
@@ -2438,24 +2444,6 @@ namespace Script
                                             }
                                         }
                                     }
-                                }
-                            }
-                        }
-                        break;
-                    case "/checkmissions":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
-                            {
-                                Client n = ClientManager.FindClient(joinedArgs);
-                                Messenger.PlayerMsg(client, n.Player.Name + "'s Mission Board:", Text.Yellow);
-                                foreach (WonderMail mail in n.Player.MissionBoard.BoardMissions)
-                                {
-                                    Messenger.PlayerMsg(client, mail.Title, Text.Yellow);
-                                }
-                                Messenger.PlayerMsg(client, n.Player.Name + "'s Job List:", Text.Yellow);
-                                foreach (WonderMailJob job in n.Player.JobList.JobList)
-                                {
-                                    Messenger.PlayerMsg(client, job.Mission.Title, Text.Yellow);
                                 }
                             }
                         }

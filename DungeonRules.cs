@@ -857,17 +857,15 @@ namespace Script {
         public static void OnDungeonStart(Client client, int dungeonIndex) {
             //add escorts
             bool joined = false;
-            for (int i = 0; i < client.Player.JobList.JobList.Count; i++) {
-                if (client.Player.JobList.JobList[i].Mission.DungeonIndex == dungeonIndex && client.Player.JobList.JobList[i].Accepted == Enums.JobStatus.Taken
-                    && client.Player.JobList.JobList[i].Mission.MissionType == Enums.MissionType.Escort) {
+            for (int i = 0; i < client.Player.JobList.Count; i++) {
+                var job = client.Player.JobList[i];
+                var task = job.GetActiveTask();
+
+                if (task.DungeonIndex == dungeonIndex && job.Accepted == Enums.JobStatus.Taken && task.MissionType == Enums.MissionType.Escort) {
                     int openSlot = client.Player.FindOpenTeamSlot();
                     if (openSlot > -1) {
-                        client.Player.AddToTeamTemp(openSlot,
-                            Server.WonderMails.WonderMailManager.Missions[(int)client.Player.JobList.JobList[i].Mission.Difficulty - 1].MissionClients[client.Player.JobList.JobList[i].Mission.MissionClientIndex].Species,
-                            Server.WonderMails.WonderMailManager.Missions[(int)client.Player.JobList.JobList[i].Mission.Difficulty - 1].MissionClients[client.Player.JobList.JobList[i].Mission.MissionClientIndex].Form,
-                            5, i);
-                        Messenger.PlayerMsg(client, Server.Pokedex.Pokedex.GetPokemon(Server.WonderMails.WonderMailManager.Missions[(int)client.Player.JobList.JobList[i].Mission.Difficulty - 1].MissionClients[client.Player.JobList.JobList[i].Mission.MissionClientIndex].Species).Name +
-                            " joined the team!", Text.BrightGreen);
+                        client.Player.AddToTeamTemp(openSlot, task.ClientSpecies, task.ClientForm, 5, i);
+                        Messenger.PlayerMsg(client, Server.Pokedex.Pokedex.GetPokemon(task.ClientSpecies).Name + " joined the team!", Text.BrightGreen);
                         joined = true;
 
                     }
