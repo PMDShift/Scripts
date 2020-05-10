@@ -132,7 +132,7 @@ namespace Script
                 {
                     case "/testquest":
                         {
-                            client.Player.TestQuest(joinedArgs.ToInt());
+                            client.Player.TestQuest(joinedArgs.ToInt() - 1);
                         }
                         break;
                     case "/myoutlawpoints":
@@ -444,7 +444,7 @@ namespace Script
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
                             {
-                                var startTime = new DateTime(DateTime.UtcNow.Year, 5, 3, 17, 0, 0, DateTimeKind.Utc);
+                                var startTime = new DateTime(DateTime.UtcNow.Year, 5, 10, 17, 0, 0, DateTimeKind.Utc);
 
                                 if (Main.SetEvent(client, joinedArgs, false))
                                 {
