@@ -2652,6 +2652,7 @@ namespace Script
             if (client.Player.GetActiveRecruit().Shiny == Enums.Coloration.Shiny)
             {
                 PacketBuilder.AppendShinySparkle(client, hitlist);
+                Messenger.PlaySoundToMap(client.Player.MapID, "Notification");
             }
 
             RefreshCharacterTraits(client.Player.GetActiveRecruit(), client.Player.Map, hitlist);
