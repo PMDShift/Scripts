@@ -1342,6 +1342,11 @@ namespace Script
                     Messenger.PlayerMsg(sprinko, "Npc Spawned:" + spawnedNpc.Num, Text.Pink);
                 }
 
+                if (spawnedNpc.Shiny == Enums.Coloration.Shiny)
+                {
+                    Messenger.PlaySoundToMap(map.MapID, "Sparkle");
+                }
+
                 // switch (spawnedNpc.Num)
                 // {
                 //     case 33:
@@ -2652,7 +2657,7 @@ namespace Script
             if (client.Player.GetActiveRecruit().Shiny == Enums.Coloration.Shiny)
             {
                 PacketBuilder.AppendShinySparkle(client, hitlist);
-                Messenger.PlaySoundToMap(client.Player.MapID, "Notification");
+                Messenger.PlaySoundToMap(client.Player.MapID, "Sparkle");
             }
 
             RefreshCharacterTraits(client.Player.GetActiveRecruit(), client.Player.Map, hitlist);
