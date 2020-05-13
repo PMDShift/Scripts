@@ -9935,11 +9935,22 @@ namespace Script
         {
             try
             {
-                Story story = new Story();
-                StoryBuilderSegment segment = StoryBuilder.BuildStory();
-                StoryBuilder.AppendSaySegment(segment, "You have completed a mission! Return to the mission board to claim your reward.", -1, 0, 0);
-                segment.AppendToStory(story);
-                StoryManager.PlayStory(client, story);
+                var job = client.Player.JobList[missionIndex];
+                var task = job.GetActiveTask();
+
+                if (task.WinStoryScript <= 0)
+                {
+                    Story story = new Story();
+                    StoryBuilderSegment segment = StoryBuilder.BuildStory();
+                    StoryBuilder.AppendSaySegment(segment, "You have completed a mission! Return to the mission board to claim your reward.", -1, 0, 0);
+                    segment.AppendToStory(story);
+                    StoryManager.PlayStory(client, story);
+                }
+
+                if (client.Player.Map.MapType == Enums.MapType.Standard || client.Player.Map.MapType == Enums.MapType.Instanced)
+                {
+                    client.Player.HandleMissionRewardDump();
+                }
 
             }
             catch (Exception ex)
@@ -9987,7 +9998,7 @@ namespace Script
                 {
                     var task = mission.GetActiveTask();
 
-                    if (mission.Accepted == Enums.JobStatus.Finished)
+                    if (mission.Accepted == Enums.JobStatus.Finished && task.WinStoryScript <= 0)
                     {
                         completedJobs++;
                         MissionPool missionPool = WonderMailManager.Missions[(int)task.Difficulty - 1];
