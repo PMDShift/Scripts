@@ -260,6 +260,14 @@ namespace Script
                             }
                         }
                         break;
+                    case "/setupquests":
+                        {
+                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
+                            {
+                                InitializeIncompleteRegionQuests();
+                            }
+                        }
+                        break;
                     case "/closebase":
                         {
                             if (SecretBaseManager.HasSecretBase(client))

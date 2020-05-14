@@ -53,6 +53,7 @@ namespace Script
     using Server.Legendaries;
     using System.Threading.Tasks;
     using Server.Discord;
+    using Server.Quests;
 
     public partial class Main
     {
@@ -85,6 +86,7 @@ namespace Script
 
             InitializeFlyPoints();
             InitializeAchievements();
+            InitializeIncompleteRegionQuests();
         }
 
         public static void JoinGame(Client client)
@@ -5856,6 +5858,24 @@ namespace Script
                     case 72:
                         { // Warp to spawn
                             exPlayer.Get(client).WarpToSpawn(false);
+                        }
+                        break;
+                    case 73:
+                        { // Start next region quest
+                            var questToStart = -1;
+                            foreach (var questId in IncompleteRegionQuests) 
+                            {
+                                if (!client.Player.QuestLog.Where(x => x.QuestId == questId).Any())
+                                {
+                                    questToStart = -1;
+                                    break;
+                                }
+                            }
+
+                            if (questToStart > -1)
+                            {
+                                client.Player.StartQuest(QuestManager.Instance.Resources[questToStart], true);
+                            }
                         }
                         break;
 
