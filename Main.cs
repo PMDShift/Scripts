@@ -5875,6 +5875,10 @@ namespace Script
                             if (questToStart > -1)
                             {
                                 client.Player.StartQuest(QuestManager.Instance.Resources[questToStart], true);
+                            } 
+                            else 
+                            {
+                                Messenger.PlayerMsg(client, "There are no more quests ready! Try again later.", Text.BrightRed);
                             }
                         }
                         break;
