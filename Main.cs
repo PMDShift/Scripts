@@ -5862,15 +5862,7 @@ namespace Script
                         break;
                     case 73:
                         { // Start next region quest
-                            var questToStart = -1;
-                            foreach (var questId in IncompleteRegionQuests) 
-                            {
-                                if (!client.Player.QuestLog.Where(x => x.QuestId == questId).Any())
-                                {
-                                    questToStart = questId;
-                                    break;
-                                }
-                            }
+                            var questToStart = GetNextIncompleteQuestId(client);
 
                             if (questToStart > -1)
                             {
@@ -9969,6 +9961,22 @@ namespace Script
                     StoryBuilder.AppendSaySegment(segment, "You have completed a mission! Return to the mission board to claim your reward.", -1, 0, 0);
                     segment.AppendToStory(story);
                     StoryManager.PlayStory(client, story);
+                }
+
+                if (job.QuestId > -1 && IncompleteRegionQuests.Contains(job.QuestId))
+                {
+                    var questToStart = GetNextIncompleteQuestId(client);
+                    if (questToStart == -1)
+                    {   
+                        Story story = new Story();
+                        StoryBuilderSegment segment = StoryBuilder.BuildStory();
+                        StoryBuilder.AppendSaySegment(segment, "You've reached the end!", -1, 0, 0);
+                        StoryBuilder.AppendSaySegment(segment, "The storyline for this region is still in development.", -1, 0, 0);
+                        StoryBuilder.AppendSaySegment(segment, "No more chapters have been released, yet.", -1, 0, 0);
+                        StoryBuilder.AppendSaySegment(segment, "Check back with Advent later to continue your adventure!", -1, 0, 0);
+                        segment.AppendToStory(story);
+                        StoryManager.PlayStory(client, story);
+                    }
                 }
 
                 if (client.Player.Map.MapType == Enums.MapType.Standard || client.Player.Map.MapType == Enums.MapType.Instanced)

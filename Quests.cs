@@ -17,8 +17,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Server.Fly;
+using Server.Network;
 
 namespace Script
 {
@@ -31,6 +33,19 @@ namespace Script
             IncompleteRegionQuests = new List<int>();
 
             IncompleteRegionQuests.Add(2);
+        }
+
+        public static int GetNextIncompleteQuestId(Client client)
+        {
+            foreach (var questId in IncompleteRegionQuests) 
+            {
+                if (!client.Player.QuestLog.Where(x => x.QuestId == questId).Any())
+                {
+                    return questId;
+                }
+            }
+
+            return -1;
         }
         
     }
