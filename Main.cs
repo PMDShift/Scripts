@@ -5867,7 +5867,7 @@ namespace Script
                             {
                                 if (!client.Player.QuestLog.Where(x => x.QuestId == questId).Any())
                                 {
-                                    questToStart = -1;
+                                    questToStart = questId;
                                     break;
                                 }
                             }
