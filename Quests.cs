@@ -33,6 +33,7 @@ namespace Script
             IncompleteRegionQuests = new List<int>();
 
             IncompleteRegionQuests.Add(2);
+            IncompleteRegionQuests.Add(4);
         }
 
         public static int GetNextIncompleteQuestId(Client client)
