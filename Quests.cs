@@ -34,6 +34,7 @@ namespace Script
 
             IncompleteRegionQuests.Add(2);
             IncompleteRegionQuests.Add(4);
+            IncompleteRegionQuests.Add(5);
         }
 
         public static int GetNextIncompleteQuestId(Client client)
