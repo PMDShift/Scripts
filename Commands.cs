@@ -338,11 +338,6 @@ namespace Script
                                     Messenger.PlayerMsg(client, "Player is offline.", Text.Grey);
                                 }
                             }
-                            else
-                            {
-                                client.Player.GetActiveRecruit().Costume = command[1].ToInt();
-                                Messenger.SendPlayerData(client);
-                            }
                         }
                         break;
                     case "/saveposition":
