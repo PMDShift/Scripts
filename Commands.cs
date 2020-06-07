@@ -452,7 +452,7 @@ namespace Script
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
                             {
-                                var startTime = new DateTime(DateTime.UtcNow.Year, 5, 17, 17, 0, 0, DateTimeKind.Utc);
+                                var startTime = new DateTime(DateTime.UtcNow.Year, 6, 7, 17, 0, 0, DateTimeKind.Utc);
 
                                 if (Main.SetEvent(client, joinedArgs, false))
                                 {
