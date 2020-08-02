@@ -1339,6 +1339,28 @@ namespace Script
                             }
                         }
                         break;
+                    case "/fastrestart":
+                        {
+                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
+                            {
+                                Messenger.PlayerMsg(client, "[SECRET] Fast shutdown started.", Text.BrightRed);
+                                using (DatabaseConnection dbConnection = new DatabaseConnection(DatabaseID.Players))
+                                {
+                                    foreach (Client i in ClientManager.GetClients())
+                                    {
+                                        if (i.IsPlaying())
+                                        {
+                                            i.Player.SaveCharacterData(dbConnection);
+                                            i.Player.SavingLocked = true;
+                                        }
+                                    }
+                                }
+
+                                Messenger.PlayerMsg(client, "Everyone saved, shutting down...", Text.BrightRed);
+                                Environment.Exit(5);
+                            }
+                        }
+                        break;
                     case "/shutdown":
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
