@@ -10814,60 +10814,6 @@ namespace Script
 
         }
 
-        public static void RestartServer()
-        {
-            Server.Globals.GMOnly = true;
-
-
-            System.Threading.Thread shutdownTimerThread = new System.Threading.Thread(delegate ()
-            {
-                int waitingTime = 30;
-                for (int i = waitingTime; i >= 1; i--)
-                {
-                    Server.Globals.ServerStatus = "Please prepare for a server restart. It will begin in " + i + " seconds.";
-                    System.Threading.Thread.Sleep(1000);
-                }
-                Messenger.AdminMsg("[Staff] Server restart in progress... Saving all players...", Text.BrightBlue);
-                Server.Globals.ServerStatus = "Saving your data... Please wait...";
-
-                using (DatabaseConnection dbConnection = new DatabaseConnection(DatabaseID.Players))
-                {
-                    try
-                    {
-                        foreach (Client i in ClientManager.GetClients())
-                        {
-                            i.Player.SaveCharacterData(dbConnection);
-                            i.Player.SavingLocked = true;
-
-                            Messenger.PlayerMsg(i, "You saved the game!", Text.BrightGreen);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Messenger.AdminMsg(ex.ToString(), Text.BrightRed);
-                    }
-                }
-                Messenger.AdminMsg("Everyone has been saved!", Text.Yellow);
-
-                PlayerManager.SavingEnabled = false;
-
-                waitingTime = 30;
-                for (int i = waitingTime; i >= 1; i--)
-                {
-                    Server.Globals.ServerStatus = "The server will be restarting in " + i + " seconds.";
-                    System.Threading.Thread.Sleep(1000);
-                }
-                Logger.SaveLogs();
-                Messenger.AdminMsg("!", Text.Black);
-                // TODO: Handle restarts?
-                //System.Windows.Forms.Application.Restart();
-                // Use a non-zero exit code to indicate this is a restart
-                Environment.Exit(5);
-            }
-           );
-            shutdownTimerThread.Start();
-        }
-
         public static void InteractWithPlayer(Client attacker, Client defender)
         {
             var idleMessage = defender.Player.PlayerData.IdleMessage;

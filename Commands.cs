@@ -1211,7 +1211,7 @@ namespace Script
                                 return;
                             }
                             Server.Logging.ChatLogger.AppendToChatLog("Staff", "[Server] Server restart initiated by: " + client.Player.Name);
-                            RestartServer();
+                            Task.Run(ServerEnvironment.RestartAsync);
                         }
                         break;
                     case "/voterestart":
@@ -1225,7 +1225,7 @@ namespace Script
                                 if (i.IsPlaying() && !votersRestart.Contains(i.Player.Name))
                                     return;
                             Messenger.GlobalMsg("All online players have voted to restart the server.", Text.Red);
-                            RestartServer();
+                            Task.Run(ServerEnvironment.RestartAsync);
                         }
                         break;
                     case "/cancelvoterestart":
