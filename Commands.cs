@@ -2848,7 +2848,7 @@ namespace Script
                         break;
                     case "/learnmove":
                         {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
+                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter) || (client.Player.Map.IsZoneOrObjectSandboxed() && client.Player.GetActiveRecruit().InTempMode))
                             {
                                 int move = command[1].ToInt();
                                 if (move <= MoveManager.Moves.MaxMoves)
