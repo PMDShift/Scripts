@@ -376,7 +376,9 @@ namespace Script
             {
                 var eventMessage = new StringBuilder();
 
-                eventMessage.AppendLine($"An event will be starting shortly! This event is {ActiveEvent.Name}.");
+                var eventDate = GetEventDate();
+
+                eventMessage.AppendLine($"An event will be starting on {eventDate.DayOfWeek} at {eventDate.ToShortTimeString()} UTC! This event is {ActiveEvent.Name}.");
                 eventMessage.AppendLine();
                 eventMessage.AppendLine($"**Event rules**: {ActiveEvent.IntroductionMessage}");
                 foreach (var rule in ActiveEvent.Rules)
