@@ -10971,6 +10971,8 @@ namespace Script
                 {
                     TimedEventManager.CreateTimer("eventreminder", reminderDate, null);
                 }
+
+                EventIsScheduled = true;
             }
         }
 

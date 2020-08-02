@@ -25,6 +25,7 @@ namespace Script
 
         public static IEvent ActiveEvent { get; set; }
         public static bool IsTestingEvent { get; set; }
+        public static bool EventIsScheduled { get; set; }
 
         public static List<string> Events { get; set; }
 
@@ -50,7 +51,7 @@ namespace Script
 
         public static bool IsEventScheduled()
         {
-            return ActiveEvent != null && TimedEventManager.HasTimer("eventintro");
+            return EventIsScheduled;
         }
 
         public static DateTime GetEventDate()
