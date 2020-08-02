@@ -26,6 +26,47 @@ namespace Script
         public static IEvent ActiveEvent { get; set; }
         public static bool IsTestingEvent { get; set; }
 
+        public static List<string> Events { get; set; }
+
+        public static void InitializeEvents()
+        {
+            Events = new List<string>();
+
+            Events.Add("treasurehunt");
+            Events.Add("shinyspectacular");
+            Events.Add("paintball");
+            Events.Add("werewolf");
+            Events.Add("bossrush");
+        }
+
+        public static string SelectNextEvent()
+        {
+            var eventDate = GetEventDate();
+
+            var slot = eventDate.DayOfYear % Events.Count;
+
+            return Events[slot];
+        }   
+
+        public static bool IsEventScheduled()
+        {
+            return ActiveEvent != null && TimedEventManager.HasTimer("eventintro");
+        }
+
+        public static DateTime GetEventDate()
+        {
+            var weekday = GetNextWeekday(DateTime.UtcNow, DayOfWeek.Sunday);
+
+            return new DateTime(weekday.Year, weekday.Month, weekday.Day, 17, 0, 0, DateTimeKind.Utc);
+        }
+
+        public static DateTime GetNextWeekday(DateTime start, DayOfWeek day)
+        {
+            // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
+            int daysToAdd = ((int) day - (int) start.DayOfWeek + 7) % 7;
+            return start.AddDays(daysToAdd);
+        }
+
         public static IEvent BuildEvent(string identifier)
         {
             switch (identifier)
@@ -49,7 +90,10 @@ namespace Script
         {
             if (ActiveEvent != null)
             {
-                Messenger.PlayerMsg(client, "An event has already been set.", Text.BrightRed);
+                if (client != null)
+                {
+                    Messenger.PlayerMsg(client, "An event has already been set.", Text.BrightRed);
+                }
                 return false;
             }
 
@@ -59,14 +103,20 @@ namespace Script
 
             if (eventInstance == null)
             {
-                Messenger.PlayerMsg(client, $"Invalid event type: {identifier}", Text.BrightRed);
+                if (client != null)
+                {
+                    Messenger.PlayerMsg(client, $"Invalid event type: {identifier}", Text.BrightRed);
+                }
                 return false;
             }
 
             EventManager.ActiveEventIdentifier = eventInstance.Identifier;
             ActiveEvent = eventInstance;
 
-            Messenger.PlayerMsg(client, $"The event has been set to {ActiveEvent.Name}!", Text.BrightGreen);
+            if (client != null)
+            {
+                Messenger.PlayerMsg(client, $"The event has been set to {ActiveEvent.Name}!", Text.BrightGreen);
+            }
 
             return true;
         }

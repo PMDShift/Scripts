@@ -87,6 +87,8 @@ namespace Script
             InitializeFlyPoints();
             InitializeAchievements();
             InitializeIncompleteRegionQuests();
+
+            InitializeEvents();
         }
 
         public static void JoinGame(Client client)
@@ -10947,6 +10949,29 @@ namespace Script
             }
 
             HandoutOutlawPoints(tickCount);
+
+            if (!IsEventScheduled()) 
+            {
+                var eventDate = GetEventDate();
+                var reminderDate = eventDate.AddDays(-1);
+
+                if (DateTime.UtcNow >= reminderDate)
+                {
+                    RunEventReminder();
+                }
+                else 
+                {
+                    TimedEventManager.CreateTimer("eventreminder", reminderDate, null);
+                }
+
+                var eventIdentifier = SelectNextEvent();
+
+                if (SetEvent(null, eventIdentifier, true))
+                {
+                    TimedEventManager.CreateTimer("eventintro", eventDate, null);
+                    Task.Run(() => DiscordManager.Instance.SendAnnouncement($"The next event has been scheduled. It will be {ActiveEvent.Name}."));
+                }
+            }
         }
 
         public static void ScriptTimer(string identifier, string arguments)
