@@ -32,10 +32,10 @@ namespace Script
         {
             Events = new List<string>();
 
-            Events.Add("treasurehunt");
+            // Events.Add("treasurehunt");
             Events.Add("shinyspectacular");
             Events.Add("paintball");
-            Events.Add("werewolf");
+            // Events.Add("werewolf");
             Events.Add("bossrush");
         }
 
