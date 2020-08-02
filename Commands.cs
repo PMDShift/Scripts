@@ -448,6 +448,13 @@ namespace Script
                             }
                         }
                         break;
+                    case "/eventdate":
+                        {
+                            var eventDate = GetEventDate();
+
+                            Messenger.PlayerMsg(client, $"The next event date is {eventDate.ToShortDateString()} at {eventDate.ToShortTimeString()} UTC.", Text.BrightGreen);
+                        }
+                        break;
                     case "/scheduleweeklyevent":
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
