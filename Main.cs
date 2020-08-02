@@ -10960,7 +10960,7 @@ namespace Script
                 if (SetEvent(null, eventIdentifier, true))
                 {
                     TimedEventManager.CreateTimer("eventintro", eventDate, null);
-                    Task.Run(() => DiscordManager.Instance.SendAnnouncement($"The next event has been scheduled for {eventDate.DayOfWeek} at {eventDate.ToShortTimeString()} UTC. It will be {ActiveEvent.Name}. A reminder will be sent on {reminderDate.DayOfWeek} at {reminderDate.ToShortTimeString()} UTC."));
+                    Task.Run(() => DiscordManager.Instance.SendAnnouncement($"The next event has been scheduled for {eventDate.ToLongDateString()} at {eventDate.ToShortTimeString()} UTC. It will be {ActiveEvent.Name}. A reminder will be sent on {reminderDate.DayOfWeek} at {reminderDate.ToShortTimeString()} UTC."));
                 }
 
                 if (DateTime.UtcNow >= reminderDate)

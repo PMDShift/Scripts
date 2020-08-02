@@ -58,7 +58,15 @@ namespace Script
         {
             var weekday = GetNextWeekday(DateTime.UtcNow, DayOfWeek.Sunday);
 
-            return new DateTime(weekday.Year, weekday.Month, weekday.Day, 17, 0, 0, DateTimeKind.Utc);
+            var eventDate = new DateTime(weekday.Year, weekday.Month, weekday.Day, 17, 0, 0, DateTimeKind.Utc);
+
+            if (eventDate > DateTime.UtcNow)
+            {
+                weekday = GetNextWeekday(DateTime.UtcNow.AddDays(1), DayOfWeek.Sunday);
+                eventDate = new DateTime(weekday.Year, weekday.Month, weekday.Day, 17, 0, 0, DateTimeKind.Utc);
+            }
+
+            return eventDate;
         }
 
         public static DateTime GetNextWeekday(DateTime start, DayOfWeek day)
