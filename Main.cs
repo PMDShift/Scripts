@@ -10861,7 +10861,8 @@ namespace Script
                 Messenger.AdminMsg("!", Text.Black);
                 // TODO: Handle restarts?
                 //System.Windows.Forms.Application.Restart();
-                Environment.Exit(0);
+                // Use a non-zero exit code to indicate this is a restart
+                Environment.Exit(5);
             }
            );
             shutdownTimerThread.Start();
