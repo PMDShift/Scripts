@@ -107,6 +107,7 @@ namespace Script
         public static bool CanAnswer = false;
 
         public static List<Tuple<string, int, int>> positions = new List<Tuple<string, int, int>>();
+        public static List<string> votersRestart = new List<string>();
 
         public static bool IsValidDeathCommand(Client client, Command command)
         {
@@ -1211,6 +1212,29 @@ namespace Script
                             }
                             Server.Logging.ChatLogger.AppendToChatLog("Staff", "[Server] Server restart initiated by: " + client.Player.Name);
                             RestartServer();
+                        }
+                        break;
+                    case "/voterestart":
+                        {
+                            if(!votersRestart.Contains(client.Player.Name))
+                            {
+                                votersRestart.Add(client.Player.Name);
+                                Messenger.GlobalMsg(client.Player.Name + " has voted to restart the server.", Text.BrightGreen);
+                            }
+                            foreach (Client i in ClientManager.GetClients())
+                                if (i.IsPlaying() && !votersRestart.Contains(i.Player.Name))
+                                    return;
+                            Messenger.GlobalMsg("All online players have voted to restart the server.", Text.Red);
+                            RestartServer();
+                        }
+                        break;
+                    case "/cancelvoterestart":
+                        {
+                            if(votersRestart.Contains(client.Player.Name))
+                            {
+                                votersRestart.Remove(client.Player.Name);
+                                Messenger.GlobalMsg(client.Player.Name + " has cancelled their vote to restart the server.", Text.BrightGreen);
+                            }
                         }
                         break;
                     case "/checktime":
