@@ -5868,7 +5868,7 @@ namespace Script
 
                             if (questToStart > -1)
                             {
-                                client.Player.StartQuest(QuestManager.Instance.Resources[questToStart], false);
+                                client.Player.StartQuest(QuestManager.Instance.Resources[questToStart], 0, false);
                             } 
                             else 
                             {

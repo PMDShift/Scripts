@@ -133,7 +133,12 @@ namespace Script
                 {
                     case "/testquest":
                         {
-                            client.Player.TestQuest(joinedArgs.ToInt() - 1);
+                            var task = 0;
+                            if (command.CommandArgs.Count > 2)
+                            {
+                                task = command[2].ToInt();
+                            }
+                            client.Player.TestQuest(command[1].ToInt() - 1, task - 1);
                         }
                         break;
                     case "/myoutlawpoints":
