@@ -65,7 +65,7 @@ namespace Script
 
         public static PMDCP.Core.ListPair<string, SnowballGame> ActiveSnowballGames = new PMDCP.Core.ListPair<string, SnowballGame>();
 
-        public static int ExpBonus = 0;
+        public static int ExpBonus = 15;
 
         public static Countdown GlobalCountdown { get; set; }
 
