@@ -399,7 +399,7 @@ namespace Script
                     eventMessage.AppendLine($"**Prizes**: {ActiveEvent.RewardMessage}");
                 }
 
-                Task.Run(() => DiscordManager.Instance.SendAnnouncement(eventMessage.ToString()));
+                Task.Run(() => DiscordManager.Instance.SendToChannel(525047030716825630, eventMessage.ToString()));
             }
         }
     }
