@@ -16,6 +16,8 @@ namespace Script.Events
 {
     public class ShinySpectacular : AbstractEvent<ShinySpectacular.ShinySpectacularData>
     {
+        private readonly int ScoreThreshold = 15;
+
         public class ShinySpectacularData : AbstractEventData
         {
             public Dictionary<string, UserScore> Scores { get; set; }
@@ -44,6 +46,13 @@ namespace Script.Events
         public override string IntroductionMessage => "Swarms of shiny Pokemon have been spotted in dungeons! Defeat the most to win!";
         public override string RewardMessage => "The top three players with the most points will receive one of the shiny Pokemon they defeated.";
 
+        public override string[] Rules => new string[] 
+        {
+            "You will get one point for every shint Pokemon defeated.",
+            $"You need to collect a minimum of {ScoreThreshold} points to be eligible for a prize.",
+            "Only regular wild Pokemon count, bosses will not give points."
+        };
+
         public override TimeSpan? Duration => new TimeSpan(0, 30, 0);
 
         protected override List<EventRanking> DetermineRankings()
@@ -54,7 +63,10 @@ namespace Script.Events
             {
                 if (Data.Scores.TryGetValue(client.Player.CharID, out var score))
                 {
-                    rankings.Add(new EventRanking(client, score.Score));
+                    if (score.Score >= ScoreThreshold) 
+                    {
+                        rankings.Add(new EventRanking(client, score.Score));
+                    }
                 }
             }
 
