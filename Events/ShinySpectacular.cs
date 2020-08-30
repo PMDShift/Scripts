@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Server;
+using Server.Npcs;
 using Server.Combat;
 using Server.Database;
 using Server.Events;
@@ -122,9 +123,11 @@ namespace Script.Events
                 {
                     if (attacker.CharacterType == Enums.CharacterType.Recruit)
                     {
+                        var npcDefinition = NpcManager.Npcs[npc.Species];
                         var owner = ((Recruit)attacker).Owner;
 
-                        if (npc.Shiny == Enums.Coloration.Shiny)
+                        if (npc.Shiny == Enums.Coloration.Shiny && 
+                            (npcDefinition.Behavior == Enums.NpcBehavior.AttackOnSight || npcDefinition.Behavior == Enums.NpcBehavior.AttackWhenAttacked || npcDefinition.Behavior == Enums.NpcBehavior.FleeOnsight))
                         {
                             if (Data.Scores.TryGetValue(owner.Player.CharID, out var userScore))
                             {
