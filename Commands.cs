@@ -143,8 +143,10 @@ namespace Script
                                     npc.NpcNum = command[1].ToInt();
                                     npc.MinLevel = command[2].ToInt();
                                     npc.MaxLevel = command[2].ToInt();
-                                    client.Player.Map.SpawnNpc(npc);
+                                    client.Player.Map.SpawnNpc(npc, false, false);
                                 }
+
+                                Messenger.PlayerMsg(client, "Swarm spawned.", Text.BrightGreen);
                             }
                         }
                         break;
