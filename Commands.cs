@@ -131,6 +131,14 @@ namespace Script
 
                 switch (command[0])
                 {
+                    case "/spawnswarm":
+                        {
+                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
+                            {
+                                
+                            }
+                        }
+                        break;
                     case "/testquest":
                         {
                             var task = 0;
