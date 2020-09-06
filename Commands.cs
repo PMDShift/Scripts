@@ -530,7 +530,7 @@ namespace Script
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
                             {
-                                Main.SetEvent(client, joinedArgs, false);
+                                Main.SetEvent(client, joinedArgs, false, allowOverride: true);
                             }
                         }
                         break;
@@ -538,7 +538,7 @@ namespace Script
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
                             {
-                                Main.SetEvent(client, joinedArgs, true);
+                                Main.SetEvent(client, joinedArgs, true, allowOverride: true);
                             }
                         }
                         break;

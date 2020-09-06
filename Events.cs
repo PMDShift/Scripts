@@ -95,9 +95,9 @@ namespace Script
             }
         }
 
-        public static bool SetEvent(Client client, string identifier, bool isTesting)
+        public static bool SetEvent(Client client, string identifier, bool isTesting, bool allowOverride = false)
         {
-            if (ActiveEvent != null)
+            if (ActiveEvent != null && !allowOverride)
             {
                 if (client != null)
                 {
