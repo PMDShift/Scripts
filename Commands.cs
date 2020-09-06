@@ -135,7 +135,16 @@ namespace Script
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
                             {
-                                
+                                for (var i = 0; i < 10; i++)
+                                {
+                                    MapNpcPreset npc = new MapNpcPreset();
+                                    npc.SpawnX = -1;
+                                    npc.SpawnY = -1;
+                                    npc.NpcNum = command[1].ToInt();
+                                    npc.MinLevel = command[2].ToInt();
+                                    npc.MaxLevel = command[2].ToInt();
+                                    client.Player.Map.SpawnNpc(npc);
+                                }
                             }
                         }
                         break;
