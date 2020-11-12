@@ -593,6 +593,35 @@ namespace Script
                             }
                         }
                         break;
+                    case "/testdungeon":
+                        {
+                            if (Ranks.IsAllowed(client, Enums.Rank.Mapper))
+                            {
+                                if (command[1].IsNumeric())
+                                {
+                                    int floor = 1;
+                                    if (command.CommandArgs.Count > 2 && command[2].IsNumeric())
+                                    {
+                                        floor = command[2].ToInt();
+                                    }
+
+                                    var level = 1;
+                                    if (command.CommandArgs.Count > 3 && command[3].IsNumeric())
+                                    {
+                                        level = command[3].ToInt();
+                                    }
+
+                                    var rdungeonNumber = command[1].ToInt();
+                                    var rdungeon = Server.RDungeons.Modern.ModernRDungeonManager.Instance.Resources.Where(x => x.Id == rdungeonNumber).First();
+
+                                    if (rdungeon.IsZoneOrObjectSandboxed() && client.Player.CanViewZone(rdungeon.ZoneId))
+                                    {
+                                        client.Player.WarpToModernRDungeon(rdungeon, floor - 1);
+                                    }
+                                }
+                            }
+                        }
+                        break;
                     case "/testrdungeon":
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Mapper))
