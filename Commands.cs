@@ -4633,6 +4633,7 @@ namespace Script
                             }
                         }
                         break;
+                    case "/gup":
                     case "/giveup":
                         {
                             GiveUp(client);
