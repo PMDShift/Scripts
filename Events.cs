@@ -72,7 +72,7 @@ namespace Script
         public static DateTime GetNextWeekday(DateTime start, DayOfWeek day)
         {
             // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
-            int daysToAdd = ((int) day - (int) start.DayOfWeek + 7) % 7;
+            int daysToAdd = ((int)day - (int)start.DayOfWeek + 7) % 7;
             return start.AddDays(daysToAdd);
         }
 
@@ -215,6 +215,7 @@ namespace Script
 
                 ActiveEvent = null;
                 EventManager.ActiveEventIdentifier = null;
+                TimedEventManager.CreateTimer("eventdeschedule", DateTime.UtcNow.AddDays(1), null);
             }
 
             EventManager.RegisteredCharacters.Clear();

@@ -10956,6 +10956,14 @@ namespace Script
                         Main.FinishEvent();
                     }   
                     break;
+                case "eventdeschedule":
+                    {
+                        if (EventIsScheduled && ActiveEvent == null)
+                        {
+                            EventIsScheduled = false;
+                        }
+                    }
+                    break;
                 case "eventreminder":
                     {
                         Main.RunEventReminder();
