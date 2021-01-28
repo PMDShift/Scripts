@@ -10932,7 +10932,7 @@ namespace Script
                 {
                     var ex = exPlayer.Get(client);
 
-                    if (DateTime.UtcNow > ex.LastGiftTime.AddMinutes(1))
+                    if (DateTime.UtcNow > ex.LastGiftTime.AddHours(1))
                     {
                         ex.LastGiftTime = DateTime.UtcNow;
                         Messenger.PlayerMsg(client, "[System] You earned a Shadow Token!", Text.BrightGreen);
