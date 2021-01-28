@@ -1535,7 +1535,7 @@ namespace Script
                         break;
                     case "/void":
                         {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
+                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
                             {
                                 Messenger.PlayerWarpToVoid(client);
                             }
@@ -1544,7 +1544,7 @@ namespace Script
                     case "/voidplayer*":
                     case "/voidplayer":
                         {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
+                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
                             {
                                 string playerName = command[1];
                                 Client n;
