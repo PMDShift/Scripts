@@ -270,9 +270,9 @@ namespace Script
                 //Messenger.AdminMsg(Client.Player.Name + " warped to spawn with X:" + SpawnX + ", Y:" + SpawnY, Text.Black);
             } else {
                 SpawnMap = Main.Crossroads;
-                SpawnX = 25;
-                SpawnY = 25;
-                Messenger.PlayerWarp(Client, Main.Crossroads, 25, 25, true, playSound);
+                SpawnX = 27;
+                SpawnY = 28;
+                Messenger.PlayerWarp(Client, Main.Crossroads, 27, 28, true, playSound);
             }
         }
 

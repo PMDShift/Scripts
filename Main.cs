@@ -59,7 +59,7 @@ namespace Script
     {
         static string AdminMsg;
 
-        public static readonly string Crossroads = MapManager.GenerateMapID(Settings.Crossroads);
+        public static readonly string Crossroads = MapManager.GenerateMapID(5);
 
         public static CTF ActiveCTF;
 
