@@ -10935,7 +10935,9 @@ namespace Script
                     if (DateTime.UtcNow > ex.LastGiftTime.AddMinutes(1))
                     {
                         ex.LastGiftTime = DateTime.UtcNow;
-                        Messenger.PlayerMsg(client, "You got a gift!", Text.BrightGreen);
+                        Messenger.PlayerMsg(client, "[System] You earned a Shadow Token!", Text.BrightGreen);
+
+                        client.Player.GiveItem(1900, 1, string.Empty, false, true);
                     }
                 }
             }
