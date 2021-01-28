@@ -37,6 +37,8 @@ namespace Script
     {
         public Client Client { get; set; }
 
+        public DateTime LastGiftTime { get; set; }
+
         public string SpawnMap { get; set; }
         public int SpawnX { get; set; }
         public int SpawnY { get; set; }
@@ -137,6 +139,8 @@ namespace Script
             ElectrolockSublevel = new List<int>();
 
             ElectrolockSublevelTriggersActive = new List<string>();
+
+            LastGiftTime = DateTime.UtcNow;
         }
 
         public void Load() {

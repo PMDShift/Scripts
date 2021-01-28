@@ -10925,6 +10925,20 @@ namespace Script
 
                 EventIsScheduled = true;
             }
+
+            foreach (var client in ClientManager.GetClients())
+            {
+                if (client.IsPlaying()) 
+                {
+                    var ex = exPlayer.Get(client);
+
+                    if (DateTime.UtcNow > ex.LastGiftTime.AddMinutes(1))
+                    {
+                        ex.LastGiftTime = DateTime.UtcNow;
+                        Messenger.PlayerMsg(client, "You got a gift!", Text.BrightGreen);
+                    }
+                }
+            }
         }
 
         public static void ScriptTimer(string identifier, string arguments)
