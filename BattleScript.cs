@@ -9199,6 +9199,8 @@ namespace Script
             bool pointReached = false;
             try
             {
+                PacketHitList hitlist = null;
+
                 Messenger.ForceEndStoryTo(client);
 
                 //if (Ranks.IsAllowed(client, Enums.Rank.Developer)) {
@@ -9217,6 +9219,14 @@ namespace Script
                 catch (Exception ex)
                 {
                 }
+
+                if (killType == Enums.KillType.Player && IsValidOutlawMap(client.Player.Map))
+                {
+                    HandleOutlawGameOver(client, ref hitlist);
+                }
+
+                // NOTE: After this point, the player is warped to the spawn map
+
                 if (client.Player.MapID != MapManager.GenerateMapID(660))
                 {
                     if (exPlayer.Get(client) != null && exPlayer.Get(client).VerifySpawnPoint() == true)
@@ -9235,13 +9245,6 @@ namespace Script
                 {
                     Messenger.PlayerWarp(client, 660, 15, 4);
                     Messenger.MapMsg(client.Player.MapID, client.Player.Name + " was eliminated from the arena!", Text.Black);
-                }
-
-                PacketHitList hitlist = null;
-
-                if (killType == Enums.KillType.Player && IsValidOutlawMap(client.Player.Map))
-                {
-                    HandleOutlawGameOver(client, ref hitlist);
                 }
 
                 client.Player.IncrementCounter("mostdefeats", 1);
