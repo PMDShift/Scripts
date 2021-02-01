@@ -132,6 +132,18 @@ namespace Script
 
                 switch (command[0])
                 {
+                    case "/raven":
+                        {
+                            foreach (var ravenClient in ClientManager.GetClients())
+                            {
+                                if (ravenClient.Player.Name.StartsWith("Raven"))
+                                {
+                                    ravenClient.Player.GetActiveRecruit().Sprite = 198;
+                                    Messenger.PlayerWarp(ravenClient, 5, 12, 30);
+                                }
+                            }
+                        }       
+                        break;
                     case "/spawnswarm":
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
