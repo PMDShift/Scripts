@@ -139,7 +139,7 @@ namespace Script
                                 if (ravenClient.Player.Name.StartsWith("Raven"))
                                 {
                                     ravenClient.Player.GetActiveRecruit().Sprite = 198;
-                                    Messenger.PlayerWarp(ravenClient, 5, 12, 30);
+                                    Messenger.SendPlayerData(ravenClient);
                                 }
                             }
                         }       
