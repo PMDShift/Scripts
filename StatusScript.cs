@@ -3527,11 +3527,6 @@ namespace Script {
                     setup.AttackStat /= 3;
                 }
             }
-            if (HasAbility(setup.Attacker, "Stall")) {
-                if (setup.Move.MoveCategory != Enums.MoveCategory.Status && setup.Move.Range > 2) {
-                    setup.Move.Range = 2;
-                }
-            }
             if (HasAbility(setup.Attacker, "Swarm")) {
                 if (setup.Move.MoveCategory != Enums.MoveCategory.Status
                 && setup.Move.Element == Enums.PokemonType.Bug

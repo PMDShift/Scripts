@@ -333,6 +333,7 @@ namespace Script
                             return;
                         }
                         if (setup.Attacker.AttackTimer == null ||
+                            HasAbility(setup.Attacker, "Stall") ||
                             setup.Move.AdditionalEffectData1 == 9 ||
                             setup.Move.AdditionalEffectData1 == 128 ||
                             setup.Move.AdditionalEffectData1 == 132)
