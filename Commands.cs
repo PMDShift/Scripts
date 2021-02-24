@@ -132,6 +132,17 @@ namespace Script
 
                 switch (command[0])
                 {
+                    case "/debug":
+                        {
+                            if (Ranks.IsAllowed(client, Enums.Rank.Mapper))
+                            {
+                                if (!client.Player.Dead)
+                                {
+                                    Messenger.PlayerWarp(client, "s1", 10, 4);
+                                }   
+                            }
+                        }
+                        break;
                     case "/raven":
                         {
                             foreach (var ravenClient in ClientManager.GetClients())
