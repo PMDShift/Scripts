@@ -54,6 +54,7 @@ namespace Script
     using System.Threading.Tasks;
     using Server.Discord;
     using Server.Quests;
+    using Server.Leaderboards;
 
     public partial class Main
     {
@@ -11013,6 +11014,8 @@ namespace Script
                     break;
                 case "clearleaderboard":
                     {
+                        LeaderBoardManager.ResetLeaderboards();
+
                         Messenger.GlobalMsg("The leaderboards have been cleared!", Text.BrightGreen);
                         Task.Run(() => DiscordManager.Instance.SendToChannel(ScriptConstants.GeneralChannelId, $"The leaderboards has been cleared!"));
                     }
