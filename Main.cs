@@ -10926,6 +10926,14 @@ namespace Script
                 EventIsScheduled = true;
             }
 
+            if (!TimedEventManager.HasTimer("clearleaderboard"))
+            {
+                var clearDate = Dates.GetNextWeekday(DayOfWeek.Sunday, 22, 0);
+
+                TimedEventManager.CreateTimer("clearleaderboard", clearDate, null);
+                Task.Run(() => DiscordManager.Instance.SendToChannel(ScriptConstants.GeneralChannelId, $"The leaderboard has been scheduled to be cleared on {clearDate.ToLongDateString()} at {clearDate.ToShortTimeString()} UTC."));
+            }
+
             foreach (var client in ClientManager.GetClients())
             {
                 if (client.IsPlaying()) 
@@ -11001,6 +11009,12 @@ namespace Script
                 case "startevent":
                     {
                         Main.StartEvent();
+                    }
+                    break;
+                case "clearleaderboard":
+                    {
+                        Messenger.GlobalMsg("The leaderboards have been cleared!", Text.BrightGreen);
+                        Task.Run(() => DiscordManager.Instance.SendToChannel(ScriptConstants.GeneralChannelId, $"The leaderboards has been cleared!"));
                     }
                     break;
             }

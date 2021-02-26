@@ -56,24 +56,7 @@ namespace Script
 
         public static DateTime GetEventDate()
         {
-            var weekday = GetNextWeekday(DateTime.UtcNow, DayOfWeek.Sunday);
-
-            var eventDate = new DateTime(weekday.Year, weekday.Month, weekday.Day, 20, 0, 0, DateTimeKind.Utc);
-
-            if (eventDate < DateTime.UtcNow)
-            {
-                weekday = GetNextWeekday(DateTime.UtcNow.AddDays(1), DayOfWeek.Sunday);
-                eventDate = new DateTime(weekday.Year, weekday.Month, weekday.Day, 20, 0, 0, DateTimeKind.Utc);
-            }
-
-            return eventDate;
-        }
-
-        public static DateTime GetNextWeekday(DateTime start, DayOfWeek day)
-        {
-            // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
-            int daysToAdd = ((int)day - (int)start.DayOfWeek + 7) % 7;
-            return start.AddDays(daysToAdd);
+            return Dates.GetNextWeekday(DayOfWeek.Sunday, 20, 0);
         }
 
         public static IEvent BuildEvent(string identifier)
@@ -400,7 +383,7 @@ namespace Script
                     eventMessage.AppendLine($"**Prizes**: {ActiveEvent.RewardMessage}");
                 }
 
-                Task.Run(() => DiscordManager.Instance.SendToChannel(525047030716825630, eventMessage.ToString()));
+                Task.Run(() => DiscordManager.Instance.SendToChannel(ScriptConstants.GeneralChannelId, eventMessage.ToString()));
             }
         }
     }
