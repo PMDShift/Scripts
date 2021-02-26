@@ -1631,7 +1631,7 @@ namespace Script
                         break;
                     case "/regenboard":
                         {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
+                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
                             {
                                 client.Player.MissionBoard.GenerateMission();
                                 Server.Logging.ChatLogger.AppendToChatLog("Staff", "[Missions] " + client.Player.Name + " regenerated their mission board.");
@@ -2447,7 +2447,7 @@ namespace Script
                     case "/checkinv*":
                     case "/checkinv":
                         {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
+                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
                             {
                                 Client n;
                                 string[] subCommand = command[0].Split('*');
@@ -2489,7 +2489,7 @@ namespace Script
                         break;
                     case "/clearinv":
                         {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
+                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
                             {
                                 for (int i = 1; i <= client.Player.MaxInv; i++)
                                 {
@@ -2502,7 +2502,7 @@ namespace Script
                     case "/checkbank*":
                     case "/checkbank":
                         {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
+                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
                             {
                                 Client n;
                                 string[] subCommand = command[0].Split('*');
@@ -2565,7 +2565,7 @@ namespace Script
                         break;
                     case "/checkmoves":
                         {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
+                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
                             {
                                 Client n = ClientManager.FindClient(joinedArgs);
                                 Messenger.PlayerMsg(client, n.Player.Name + "'s Moves:", Text.Yellow);
