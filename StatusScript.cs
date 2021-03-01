@@ -4520,6 +4520,7 @@ namespace Script {
                 case Enums.Weather.Sunny: {
                     if (character.HasActiveItem(596)) return "Fiery Gem";
                     if (character.HasActiveItem(598)) return "Grass Gem";
+                    if (character.HasActiveItem(838)) return "Glitter Gem";
                     } break;
             }
             return null;

@@ -597,6 +597,9 @@ namespace Script
                                         else if (overcoat)
                                         {
                                         }
+                                        else if (character.HasActiveItem(299)) // weather rock immunity
+                                        {
+                                        }
                                         else
                                         {
                                             newHP -= 6;
@@ -626,6 +629,9 @@ namespace Script
                                         else if (overcoat)
                                         {
                                         }
+                                        else if (character.HasActiveItem(300)) // weather rock immunity
+                                        {
+                                        }
                                         else
                                         {
                                             newHP -= 5;
@@ -634,13 +640,19 @@ namespace Script
                                     break;
                                 case (Enums.Weather.Sunny):
                                     {
-                                        if (HasAbility(character, "Dry Skin") && !overcoat && !HasAbility(character, "Magic Guard"))
+                                        if (character.HasActiveItem(302)) // weather rock immunity
                                         {
-                                            newHP -= 5;
                                         }
-                                        if (HasAbility(character, "Solar Power") && !overcoat && !HasAbility(character, "Magic Guard"))
+                                        else
                                         {
-                                            newHP -= 5;
+                                            if (HasAbility(character, "Dry Skin") && !overcoat && !HasAbility(character, "Magic Guard"))
+                                            {
+                                                newHP -= 5;
+                                            }
+                                            if (HasAbility(character, "Solar Power") && !overcoat && !HasAbility(character, "Magic Guard"))
+                                            {
+                                                newHP -= 5;
+                                            }
                                         }
                                     }
                                     break;

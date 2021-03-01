@@ -1837,11 +1837,14 @@ namespace Script
                                 setup.AttackerMultiplier *= 5;
                                 setup.AttackerMultiplier /= 4;
                             }
-                            if (setup.Move.Element == Enums.PokemonType.Fire)
+                            if (!setup.Attacker.HasActiveItem(301)) // weather rock immunity
                             {
-                                setup.AttackerMultiplier /= 2;
+                                if (setup.Move.Element == Enums.PokemonType.Fire)
+                                {
+                                    setup.AttackerMultiplier /= 2;
+                                }
+                                if (setup.Move.AdditionalEffectData1 == 60 && setup.Move.AdditionalEffectData2 == 1) setup.AttackerMultiplier /= 2;
                             }
-                            if (setup.Move.AdditionalEffectData1 == 60 && setup.Move.AdditionalEffectData2 == 1) setup.AttackerMultiplier /= 2;
                         }
                         break;
                     case Enums.Weather.Snowing:
@@ -1852,7 +1855,10 @@ namespace Script
                         break;
                     case Enums.Weather.Hail:
                         {
-                            if (setup.Move.AdditionalEffectData1 == 60 && setup.Move.AdditionalEffectData2 == 1) setup.AttackerMultiplier /= 2;
+                            if (!setup.Attacker.HasActiveItem(299)) // weather rock immunity
+                            {
+                                if (setup.Move.AdditionalEffectData1 == 60 && setup.Move.AdditionalEffectData2 == 1) setup.AttackerMultiplier /= 2;
+                            }
                         }
                         break;
                     case Enums.Weather.DiamondDust:
@@ -1861,16 +1867,22 @@ namespace Script
                         break;
                     case Enums.Weather.Cloudy:
                         {
-                            if (setup.Move.Element != Enums.PokemonType.Normal)
+                            if (!setup.Attacker.HasActiveItem(785)) // weather rock immunity
                             {
-                                setup.AttackerMultiplier /= 2;
+                                if (setup.Move.Element != Enums.PokemonType.Normal)
+                                {
+                                    setup.AttackerMultiplier /= 2;
+                                }
+                                if (setup.Move.AdditionalEffectData1 == 60 && setup.Move.AdditionalEffectData2 == 1) setup.AttackerMultiplier /= 2;
                             }
-                            if (setup.Move.AdditionalEffectData1 == 60 && setup.Move.AdditionalEffectData2 == 1) setup.AttackerMultiplier /= 2;
                         }
                         break;
                     case Enums.Weather.Fog:
                         {
-                            if (setup.Move.AdditionalEffectData1 == 60 && setup.Move.AdditionalEffectData2 == 1) setup.AttackerMultiplier /= 2;
+                            if (!setup.Attacker.HasActiveItem(786)) // weather rock immunity
+                            {
+                                if (setup.Move.AdditionalEffectData1 == 60 && setup.Move.AdditionalEffectData2 == 1) setup.AttackerMultiplier /= 2;
+                            }
                         }
                         break;
                     case Enums.Weather.Sunny:
@@ -1880,15 +1892,21 @@ namespace Script
                                 setup.AttackerMultiplier *= 5;
                                 setup.AttackerMultiplier /= 4;
                             }
-                            if (setup.Move.Element == Enums.PokemonType.Water)
+                            if (!setup.Attacker.HasActiveItem(302)) // weather rock immunity
                             {
-                                setup.AttackerMultiplier /= 2;
+                                if (setup.Move.Element == Enums.PokemonType.Water)
+                                {
+                                    setup.AttackerMultiplier /= 2;
+                                }
                             }
                         }
                         break;
                     case Enums.Weather.Sandstorm:
                         {
-                            if (setup.Move.AdditionalEffectData1 == 60 && setup.Move.AdditionalEffectData2 == 1) setup.AttackerMultiplier /= 2;
+                            if (!setup.Attacker.HasActiveItem(300)) // weather rock immunity
+                            {
+                                if (setup.Move.AdditionalEffectData1 == 60 && setup.Move.AdditionalEffectData2 == 1) setup.AttackerMultiplier /= 2;
+                            }
                         }
                         break;
                     case Enums.Weather.Ashfall:
