@@ -10934,22 +10934,6 @@ namespace Script
                 TimedEventManager.CreateTimer("clearleaderboard", clearDate, null);
                 Task.Run(() => DiscordManager.Instance.SendToChannel(ScriptConstants.GeneralChannelId, $"The leaderboard has been scheduled to be cleared on {clearDate.ToLongDateString()} at {clearDate.ToShortTimeString()} UTC."));
             }
-
-            foreach (var client in ClientManager.GetClients())
-            {
-                if (client.IsPlaying()) 
-                {
-                    var ex = exPlayer.Get(client);
-
-                    if (DateTime.UtcNow > ex.LastGiftTime.AddHours(1))
-                    {
-                        ex.LastGiftTime = DateTime.UtcNow;
-                        Messenger.PlayerMsg(client, "[System] You earned a Shadow Token!", Text.BrightGreen);
-
-                        client.Player.GiveItem(1900, 1, string.Empty, false, true);
-                    }
-                }
-            }
         }
 
         public static void ScriptTimer(string identifier, string arguments)
