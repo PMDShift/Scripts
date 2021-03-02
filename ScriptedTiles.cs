@@ -1465,6 +1465,21 @@ namespace Script
                             }
                         }
                         break;
+                    case 86: 
+                        { // Starter area move generation
+                            client.Player.GetActiveRecruit().GenerateMoveset();
+                            client.Player.GetActiveRecruit().HP = client.Player.GetActiveRecruit().MaxHP;
+
+                            for (int j = 0; j < Constants.MAX_PLAYER_MOVES; j++)
+                            {
+                                if (client.Player.GetActiveRecruit().Moves[j].MoveNum != 0)
+                                {
+
+                                    client.Player.GetActiveRecruit().Moves[j].CurrentPP = client.Player.GetActiveRecruit().Moves[j].MaxPP;
+                                }
+                            }
+                        }
+                        break;
                 }
                 PacketHitList.MethodEnded(ref hitlist);
             }
