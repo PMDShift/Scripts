@@ -1519,7 +1519,7 @@ namespace Script
                         break;
                     case "/getcharinfo":
                         {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
+                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
                             {
                                 using (DatabaseConnection dbConnection = new DatabaseConnection(DatabaseID.Players))
                                 {
@@ -1538,7 +1538,7 @@ namespace Script
                         break;
                     case "/clearjoblist":
                         {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
+                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
                             {
                                 Client n = ClientManager.FindClient(joinedArgs);
                                 if (n != null)
@@ -1615,7 +1615,7 @@ namespace Script
                         break;
                     case "/getid":
                         {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
+                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
                             {
                                 Client n = ClientManager.FindClient(joinedArgs);
                                 if (n != null)
@@ -2176,7 +2176,7 @@ namespace Script
                         break;
                     case "/findaccount":
                         {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
+                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
                             {
                                 foreach (Client i in ClientManager.GetClients())
                                 {
@@ -2422,7 +2422,7 @@ namespace Script
                     #endregion CTF Commands
                     case "/checkstack":
                         {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
+                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
                             {
                                 Client n = ClientManager.FindClient(command[1]);
                                 if (n == null)
