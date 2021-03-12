@@ -907,7 +907,7 @@ namespace Script
                                 exPlayer.Get(client).PlazaEntranceX = client.Player.X;
                                 exPlayer.Get(client).PlazaEntranceY = client.Player.Y;
 
-                                Messenger.PlayerWarp(client, 149, 18, 13);
+                                Messenger.PlayerWarp(client, 1239, 25, 50);
                                 Messenger.PlayerMsg(client, "Welcome to the plaza!", Text.BrightGreen);
                             }
                             else
