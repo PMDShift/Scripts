@@ -2957,8 +2957,8 @@ namespace Script
                                     if (x == 2 && y == 3)
                                     {
                                         map.Tile[room.StartX + x, room.StartY + y].Type = Enums.TileType.ScriptedSign;
-                                        map.Tile[room.StartX + x, room.StartY + y].Mask2 = 6;
-                                        map.Tile[room.StartX + x, room.StartY + y].Mask2Set = 4;
+                                        map.Tile[room.StartX + x, room.StartY + y].Mask2 = 36;
+                                        map.Tile[room.StartX + x, room.StartY + y].Mask2Set = 7;
                                         map.Tile[room.StartX + x, room.StartY + y].Data1 = 10;
                                         map.Tile[room.StartX + x, room.StartY + y].String1 = "-2:-3";
                                         map.Tile[room.StartX + x, room.StartY + y].String2 = "2:1";
@@ -3037,8 +3037,8 @@ namespace Script
                                                 }
                                             }
                                             map.Tile[room.StartX + x, room.StartY + y].Type = Enums.TileType.DropShop;
-                                            map.Tile[room.StartX + x, room.StartY + y].Mask2 = 67;
-                                            map.Tile[room.StartX + x, room.StartY + y].Mask2Set = 0;
+                                            map.Tile[room.StartX + x, room.StartY + y].Mask2 = 162;
+                                            map.Tile[room.StartX + x, room.StartY + y].Mask2Set = 5;
                                             map.Tile[room.StartX + x, room.StartY + y].Data1 = price; //price per unit
                                             map.Tile[room.StartX + x, room.StartY + y].Data2 = itemNum; //item
                                             map.Tile[room.StartX + x, room.StartY + y].Data3 = itemVal; //amount
@@ -3049,8 +3049,8 @@ namespace Script
                                         else
                                         {
                                             map.Tile[room.StartX + x, room.StartY + y].Type = Enums.TileType.DropShop;
-                                            map.Tile[room.StartX + x, room.StartY + y].Mask2 = 67;
-                                            map.Tile[room.StartX + x, room.StartY + y].Mask2Set = 0;
+                                            map.Tile[room.StartX + x, room.StartY + y].Mask2 = 162;
+                                            map.Tile[room.StartX + x, room.StartY + y].Mask2Set = 5;
                                             map.Tile[room.StartX + x, room.StartY + y].Data1 = 0; //price per unit
                                             map.Tile[room.StartX + x, room.StartY + y].Data2 = 0; //item
                                             map.Tile[room.StartX + x, room.StartY + y].Data2 = 0; //amount
