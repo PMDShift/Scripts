@@ -1523,120 +1523,120 @@ namespace Script
             {
                 case 2:
                     {//EXPLOSIONNNNN
-                        map.Tile[x, y].Mask2 = 3995;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 4;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 3:
                     {//chestnut
-                        map.Tile[x, y].Mask2 = 3997;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 6;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 4:
                     {//ppzero
-                        map.Tile[x, y].Mask2 = 4000;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 9;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 5:
                     {//grimy
-                        map.Tile[x, y].Mask2 = 3999;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 8;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 6:
                     {//poison
-                        map.Tile[x, y].Mask2 = 3993;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 23;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 7:
                     {//random
-                        map.Tile[x, y].Mask2 = 4011;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 20;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 15:
                     {//warp
-                        map.Tile[x, y].Mask2 = 3;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 2;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 16:
                     {//pokemon
-                        map.Tile[x, y].Mask2 = 4007;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 16;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 17:
                     {//spikes
-                        map.Tile[x, y].Mask2 = 4009;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 18;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 18:
                     {//toxic spikes
-                        map.Tile[x, y].Mask2 = 4008;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 17;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 19:
                     {//stealth rock
-                        map.Tile[x, y].Mask2 = 4010;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 19;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 23:
                     {//sticky
-                        map.Tile[x, y].Mask2 = 3998;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 7;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 25:
                     {//mud
-                        map.Tile[x, y].Mask2 = 3991;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 25;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 26:
                     {//wonder tile
-                        map.Tile[x, y].Mask2 = 4;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 5;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 28:
                     {//trip
-                        map.Tile[x, y].Mask2 = 4005;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 13;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
@@ -1651,80 +1651,80 @@ namespace Script
                     break;
                 case 39:
                     {//pitfall
-                        map.Tile[x, y].Mask2 = 3996;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 11;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 42:
                     {//seal
-                        map.Tile[x, y].Mask2 = 4004;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 14;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 43:
                     {//slow
-                        map.Tile[x, y].Mask2 = 4006;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 15;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 44:
                     {//spin
-                        map.Tile[x, y].Mask2 = 4001;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 10;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 49:
                     {//summon
-                        map.Tile[x, y].Mask2 = 4003;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 26;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 50:
                     {//grudge
-                        map.Tile[x, y].Mask2 = 4012;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 21;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 51:
                     {//selfdestruct
-                        map.Tile[x, y].Mask2 = 3994;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 3;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 52:
                     {//slumber
-                        map.Tile[x, y].Mask2 = 3990;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 24;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 53:
                     {//gust
-                        map.Tile[x, y].Mask2 = 3992;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 1;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
                 case 70:
                     {//shocker
-                        map.Tile[x, y].Mask2 = 3976;
-                        map.Tile[x, y].Mask2Set = 4;
+                        map.Tile[x, y].Mask2 = 22;
+                        map.Tile[x, y].Mask2Set = 7;
                         map.TempChange = true;
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
