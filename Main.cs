@@ -10780,8 +10780,6 @@ namespace Script
         {
             switch (item)
             {
-                case 815:
-                    return true;
                 case 138:
                     return true;
                 case 446:
