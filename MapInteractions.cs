@@ -2448,6 +2448,40 @@ namespace Script
                             Messenger.SendOutlawBoardTo(client);
                         }
                         break;
+		    case 30:
+                        {//chamber key
+                            int slot = 0;
+                            for (int i = 1; i <= client.Player.Inventory.Count; i++)
+                            {
+                                if (client.Player.Inventory[i].Num == 981 && !client.Player.Inventory[i].Sticky)
+                                {
+                                    slot = i;
+                                    break;
+                                }
+                            }
+                            if (slot > 0)
+                            {
+                                Messenger.AskQuestion(client, "UseItem:981", "Will you use your Bronze Key to open the chamber?", -1);
+                            }
+                        }
+                        break;
+		   case 31:
+                        {//chamber key
+                            int slot = 0;
+                            for (int i = 1; i <= client.Player.Inventory.Count; i++)
+                            {
+                                if (client.Player.Inventory[i].Num == 982 && !client.Player.Inventory[i].Sticky)
+                                {
+                                    slot = i;
+                                    break;
+                                }
+                            }
+                            if (slot > 0)
+                            {
+                                Messenger.AskQuestion(client, "UseItem:982", "Will you use your Gold Key to open the chamber?", -1);
+                            }
+                        }
+                        break;
                 }
             }
             catch (Exception ex)
@@ -2522,6 +2556,10 @@ namespace Script
                     return scriptNum + ": Staff Application";
                 case 29:
                     return scriptNum + ": Outlaw Board";
+		case 30:
+                    return scriptNum + ": Bronze Key";
+		case 31:
+                    return scriptNum + ": Gold Key";
                 default:
                     return scriptNum.ToString() + ": Unknown";
             }
@@ -2735,6 +2773,30 @@ namespace Script
                         {//3x3 kecleon shop, does not allow start or end
                             req.MinX = 7;
                             req.MinY = 7;
+                            req.MaxX = req.MinX;
+                            req.MaxY = req.MinY;
+                            req.Start = Enums.Acceptance.Never;
+                            req.End = Enums.Acceptance.Never;
+
+
+                        }
+                        break;
+                    case 12:
+                        {//single-item chamber, does not allow start or end
+                            req.MinX = 5;
+                            req.MinY = 5;
+                            req.MaxX = req.MinX;
+                            req.MaxY = req.MinY;
+                            req.Start = Enums.Acceptance.Never;
+                            req.End = Enums.Acceptance.Never;
+
+
+                        }
+                        break;
+                    case 13:
+                        {//single-item chamber, does not allow start or end
+                            req.MinX = 5;
+                            req.MinY = 5;
                             req.MaxX = req.MinX;
                             req.MaxY = req.MinY;
                             req.Start = Enums.Acceptance.Never;
@@ -3077,6 +3139,90 @@ namespace Script
                                 }
                             }
                             //Messenger.AdminMsg("Room created: " + map.Name, Text.Red);
+                        }
+                        break;
+                    case 12:
+                        {//pre-mapped locked chamber
+                            DungeonArrayRoom room = arrayFloor.Rooms[arrayFloor.Chamber.X, arrayFloor.Chamber.Y];
+
+                            //IMap sourceMap = MapManager.RetrieveMap(string1.ToInt());
+                            for (int x = 0; x < 5; x++)
+                            {
+                                for (int y = 0; y < 5; y++)
+                                {
+                                    if (x == 2 && y == 3)
+                                    {
+                                        map.Tile[room.StartX + x, room.StartY + y].Type = Enums.TileType.ScriptedSign;
+                                        map.Tile[room.StartX + x, room.StartY + y].Mask2 = 110;
+                                        map.Tile[room.StartX + x, room.StartY + y].Mask2Set = 7;
+                                        map.Tile[room.StartX + x, room.StartY + y].Data1 = 30;
+                                        map.Tile[room.StartX + x, room.StartY + y].String1 = "-2:-3";
+                                        map.Tile[room.StartX + x, room.StartY + y].String2 = "2:1";
+                                        arrayFloor.MapArray[room.StartX + x, room.StartY + y] = 1025;
+                                    }
+                                    else if (x == 0 || y == 0 || x == 4 || y == 4)
+                                    {
+                                        arrayFloor.MapArray[room.StartX + x, room.StartY + y] = 4;
+                                    }
+                                    else if (x == 1 || y == 1 || x == 3 || y == 3)
+                                    {
+                                        map.Tile[room.StartX + x, room.StartY + y].Type = Enums.TileType.Blocked;
+                                        arrayFloor.MapArray[room.StartX + x, room.StartY + y] = 1025;
+                                    }
+                                    else if (x == 2 && y == 2)
+                                    {
+                                        map.Tile[room.StartX + x, room.StartY + y].Type = Enums.TileType.ScriptedSign;
+                                        map.Tile[room.StartX + x, room.StartY + y].Data1 = 9;
+                                        map.Tile[room.StartX + x, room.StartY + y].String1 = string1;
+                                        map.Tile[room.StartX + x, room.StartY + y].String2 = string2;
+                                        map.Tile[room.StartX + x, room.StartY + y].String3 = "3";
+                                        arrayFloor.MapArray[room.StartX + x, room.StartY + y] = 1025;
+                                    }
+
+                                }
+                            }
+                        }
+                        break;
+                    case 13:
+                        {//pre-mapped locked chamber
+                            DungeonArrayRoom room = arrayFloor.Rooms[arrayFloor.Chamber.X, arrayFloor.Chamber.Y];
+
+                            //IMap sourceMap = MapManager.RetrieveMap(string1.ToInt());
+                            for (int x = 0; x < 5; x++)
+                            {
+                                for (int y = 0; y < 5; y++)
+                                {
+                                    if (x == 2 && y == 3)
+                                    {
+                                        map.Tile[room.StartX + x, room.StartY + y].Type = Enums.TileType.ScriptedSign;
+                                        map.Tile[room.StartX + x, room.StartY + y].Mask2 = 37;
+                                        map.Tile[room.StartX + x, room.StartY + y].Mask2Set = 7;
+                                        map.Tile[room.StartX + x, room.StartY + y].Data1 = 31;
+                                        map.Tile[room.StartX + x, room.StartY + y].String1 = "-2:-3";
+                                        map.Tile[room.StartX + x, room.StartY + y].String2 = "2:1";
+                                        arrayFloor.MapArray[room.StartX + x, room.StartY + y] = 1025;
+                                    }
+                                    else if (x == 0 || y == 0 || x == 4 || y == 4)
+                                    {
+                                        arrayFloor.MapArray[room.StartX + x, room.StartY + y] = 4;
+                                    }
+                                    else if (x == 1 || y == 1 || x == 3 || y == 3)
+                                    {
+                                        map.Tile[room.StartX + x, room.StartY + y].Type = Enums.TileType.Blocked;
+                                        arrayFloor.MapArray[room.StartX + x, room.StartY + y] = 1025;
+                                    }
+                                    else if (x == 2 && y == 2)
+                                    {
+                                        map.Tile[room.StartX + x, room.StartY + y].Type = Enums.TileType.ScriptedSign;
+                                        map.Tile[room.StartX + x, room.StartY + y].Data1 = 9;
+                                        map.Tile[room.StartX + x, room.StartY + y].String1 = string1;
+                                        map.Tile[room.StartX + x, room.StartY + y].String2 = string2;
+                                        map.Tile[room.StartX + x, room.StartY + y].String3 = "3";
+                                        arrayFloor.MapArray[room.StartX + x, room.StartY + y] = 1025;
+                                    }
+
+                                }
+                            }
                         }
                         break;
                     default:
@@ -3910,6 +4056,22 @@ namespace Script
                             RDungeonFloorGen.AmbiguateTile(map.Tile[x, y]);
                         }
                         else if (map.Tile[x, y].Data1 == 10)
+                        {
+                            intArray[x, y] = 3;
+                            RDungeonFloorGen.AmbiguateTile(map.Tile[x, y]);
+                            hitlist.AddPacketToMap(map, PacketBuilder.CreateSoundPacket("magic161.wav"), x, y, 10);
+                            hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg("The chamber was opened!", Text.WhiteSmoke), x, y, 10);
+                        }
+                    }
+                        else if (map.Tile[x, y].Data1 == 30)
+                        {
+                            intArray[x, y] = 3;
+                            RDungeonFloorGen.AmbiguateTile(map.Tile[x, y]);
+                            hitlist.AddPacketToMap(map, PacketBuilder.CreateSoundPacket("magic161.wav"), x, y, 10);
+                            hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg("The chamber was opened!", Text.WhiteSmoke), x, y, 10);
+                        }
+                    }
+                        else if (map.Tile[x, y].Data1 == 31)
                         {
                             intArray[x, y] = 3;
                             RDungeonFloorGen.AmbiguateTile(map.Tile[x, y]);
