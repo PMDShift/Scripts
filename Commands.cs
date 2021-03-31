@@ -138,7 +138,7 @@ namespace Script
                             {
                                 if (!client.Player.Dead)
                                 {
-                                    Messenger.PlayerWarp(client, "s1", 10, 4);
+                                    Messenger.PlayerWarp(client, "s1", 16, 21);
                                 }   
                             }
                         }
