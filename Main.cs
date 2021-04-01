@@ -8697,6 +8697,46 @@ namespace Script
                             }
                         }
                         break;
+                    case 103:
+                        {
+                            //Chamber Key
+                            int x = setup.Attacker.X;
+                            int y = setup.Attacker.Y;
+                            MoveInDirection(setup.Attacker.Direction, 1, ref x, ref y);
+                            if (x >= 0 && x <= setup.AttackerMap.MaxX && y >= 0 && y <= setup.AttackerMap.MaxY)
+                            {
+                                Tile tile = setup.AttackerMap.Tile[x, y];
+                                if (tile.Type == Enums.TileType.ScriptedSign && tile.Data1 == 30)
+                                {
+                                    TakeItemSlotFromCharacter(setup.Attacker, invNum, 1);
+                                    string[] start = tile.String1.Split(':');
+                                    string[] end = tile.String2.Split(':');
+
+                                    ClearChamber(setup.AttackerMap, x + start[0].ToInt(), y + start[1].ToInt(), x + end[0].ToInt(), y + end[1].ToInt(), setup.PacketStack);
+                                }
+                            }
+                        }
+                        break;
+                    case 104:
+                        {
+                            //Chamber Key
+                            int x = setup.Attacker.X;
+                            int y = setup.Attacker.Y;
+                            MoveInDirection(setup.Attacker.Direction, 1, ref x, ref y);
+                            if (x >= 0 && x <= setup.AttackerMap.MaxX && y >= 0 && y <= setup.AttackerMap.MaxY)
+                            {
+                                Tile tile = setup.AttackerMap.Tile[x, y];
+                                if (tile.Type == Enums.TileType.ScriptedSign && tile.Data1 == 31)
+                                {
+                                    TakeItemSlotFromCharacter(setup.Attacker, invNum, 1);
+                                    string[] start = tile.String1.Split(':');
+                                    string[] end = tile.String2.Split(':');
+
+                                    ClearChamber(setup.AttackerMap, x + start[0].ToInt(), y + start[1].ToInt(), x + end[0].ToInt(), y + end[1].ToInt(), setup.PacketStack);
+                                }
+                            }
+                        }
+                        break;
 
                 }
                 //if (setup.Attacker.CharacterType == Enums.CharacterType.Recruit) {
