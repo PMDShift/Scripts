@@ -7599,88 +7599,60 @@ namespace Script
                             HealCharacterBelly(setup.Attacker, ItemManager.Items[itemNum].Data3, setup.PacketStack);
                         }
                         break;
+                   
                     case 41:
-                        {//Musical Items
+                        {//music item
                             if (setup.Attacker.CharacterType == Enums.CharacterType.Recruit)
                             {
                                 Client client = ((Recruit)setup.Attacker).Owner;
-                                for (int i = client.Player.X - 3; i <= client.Player.X + 3; i++)
-                                {
-                                    for (int j = client.Player.Y - 3; j <= client.Player.Y + 3; j++)
-                                    {
-                                        if (i < 0 || j < 0 || i > client.Player.Map.MaxX || j > client.Player.Map.MaxY)
-                                        {
 
-                                        }
-                                        else
-                                        {
-                                            setup.PacketStack.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSpellAnim(498, i, j));
-                                        }
-                                    }
-                                }
+                                setup.PacketStack.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSpellAnim(498, client.Player.X, client.Player.Y));
+                                
 
-                                string musicName = "";
+                              string musicName = "";
 
                                 switch (ItemManager.Items[itemNum].Data2)
                                 {
                                     case 1:
-                                        {
-                                            musicName = "PMD2) Northern Desert.ogg";
+                                        {//Time to part ways music box
+                                            musicName = "55Cz4RF4bAk";
                                         }
                                         break;
                                     case 2:
-                                        {
-                                            musicName = "PMD2) Dark Crater.ogg";
+                                        {// PMD Rescue Team- Farewell
+                                            musicName = "nnNmN9tLSD8";
                                         }
                                         break;
                                     case 3:
-                                        {
-                                            musicName = "PMD2) Sky Peak Snowfield.ogg";
+                                        {// PMD Explorers- A Fun Exploration
+                                            musicName = "PbOmFk2zK8U";
                                         }
                                         break;
                                     case 4:
-                                        {
-                                            musicName = "PMD2) Miracle Sea.ogg";
+                                        {// PMD Rescue Team- Friend Area Swamp
+                                            musicName = "YeCCrw9waUc";
                                         }
                                         break;
                                     case 5:
-                                        {
-                                            musicName = "PMD2) Concealed Ruins.ogg";
-                                        }
-                                        break;
-                                    case 6:
-                                        {
-                                            musicName = "PMD2) Sky Peak Forest.ogg";
-                                        }
-                                        break;
-                                    case 7:
-                                        {
-                                            musicName = "PMD) Sky Tower.ogg";
-                                        }
-                                        break;
-                                    case 8:
-                                        {
-                                            musicName = "PMD2) Star Cave.ogg";
-                                        }
-                                        break;
-                                    default:
-                                        {
-                                            musicName = "RBY) Lavender Town.ogg";
+                                        {// Wedding ring
+                                            musicName = "_Wz3mZeik4k";
                                         }
                                         break;
 
+
                                 }
                                 TargetCollection targets = MoveProcessor.GetTargetsInRange(Enums.MoveRange.Room, 3, client.Player.Map, null, client.Player.X, client.Player.Y, Enums.Direction.Up, true, true, true);
-                                for (int i = 0; i < targets.Count; i++)
-                                {
-                                    if (targets[i].CharacterType == Enums.CharacterType.Recruit)
-                                    {
-                                        Messenger.PlayMusic(((Recruit)targets[i]).Owner, musicName);
-                                    }
+                                        for (int i = 0; i < targets.Count; i++)
+                                        {
+                                            if (targets[i].CharacterType == Enums.CharacterType.Recruit)
+                                            {
+                                                Messenger.PlayMusic(((Recruit)targets[i]).Owner, musicName);
+                                            }
                                 }
                             }
+
+                            break;
                         }
-                        break;
                     case 42:
                         {
                             //traps
