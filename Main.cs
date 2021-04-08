@@ -7622,12 +7622,16 @@ namespace Script
                                 Client client = ((Recruit)setup.Attacker).Owner;
 
                                 setup.PacketStack.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSpellAnim(498, client.Player.X, client.Player.Y));
-                                
 
-                              string musicName = "";
+
+                                string musicName = "";
 
                                 switch (ItemManager.Items[itemNum].Data2)
                                 {
+                                    case 0:
+                                        {
+                                        }
+                                        break;
                                     case 1:
                                         {//Time to part ways music box
                                             musicName = "55Cz4RF4bAk";
@@ -7661,7 +7665,7 @@ namespace Script
                                         {
                                             if (targets[i].CharacterType == Enums.CharacterType.Recruit)
                                             {
-                                                Messenger.PlayMusic(((Recruit)targets[i]).Owner, musicName);
+                                        client.Player.Map.ChangeMusic(((Recruit)targets[i]).Owner, musicName);
                                             }
                                 }
                             }
