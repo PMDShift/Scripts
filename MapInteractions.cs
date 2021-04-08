@@ -4076,12 +4076,21 @@ namespace Script
                             hitlist.AddPacketToMap(map, PacketBuilder.CreateSoundPacket("magic161.wav"), x, y, 10);
                             hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg("The chamber was opened!", Text.WhiteSmoke), x, y, 10);
                         }
+
                     }
                     else if (map.Tile[x, y].RDungeonMapValue >= 1280 && map.Tile[x, y].RDungeonMapValue < 1536)
                     {
                         intArray[x, y] = 1025;
                         RDungeonFloorGen.AmbiguateTile(map.Tile[x, y]);
                         map.Tile[x, y].Type = Enums.TileType.Blocked;
+
+                        else if (map.Tile[x, y].RDungeonMapValue >= 1280 && map.Tile[x, y].RDungeonMapValue < 1536)
+                        {
+                            intArray[x, y] = 1025;
+                            RDungeonFloorGen.AmbiguateTile(map.Tile[x, y]);
+                            map.Tile[x, y].Type = Enums.TileType.Blocked;
+                        }
+
                     }
                 }
             }
