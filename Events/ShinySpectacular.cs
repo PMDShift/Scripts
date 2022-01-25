@@ -48,7 +48,7 @@ namespace Script.Events
 
         public override string[] Rules => new string[] 
         {
-            "You will get one point for every shint Pokemon defeated.",
+            "You will get one point for every shiny Pokemon defeated.",
             $"You need to collect a minimum of {ScoreThreshold} points to be eligible for a prize.",
             "Only regular wild Pokemon count, bosses will not give points."
         };
