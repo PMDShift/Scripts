@@ -3629,16 +3629,31 @@ namespace Script
                                         client.Player.SetItemSticky(i, false);
                                     }
                                 }
-                                Messenger.PlaySoundToMap(client.Player.MapID, "magic231.wav");
-                                //Messenger.PlayerMsg(client, "All sticky items have been cleansed!", Text.Cyan);
-                                Story story = new Story();
-                                StoryBuilderSegment segment = StoryBuilder.BuildStory();
-                                StoryBuilder.AppendSaySegment(segment, "All sticky items have been cleansed!", -1, 0, 0);
-                                segment.AppendToStory(story);
-                                StoryManager.PlayStory(client, story);
+
+                                for (int i = 1; i <= client.Player.Inventory.Count; i++)
+                                {
+                                    if (client.Player.Inventory[i].Num != 74 && client.Player.Inventory[i].Num != 75)
+                                    {
+                                        return;
+                                    }
+                                    else if (client.Player.Inventory[i].Tag.IsNumeric() && client.Player.Inventory[i].Tag.ToInt() > 0)
+                                    {
+                                        int grimyItem = client.Player.Inventory[i].Num;
+                                        client.Player.Inventory[i].Num = client.Player.Inventory[i].Tag.ToInt();
+                                        client.Player.Inventory[i].Tag = "";
+                                    }
+
+                                    Messenger.PlaySoundToMap(client.Player.MapID, "magic231.wav");
+                                    //Messenger.PlayerMsg(client, "All sticky items have been cleansed!", Text.Cyan);
+                                    Story story = new Story();
+                                    StoryBuilderSegment segment = StoryBuilder.BuildStory();
+                                    StoryBuilder.AppendSaySegment(segment, "All sticky and grimy items have been cleansed!", -1, 0, 0);
+                                    segment.AppendToStory(story);
+                                    StoryManager.PlayStory(client, story);
+                                }
                             }
+                            break;
                         }
-                        break;
                     case "TradeEgg":
                         {
                             if (answer == "Yes")
@@ -7607,12 +7622,16 @@ namespace Script
                                 Client client = ((Recruit)setup.Attacker).Owner;
 
                                 setup.PacketStack.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSpellAnim(498, client.Player.X, client.Player.Y));
-                                
 
-                              string musicName = "";
+
+                                string musicName = "";
 
                                 switch (ItemManager.Items[itemNum].Data2)
                                 {
+                                    case 0:
+                                        {
+                                        }
+                                        break;
                                     case 1:
                                         {//Time to part ways music box
                                             musicName = "55Cz4RF4bAk";
@@ -7646,7 +7665,7 @@ namespace Script
                                         {
                                             if (targets[i].CharacterType == Enums.CharacterType.Recruit)
                                             {
-                                                Messenger.PlayMusic(((Recruit)targets[i]).Owner, musicName);
+                                        client.Player.Map.ChangeMusic(((Recruit)targets[i]).Owner, musicName);
                                             }
                                 }
                             }
