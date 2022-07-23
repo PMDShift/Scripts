@@ -7661,12 +7661,12 @@ namespace Script
 
                                 }
                                 TargetCollection targets = MoveProcessor.GetTargetsInRange(Enums.MoveRange.Room, 3, client.Player.Map, null, client.Player.X, client.Player.Y, Enums.Direction.Up, true, true, true);
-                                        for (int i = 0; i < targets.Count; i++)
-                                        {
-                                            if (targets[i].CharacterType == Enums.CharacterType.Recruit)
-                                            {
-                                        client.Player.Map.ChangeMusic(((Recruit)targets[i]).Owner, musicName);
-                                            }
+                                for (int i = 0; i < targets.Count; i++)
+                                {
+                                    if (targets[i].CharacterType == Enums.CharacterType.Recruit)
+                                    {
+                                        // client.Player.Map.ChangeMusic(((Recruit)targets[i]).Owner, musicName);
+                                    }
                                 }
                             }
 
