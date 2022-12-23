@@ -132,6 +132,15 @@ namespace Script
 
                 switch (command[0])
                 {
+                    case "/setsprite":
+                        {
+                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
+                            {
+                                client.Player.GetActiveRecruit().Sprite = command[1].ToInt();
+                                client.Player.GetActiveRecruit().Shiny = (Enums.Coloration)command[2].ToInt();
+                            }
+                        }
+                        break;
                     case "/debug":
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Mapper))
