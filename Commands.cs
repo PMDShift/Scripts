@@ -138,6 +138,7 @@ namespace Script
                             {
                                 client.Player.GetActiveRecruit().Sprite = command[1].ToInt();
                                 client.Player.GetActiveRecruit().Shiny = (Enums.Coloration)command[2].ToInt();
+                                Messenger.SendPlayerData(client);
                             }
                         }
                         break;
