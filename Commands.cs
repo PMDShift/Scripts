@@ -3672,6 +3672,17 @@ namespace Script
                             }
                         }
                         break;
+                    case "/storystate":
+                        {
+                            var inputChapter = command[1].ToInt();
+                            var chapter = inputChapter - 1;
+
+                            var story = StoryManager.Stories[chapter];
+                            var chapterState = client.Player.GetStoryState(chapter);
+
+                            Messenger.PlayerMsg(client, $"Chapter #{chapter} ({story.Name}) is currently {(chapterState ? "locked" : "unlocked")}.", Text.Green);
+                        }
+                        break;
                     case "/setstorystate":
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Mapper))
