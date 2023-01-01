@@ -3680,7 +3680,7 @@ namespace Script
                             var story = StoryManager.Stories[chapter];
                             var chapterState = client.Player.GetStoryState(chapter);
 
-                            Messenger.PlayerMsg(client, $"Chapter #{chapter} ({story.Name}) is currently {(chapterState ? "locked" : "unlocked")}.", Text.Green);
+                            Messenger.PlayerMsg(client, $"Chapter #{inputChapter} ({story.Name}) is currently {(chapterState ? "locked" : "unlocked")}.", Text.Green);
                         }
                         break;
                     case "/setstorystate":
