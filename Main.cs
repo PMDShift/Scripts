@@ -10939,7 +10939,7 @@ namespace Script
                     if (!TimedEventManager.HasTimer("eventintro"))
                     {
                         TimedEventManager.CreateTimer("eventintro", eventDate, null);
-                        Task.Run(() => DiscordManager.Instance.SendAnnouncement($"The next event has been scheduled for {eventDate.ToLongDateString()} at {eventDate.ToShortTimeString()} UTC. It will be {ActiveEvent.Name}. A reminder will be sent on {reminderDate.DayOfWeek} at {reminderDate.ToShortTimeString()} UTC."));
+                        Task.Run(() => DiscordManager.Instance.SendAnnouncement($"The next event has been scheduled for {eventDate.ToDiscordFormat(DiscordTimeType.LongDateWithShortTime)}. It will be {ActiveEvent.Name}. A reminder will be sent on {reminderDate.ToDiscordFormat(DiscordTimeType.LongDateWithShortTime)}."));
                     
                         if (DateTime.UtcNow >= reminderDate)
                         {
@@ -10961,7 +10961,7 @@ namespace Script
                 var clearDate = Dates.GetNextWeekday(DayOfWeek.Sunday, 22, 0);
 
                 TimedEventManager.CreateTimer("clearleaderboard", clearDate, null);
-                Task.Run(() => DiscordManager.Instance.SendToChannel(ScriptConstants.GeneralChannelId, $"The leaderboard has been scheduled to be cleared on {clearDate.ToLongDateString()} at {clearDate.ToShortTimeString()} UTC."));
+                Task.Run(() => DiscordManager.Instance.SendToChannel(ScriptConstants.GeneralChannelId, $"The leaderboard has been scheduled to be cleared on {clearDate.ToDiscordFormat(DiscordTimeType.LongDateWithShortTime)}."));
             }
         }
 
