@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
 
   <!-- Server package references - should always be kept in sync -->
@@ -23,45 +23,6 @@
   <ItemGroup>
     <Reference Include="Server">
         <HintPath>ref\Server.dll</HintPath>
-    </Reference>
-    <Reference Include="Server.Emoticons">
-        <HintPath>ref\Server.Emoticons.dll</HintPath>
-    </Reference>
-    <Reference Include="Server.IO">
-        <HintPath>ref\Server.IO.dll</HintPath>
-    </Reference>
-    <Reference Include="Server.Missions">
-        <HintPath>ref\Server.Missions.dll</HintPath>
-    </Reference>
-    <Reference Include="Server.RDungeons">
-        <HintPath>ref\Server.RDungeons.dll</HintPath>
-    </Reference>
-    <Reference Include="Server.Scripting">
-        <HintPath>ref\Server.Scripting.dll</HintPath>
-    </Reference>
-    <Reference Include="Server.Security">
-        <HintPath>ref\Server.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Server.Core">
-        <HintPath>ref\Server.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="PMDCP.Sockets">
-        <HintPath>ref\PMDCP.Sockets.dll</HintPath>
-    </Reference>
-    <Reference Include="PMDCP.Net">
-        <HintPath>ref\PMDCP.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="PMDCP.DatabaseConnector">
-        <HintPath>ref\PMDCP.DatabaseConnector.dll</HintPath>
-    </Reference>
-    <Reference Include="PMDCP.Core">
-        <HintPath>ref\PMDCP.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="PMDCP.Compression">
-        <HintPath>ref\PMDCP.Compression.dll</HintPath>
-    </Reference>
-    <Reference Include="DataManager">
-        <HintPath>ref\DataManager.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

@@ -33,7 +33,7 @@ namespace Script
     using Server.Stories;
     using Server.Exp;
     using Server.Network;
-    using PMDCP.Sockets;
+    using Server.Sockets;
     using Server.Players.Parties;
     using Server.Logging;
     using Server.Missions;

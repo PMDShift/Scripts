@@ -36,7 +36,7 @@ namespace Script
     using Server.Stories;
     using Server.Exp;
     using Server.Network;
-    using PMDCP.Sockets;
+    using Server.Sockets;
     using Server.Players.Parties;
     using Server.Logging;
     using Server.Missions;
@@ -46,7 +46,6 @@ namespace Script
     using Server.Database;
     using Server.Events;
     using DataManager.Players;
-    using PMDCP.DatabaseConnector;
     using Server.SecretBases;
     using Server.Discord;
     using System.Threading.Tasks;

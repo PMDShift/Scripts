@@ -35,7 +35,7 @@ namespace Script
     using Server.Stories;
     using Server.Exp;
     using Server.Network;
-    using PMDCP.Sockets;
+    using Server.Sockets;
     using Server.Players.Parties;
     using Server.Logging;
     using Server.Missions;
@@ -64,7 +64,7 @@ namespace Script
 
         public static CTF ActiveCTF;
 
-        public static PMDCP.Core.ListPair<string, SnowballGame> ActiveSnowballGames = new PMDCP.Core.ListPair<string, SnowballGame>();
+        public static ListPair<string, SnowballGame> ActiveSnowballGames = new ListPair<string, SnowballGame>();
 
         public static int ExpBonus = 0;
 
@@ -82,9 +82,6 @@ namespace Script
 
         public static void ServerInit()
         {
-
-            DatabaseManager.InitOptionsDB();
-
             InitializeFlyPoints();
             InitializeAchievements();
             InitializeIncompleteRegionQuests();
@@ -3389,7 +3386,7 @@ namespace Script
                                 {
                                     using (DatabaseConnection dbConnection = new DatabaseConnection(DatabaseID.Players))
                                     {
-                                        List<PMDCP.DatabaseConnector.MySql.DataColumnCollection> rows = dbConnection.Database.RetrieveRows("SELECT D.Species FROM pmdcp_players.recruit_data D " +
+                                        var rows = dbConnection.Database.RetrieveRows("SELECT D.Species FROM pmdcp_players.recruit_data D " +
                                         "WHERE D.CharID = \'" + memberID + "\';");
                                         if (rows != null)
                                         {
