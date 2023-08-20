@@ -56,7 +56,7 @@ namespace Script
 
         public static DateTime GetEventDate()
         {
-            return Dates.GetNextWeekday(DayOfWeek.Sunday, 20, 0);
+            return Dates.GetNextWeekday(DayOfWeek.Saturday, 20, 0);
         }
 
         public static IEvent BuildEvent(string identifier)
@@ -371,7 +371,7 @@ namespace Script
 
                 var eventDate = GetEventDate();
 
-                eventMessage.AppendLine($"@everyone An event will be starting on {eventDate.DayOfWeek} at {eventDate.ToShortTimeString()} UTC! This event is {ActiveEvent.Name}.");
+                eventMessage.AppendLine($"@everyone An event will be starting on {eventDate.ToDiscordFormat(DiscordTimeType.LongDateWithShortTime)}! This event is {ActiveEvent.Name}.");
                 eventMessage.AppendLine();
                 eventMessage.AppendLine($"**Event rules**: {ActiveEvent.IntroductionMessage}");
                 foreach (var rule in ActiveEvent.Rules)

@@ -138,6 +138,7 @@ namespace Script
                             {
                                 client.Player.GetActiveRecruit().Sprite = command[1].ToInt();
                                 client.Player.GetActiveRecruit().Shiny = (Enums.Coloration)command[2].ToInt();
+                                Messenger.SendPlayerData(client);
                             }
                         }
                         break;
@@ -3669,6 +3670,17 @@ namespace Script
                                 client.Player.SetStoryState(command[1].ToInt() - 1, false);
                                 Messenger.PlayerMsg(client, "Chapter " + (command[1].ToInt()) + " has been unlocked!", Text.Yellow);
                             }
+                        }
+                        break;
+                    case "/storystate":
+                        {
+                            var inputChapter = command[1].ToInt();
+                            var chapter = inputChapter - 1;
+
+                            var story = StoryManager.Stories[chapter];
+                            var chapterState = client.Player.GetStoryState(chapter);
+
+                            Messenger.PlayerMsg(client, $"Chapter #{inputChapter} ({story.Name}) is currently {(chapterState ? "locked" : "unlocked")}.", Text.Green);
                         }
                         break;
                     case "/setstorystate":
