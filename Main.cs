@@ -3386,7 +3386,7 @@ namespace Script
                                 {
                                     using (DatabaseConnection dbConnection = new DatabaseConnection(DatabaseID.Players))
                                     {
-                                        List<PMDCP.DatabaseConnector.MySql.DataColumnCollection> rows = dbConnection.Database.RetrieveRows("SELECT D.Species FROM pmdcp_players.recruit_data D " +
+                                        var rows = dbConnection.Database.RetrieveRows("SELECT D.Species FROM pmdcp_players.recruit_data D " +
                                         "WHERE D.CharID = \'" + memberID + "\';");
                                         if (rows != null)
                                         {

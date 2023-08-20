@@ -26,8 +26,8 @@ using System.Xml;
 using Server;
 using Server.Network;
 using Server.Maps;
-using PMDCP.DatabaseConnector.MySql;
 using Server.Database;
+using Server.Database.MySql;
 using Server.Fly;
 
 namespace Script
