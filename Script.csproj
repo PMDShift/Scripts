@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
 
   <!-- Server package references - should always be kept in sync -->
@@ -23,12 +23,6 @@
   <ItemGroup>
     <Reference Include="Server">
         <HintPath>ref\Server.dll</HintPath>
-    </Reference>
-    <Reference Include="PMDCP.DatabaseConnector">
-        <HintPath>ref\PMDCP.DatabaseConnector.dll</HintPath>
-    </Reference>
-    <Reference Include="PMDCP.Core">
-        <HintPath>ref\PMDCP.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

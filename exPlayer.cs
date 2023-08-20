@@ -27,7 +27,6 @@ using Server;
 using Server.Network;
 using Server.Maps;
 using PMDCP.DatabaseConnector.MySql;
-using PMDCP.DatabaseConnector;
 using Server.Database;
 using Server.Fly;
 

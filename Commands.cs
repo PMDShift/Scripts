@@ -46,7 +46,6 @@ namespace Script
     using Server.Database;
     using Server.Events;
     using DataManager.Players;
-    using PMDCP.DatabaseConnector;
     using Server.SecretBases;
     using Server.Discord;
     using System.Threading.Tasks;
