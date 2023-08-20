@@ -35,7 +35,7 @@ namespace Script
     using Server.Stories;
     using Server.Exp;
     using Server.Network;
-    using PMDCP.Sockets;
+    using Server.Sockets;
     using Server.Players.Parties;
     using Server.Logging;
     using Server.Missions;
@@ -64,7 +64,7 @@ namespace Script
 
         public static CTF ActiveCTF;
 
-        public static PMDCP.Core.ListPair<string, SnowballGame> ActiveSnowballGames = new PMDCP.Core.ListPair<string, SnowballGame>();
+        public static ListPair<string, SnowballGame> ActiveSnowballGames = new ListPair<string, SnowballGame>();
 
         public static int ExpBonus = 0;
 
