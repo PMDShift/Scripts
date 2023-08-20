@@ -82,9 +82,6 @@ namespace Script
 
         public static void ServerInit()
         {
-
-            DatabaseManager.InitOptionsDB();
-
             InitializeFlyPoints();
             InitializeAchievements();
             InitializeIncompleteRegionQuests();
