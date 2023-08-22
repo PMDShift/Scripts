@@ -371,7 +371,7 @@ namespace Script
 
                 var eventDate = GetEventDate();
 
-                eventMessage.AppendLine($"@everyone An event will be starting on {eventDate.ToDiscordFormat(DiscordTimeType.LongDateWithShortTime)}! This event is {ActiveEvent.Name}.");
+                eventMessage.AppendLine($"An event will be starting on {eventDate.ToDiscordFormat(DiscordTimeType.LongDateWithShortTime)}! This event is {ActiveEvent.Name}.");
                 eventMessage.AppendLine();
                 eventMessage.AppendLine($"**Event rules**: {ActiveEvent.IntroductionMessage}");
                 foreach (var rule in ActiveEvent.Rules)
