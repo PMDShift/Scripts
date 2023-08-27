@@ -190,7 +190,7 @@ namespace Script
                             {
                                 task = command[2].ToInt();
                             }
-                            client.Player.TestQuest(command[1].ToInt() - 1, task - 1);
+                            client.Player.TestQuest(command[1].ToInt(), task);
                         }
                         break;
                     case "/myoutlawpoints":
