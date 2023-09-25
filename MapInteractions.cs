@@ -1250,6 +1250,8 @@ namespace Script
                             {
                                 hitlist.AddPacketToMap(MapManager.RetrieveActiveMap(targets[i].MapID), PacketBuilder.CreateBattleMsg(targets[i].Name + " tripped!", Text.BrightRed), x, y, 10);
                                 InvDrop(targets[i], map, hitlist);
+
+                                targets[i].Trip();
                             }
                         }
                         break;
