@@ -4858,7 +4858,7 @@ namespace Script
                                 Messenger.PlayerMsg(client, "You are muted!", Text.BrightRed);
                                 return;
                             }
-                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Magic675.wav"), client.Player.X, client.Player.Y, 10);
+                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Emote_Sweat"), client.Player.X, client.Player.Y, 10);
                             PacketBuilder.AppendEmote(client, 9, 1, 2, hitlist);
                         }
                         break;
@@ -4869,7 +4869,7 @@ namespace Script
                                 Messenger.PlayerMsg(client, "You are muted!", Text.BrightRed);
                                 return;
                             }
-                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Magic664.wav"), client.Player.X, client.Player.Y, 10);
+                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Emote_Sweatdrop"), client.Player.X, client.Player.Y, 10);
                             PacketBuilder.AppendEmote(client, 6, 2, 1, hitlist);
                         }
                         break;
@@ -4880,7 +4880,7 @@ namespace Script
                                 Messenger.PlayerMsg(client, "You are muted!", Text.BrightRed);
                                 return;
                             }
-                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Magic678.wav"), client.Player.X, client.Player.Y, 10);
+                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Emote_Laugh.wav"), client.Player.X, client.Player.Y, 10);
                             PacketBuilder.AppendEmote(client, 5, 2, 1, hitlist);
                         }
                         break;
@@ -4891,7 +4891,8 @@ namespace Script
                                 Messenger.PlayerMsg(client, "You are muted!", Text.BrightRed);
                                 return;
                             }
-                            PacketBuilder.AppendEmote(client, 7, 2, 1, hitlist);
+                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Emote_Applause"), client.Player.X, client.Player.Y, 10);
+                            PacketBuilder.AppendEmote(client, 7, 2, 3, hitlist);
                         }
                         break;
                     case "/))":
@@ -4901,7 +4902,7 @@ namespace Script
                                 Messenger.PlayerMsg(client, "You are muted!", Text.BrightRed);
                                 return;
                             }
-                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Magic721.wav"), client.Player.X, client.Player.Y, 10);
+                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Emote_Chatter"), client.Player.X, client.Player.Y, 10);
                             PacketBuilder.AppendEmote(client, 7, 2, 7, hitlist);
                         }
                         break;
@@ -4912,7 +4913,7 @@ namespace Script
                                 Messenger.PlayerMsg(client, "You are muted!", Text.BrightRed);
                                 return;
                             }
-                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Magic657.wav"), client.Player.X, client.Player.Y, 10);
+                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Emote_Cheer"), client.Player.X, client.Player.Y, 10);
                             PacketBuilder.AppendEmote(client, 7, 2, 8, hitlist);
                         }
                         break;
@@ -4923,7 +4924,7 @@ namespace Script
                                 Messenger.PlayerMsg(client, "You are muted!", Text.BrightRed);
                                 return;
                             }
-                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Magic700.wav"), client.Player.X, client.Player.Y, 10);
+                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Emote_Pause"), client.Player.X, client.Player.Y, 10);
                             PacketBuilder.AppendEmote(client, 12, 2, 1, hitlist);
                         }
                         break;
@@ -4934,7 +4935,7 @@ namespace Script
                                 Messenger.PlayerMsg(client, "You are muted!", Text.BrightRed);
                                 return;
                             }
-                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Magic700.wav"), client.Player.X, client.Player.Y, 10);
+                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Emote_Pause"), client.Player.X, client.Player.Y, 10);
                             PacketBuilder.AppendEmote(client, 12, 2, 2, hitlist);
                         }
                         break;
@@ -4945,7 +4946,7 @@ namespace Script
                                 Messenger.PlayerMsg(client, "You are muted!", Text.BrightRed);
                                 return;
                             }
-                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Magic700.wav"), client.Player.X, client.Player.Y, 10);
+                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Emote_Pause"), client.Player.X, client.Player.Y, 10);
                             PacketBuilder.AppendEmote(client, 12, 2, 3, hitlist);
                         }
                         break;
@@ -4956,7 +4957,7 @@ namespace Script
                                 Messenger.PlayerMsg(client, "You are muted!", Text.BrightRed);
                                 return;
                             }
-                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Magic667.wav"), client.Player.X, client.Player.Y, 10);
+                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Emote_Surprise"), client.Player.X, client.Player.Y, 10);
                             PacketBuilder.AppendEmote(client, 13, 2, 1, hitlist);
                         }
                         break;
@@ -4967,8 +4968,19 @@ namespace Script
                                 Messenger.PlayerMsg(client, "You are muted!", Text.BrightRed);
                                 return;
                             }
-                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Magic665.wav"), client.Player.X, client.Player.Y, 10);
+                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Emote_Question"), client.Player.X, client.Player.Y, 10);
                             PacketBuilder.AppendEmote(client, 8, 2, 1, hitlist);
+                        }
+                        break;
+                    case "/??":
+                        {
+                            if (client.Player.Muted)
+                            {
+                                Messenger.PlayerMsg(client, "You are muted!", Text.BrightRed);
+                                return;
+                            }
+                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Emote_Confused"), client.Player.X, client.Player.Y, 10);
+                            PacketBuilder.AppendEmote(client, 8, 2, 2, hitlist);
                         }
                         break;
                     case "/!?":
@@ -4978,7 +4990,7 @@ namespace Script
                                 Messenger.PlayerMsg(client, "You are muted!", Text.BrightRed);
                                 return;
                             }
-                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Magic671.wav"), client.Player.X, client.Player.Y, 10);
+                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Emote_Shock"), client.Player.X, client.Player.Y, 10);
                             PacketBuilder.AppendEmote(client, 11, 2, 1, hitlist);
                         }
                         break;
@@ -4989,7 +5001,7 @@ namespace Script
                                 Messenger.PlayerMsg(client, "You are muted!", Text.BrightRed);
                                 return;
                             }
-                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Magic674.wav"), client.Player.X, client.Player.Y, 10);
+                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Emote_Anger"), client.Player.X, client.Player.Y, 10);
                             PacketBuilder.AppendEmote(client, 10, 2, 1, hitlist);
                         }
                         break;
@@ -5000,7 +5012,7 @@ namespace Script
                                 Messenger.PlayerMsg(client, "You are muted!", Text.BrightRed);
                                 return;
                             }
-                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Magic674.wav"), client.Player.X, client.Player.Y, 10);
+                            hitlist.AddPacketToMap(client.Player.Map, PacketBuilder.CreateSoundPacket("Emote_Anger"), client.Player.X, client.Player.Y, 10);
                             PacketBuilder.AppendEmote(client, 97, 2, 2, hitlist);
                         }
                         break;
