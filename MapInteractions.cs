@@ -1507,6 +1507,33 @@ namespace Script
                             }
                         }
                         break;
+                    case 87: { // PP Drop
+                        hitlist.AddPacketToMap(map, PacketBuilder.CreateSoundPacket("magic179.wav"), x, y, 10);
+                        hitlist.AddPacketToMap(map, PacketBuilder.CreateSpellAnim(493, x, y));
+                        targets = MoveProcessor.GetTargetsInRange(Enums.MoveRange.Room, 0, map, null, x, y, Enums.Direction.Up, true, true, false);
+                        for (int i = 0; i < targets.Count; i++) {
+                            int moveSlot = Server.Math.Rand(0, 4);
+
+                            var target = targets[i];
+                            var move = target.Moves[moveSlot];
+                            
+                            if (move.MoveNum > -1 && move.CurrentPP > 0) {
+                                var dropAmount = 5;
+                                if (Server.Math.Toss()) {
+                                    dropAmount = 10;
+                                }
+
+                                move.CurrentPP = System.Math.Max(0, move.CurrentPP - dropAmount);
+                                hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg($"{target.Name}'s move {MoveManager.Moves[move.MoveNum].Name} lost {dropAmount} PP!", Text.BrightRed), x, y, 10);
+                                if (targets[i].CharacterType == Enums.CharacterType.Recruit) {
+                                    PacketBuilder.AppendMovePPUpdate(((Recruit)target).Owner, hitlist, moveSlot);
+                                }
+                            } else {
+                                hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg($"Nothing particularly bad happened to {target.Name}...", Text.Blue), x, y, 10);
+                            }
+                        }
+                    }
+                        break;
                 }
             }
             PacketHitList.MethodEnded(ref hitlist);

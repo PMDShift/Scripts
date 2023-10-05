@@ -1480,6 +1480,15 @@ namespace Script
                             }
                         }
                         break;
+                    case 87: {
+                        // PP Drop trap
+                        if (WillTrapActivate(character, map, character.X, character.Y)) {
+                            RevealTrap(map, character.X, character.Y, hitlist);
+                            hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " stepped on a PP Drop Trap!", Text.BrightRed), character.X, character.Y, 10);
+                            ActivateTrap(map, character.X, character.Y, script, hitlist);
+                        }
+                    }
+                        break;
                 }
                 PacketHitList.MethodEnded(ref hitlist);
             }
@@ -1666,6 +1675,10 @@ namespace Script
                     return scriptNum + ": Warp To Spawn";
                 case 85:
                     return scriptNum + ": Boss Rush Room Complete";
+                case 86:
+                    return $"{scriptNum}: Starter move generator";
+                case 87:
+                    return $"{scriptNum}: PP Drop Trap";
                 default:
                     return scriptNum.ToString() + ": Unknown";
             }
