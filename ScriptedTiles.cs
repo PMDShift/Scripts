@@ -1417,6 +1417,7 @@ namespace Script
                                 RevealTrap(map, character.X, character.Y, hitlist);
                                 hitlist.AddPacketToMap(map, PacketBuilder.CreateBattleMsg(character.Name + " stepped on a Whirlpool Trap!", Text.BrightRed), character.X, character.Y, 10);
                                 ActivateTrap(map, character.X, character.Y, script, hitlist);
+                                RemoveTrap(map, character.X, character.Y, hitlist);
                             }
                         }   
                         break;

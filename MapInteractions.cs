@@ -1758,6 +1758,14 @@ namespace Script
                         hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
                     }
                     break;
+                case 87:
+                    {//pp drop
+                        map.Tile[x, y].Mask2 = 9;
+                        map.Tile[x, y].Mask2Set = 7;
+                        map.TempChange = true;
+                        hitlist.AddPacketToMap(map, PacketBuilder.CreateTilePacket(x, y, map));
+                    }
+                    break;
             }
 
             PacketHitList.MethodEnded(ref hitlist);
@@ -1839,6 +1847,8 @@ namespace Script
                     return "Shocker";
                 case 81:
                     return "Whirlpool";
+                case 87:
+                    return "PP Drop";
                 default:
                     return null;
             }
