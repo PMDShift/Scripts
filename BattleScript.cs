@@ -9246,6 +9246,8 @@ namespace Script
 
                 // NOTE: After this point, the player is warped to the spawn map
 
+                client.Player.Map.TriggerMapStories(MapStoryTrigger.PlayerPreGameOver, client);
+
                 if (client.Player.MapID != MapManager.GenerateMapID(660))
                 {
                     if (exPlayer.Get(client) != null && exPlayer.Get(client).VerifySpawnPoint() == true)
