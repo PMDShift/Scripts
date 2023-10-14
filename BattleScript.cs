@@ -9273,6 +9273,8 @@ namespace Script
                 PacketBuilder.AppendDead(client, hitlist);
                 PacketBuilder.AppendPlayerData(client, hitlist);
                 PacketHitList.MethodEnded(ref hitlist);
+
+                client.Player.Map.TriggerMapStories(MapStoryTrigger.PlayerGameOver, client);
             }
             catch (Exception ex)
             {
