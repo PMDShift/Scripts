@@ -38,7 +38,8 @@ namespace Script
             FlightManager.AddFlightPoint(new FlightPoint() { ID = 8, Name = "Debug", MapNumber = 1, Description = "Test unreleased content here." });
             FlightManager.AddFlightPoint(new FlightPoint() { ID = 9, Name = "Isle of Life", MapNumber = 477, Description = "A sacred island known to hold mythical powers." });
             FlightManager.AddFlightPoint(new FlightPoint() { ID = 10, Name = "Somoria", MapNumber = 1189, Description = "A home for nocturnal pokemon." });
+            FlightManager.AddFlightPoint(new FlightPoint() { ID = 11, Name = "Submersia", MapNumber = 522, Description = "An aquatic city deep beneath the ocean waves." });
+            FlightManager.AddFlightPoint(new FlightPoint() { ID = 12, Name = "Dryspring", MapNumber = 1459, Description = "A little dry town, home to many." });
         }
     }
 }
-
