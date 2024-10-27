@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+using Server.AI;
+
 namespace Script
 {
     using System;
@@ -2604,34 +2606,6 @@ namespace Script
             }
         }
 
-        public static void SetupSecretBase(Client client, int x, int y) 
-        {
-            var baseOptions = new List<string>();
-            if (!SecretBaseManager.HasSecretBase(client)) 
-            {
-                baseOptions.Add("Personal");
-            }
-            if (client.Player.GuildId > 0 && !SecretBaseManager.HasGuildSecretBase(client.Player.GuildId) && client.Player.GuildAccess >= Enums.GuildRank.Founder) 
-            {
-                baseOptions.Add("Guild");
-            }
-
-            if (baseOptions.Count == 0)
-            {
-                Story story = new Story();
-                StoryBuilderSegment segment = StoryBuilder.BuildStory();
-                StoryBuilder.AppendSaySegment(segment, "You can't create any secret bases!", -1, 0, 0);
-                segment.AppendToStory(story);
-                StoryManager.PlayStory(client, story);
-            }
-            else 
-            {
-                baseOptions.Add("No");
-
-                Messenger.AskQuestion(client, $"CreateSecretBase:{x}:{y}", "You see a small opening... would you like to create a secret base here?", -1, baseOptions.ToArray());
-            }
-        }
-
         public static RDungeonChamberReq GetChamberReq(int chamberNum, string string1, string string2, string string3)
         {
             RDungeonChamberReq req = new RDungeonChamberReq();
@@ -3464,7 +3438,7 @@ namespace Script
                 }
                 for (int currY = playerY; currY >= activeNpc.Y; currY--)
                 {
-                    if (IsBlocked(map, playerX, currY))
+                    if (MovementProcessor.IsBlocked(map, playerX, currY))
                     {
                         return false;
                     }
@@ -3478,7 +3452,7 @@ namespace Script
                 }
                 for (int currY = playerY; currY <= activeNpc.Y; currY++)
                 {
-                    if (IsBlocked(map, playerX, currY))
+                    if (MovementProcessor.IsBlocked(map, playerX, currY))
                     {
                         return false;
                     }
@@ -3492,7 +3466,7 @@ namespace Script
                 }
                 for (int currX = playerX; currX >= activeNpc.X; currX--)
                 {
-                    if (IsBlocked(map, currX, playerY))
+                    if (MovementProcessor.IsBlocked(map, currX, playerY))
                     {
                         return false;
                     }
@@ -3506,95 +3480,13 @@ namespace Script
                 }
                 for (int currX = playerX; currX <= activeNpc.X; currX++)
                 {
-                    if (IsBlocked(map, currX, playerY))
+                    if (MovementProcessor.IsBlocked(map, currX, playerY))
                     {
                         return false;
                     }
                 }
             }
             return true;
-        }
-
-        public static void FindNearestBlock(IMap map, Enums.Direction dir, ref int x, ref int y)
-        {
-            // NOTE: actually returns space before the nearest block
-            int checkedX = x;
-            int checkedY = y;
-            for (int i = 0; i < 100; i++)
-            {
-                MoveInDirection(dir, 1, ref checkedX, ref checkedY);
-                if (checkedX >= 0 && checkedX <= map.MaxX && checkedY >= 0 && checkedY <= map.MaxY && !IsBlocked(map, checkedX, checkedY))
-                {
-                    MoveInDirection(dir, 1, ref x, ref y);
-                    //break;
-                }
-                else
-                {
-                    //MoveInDirection(dir, 1, ref x, ref y);
-                    //MoveInDirection((Enums.Direction)(((int)dir + 1) % 2 + (int)dir / 2 * 2), 1, ref x, ref y);
-                    break;
-                }
-            }
-        }
-
-        public static bool IsBlocked(IMap map, int x, int y)
-        {
-            Enums.TileType attrib = map.Tile[x, y].Type;
-            switch (attrib)
-            {
-                case Enums.TileType.Blocked:
-                    return true;
-                case Enums.TileType.Warp:
-                    return true;
-                case Enums.TileType.Key:
-                    return true;
-                case Enums.TileType.Door:
-                    return true;
-                case Enums.TileType.Sign:
-                    return true;
-                case Enums.TileType.LevelBlock:
-                    return true;
-                case Enums.TileType.SpriteBlock:
-                    return true;
-                case Enums.TileType.MobileBlock:
-                    return true;
-                case Enums.TileType.Story:
-                    return true;
-                case Enums.TileType.ScriptedSign:
-                    return true;
-                case Enums.TileType.Scripted:
-                    return IsScriptedTileBlocked(map, x, y);
-                default:
-                    return false;
-            }
-        }
-
-        public static void MoveInDirection(Enums.Direction dir, int steps, ref int x, ref int y)
-        {
-            switch (dir)
-            {
-                case Enums.Direction.Up:
-                    {
-                        y -= steps;
-                    }
-                    break;
-                case Enums.Direction.Down:
-                    {
-                        y += steps;
-                    }
-                    break;
-                case Enums.Direction.Left:
-                    {
-                        x -= steps;
-                    }
-                    break;
-                case Enums.Direction.Right:
-                    {
-                        x += steps;
-                    }
-                    break;
-
-            }
         }
 
         #endregion Path Methods
@@ -3838,8 +3730,7 @@ namespace Script
             int blockX = character.X;
             int blockY = character.Y;
 
-
-            FindNearestBlock(map, dir, ref blockX, ref blockY);
+            MovementProcessor.FindNearestBlock(map, dir, ref blockX, ref blockY);
 
             int candX = blockX;
             int candY = blockY;
@@ -3852,11 +3743,9 @@ namespace Script
                 candY = checkedTargets[0].Y;
                 if (candX != character.X || candY != character.Y)
                 {
-                    MoveInDirection((Enums.Direction)(((int)dir + 1) % 2 + (int)dir / 2 * 2), 1, ref candX, ref candY);
+                    MovementProcessor.MoveInDirection((Enums.Direction)(((int)dir + 1) % 2 + (int)dir / 2 * 2), 1, ref candX, ref candY);
                 }
             }
-
-
 
             if ((candX - character.X) * (candX - character.X) + (candY - character.Y) * (candY - character.Y) <
                 (blockX - character.X) * (blockX - character.X) + (blockY - character.Y) * (blockY - character.Y))
@@ -3884,7 +3773,7 @@ namespace Script
         {
             int blockX = character.X;
             int blockY = character.Y;
-            FindNearestBlock(map, dir, ref blockX, ref blockY);
+            MovementProcessor.FindNearestBlock(map, dir, ref blockX, ref blockY);
 
             character.Y = blockY;
             character.X = blockX;
@@ -4149,7 +4038,6 @@ namespace Script
 
         public static bool IsScriptedTileBlocked(IMap map, int x, int y)
         {
-            //Messenger.AdminMsg(map.Name + " X" + x + "Y" + y + " S" + map.Tile[x, y].Data1, Text.Yellow);
             switch (map.Tile[x, y].Data1)
             {
                 case 24:
