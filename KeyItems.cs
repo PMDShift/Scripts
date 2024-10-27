@@ -61,6 +61,20 @@ namespace Script
                         Messenger.SendAvailableFlyPoints(client);
                     }
                     break;
+                case 1844: { // Plaza Pass
+                    IMap map = client.Player.Map;
+                    if (map.MapType == Enums.MapType.Standard) {
+                        exPlayer.Get(client).PlazaEntranceMap = client.Player.MapID;
+                        exPlayer.Get(client).PlazaEntranceX = client.Player.X;
+                        exPlayer.Get(client).PlazaEntranceY = client.Player.Y;
+
+                        Messenger.PlayerWarp(client, 1239, 25, 50);
+                        Messenger.PlayerMsg(client, "Welcome to the plaza!", Text.BrightGreen);
+                    } else {
+                        Messenger.PlayerMsg(client, "You cannot enter the plaza from here!", Text.BrightRed);
+                    }
+                    break;
+                }
             }
         }
     }
