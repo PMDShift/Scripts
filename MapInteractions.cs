@@ -2604,34 +2604,6 @@ namespace Script
             }
         }
 
-        public static void SetupSecretBase(Client client, int x, int y) 
-        {
-            var baseOptions = new List<string>();
-            if (!SecretBaseManager.HasSecretBase(client)) 
-            {
-                baseOptions.Add("Personal");
-            }
-            if (client.Player.GuildId > 0 && !SecretBaseManager.HasGuildSecretBase(client.Player.GuildId) && client.Player.GuildAccess >= Enums.GuildRank.Founder) 
-            {
-                baseOptions.Add("Guild");
-            }
-
-            if (baseOptions.Count == 0)
-            {
-                Story story = new Story();
-                StoryBuilderSegment segment = StoryBuilder.BuildStory();
-                StoryBuilder.AppendSaySegment(segment, "You can't create any secret bases!", -1, 0, 0);
-                segment.AppendToStory(story);
-                StoryManager.PlayStory(client, story);
-            }
-            else 
-            {
-                baseOptions.Add("No");
-
-                Messenger.AskQuestion(client, $"CreateSecretBase:{x}:{y}", "You see a small opening... would you like to create a secret base here?", -1, baseOptions.ToArray());
-            }
-        }
-
         public static RDungeonChamberReq GetChamberReq(int chamberNum, string string1, string string2, string string3)
         {
             RDungeonChamberReq req = new RDungeonChamberReq();
