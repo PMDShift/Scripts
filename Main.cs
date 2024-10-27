@@ -23,6 +23,7 @@ namespace Script
     using System.Linq;
 
     using Server;
+    using Server.AI;
     using Server.Maps;
     using Server.Players;
     using Server.RDungeons;
@@ -6637,7 +6638,7 @@ namespace Script
                             //Chamber Key
                             int x = setup.Attacker.X;
                             int y = setup.Attacker.Y;
-                            MoveInDirection(setup.Attacker.Direction, 1, ref x, ref y);
+                            MovementProcessor.MoveInDirection(setup.Attacker.Direction, 1, ref x, ref y);
                             if (x >= 0 && x <= setup.AttackerMap.MaxX && y >= 0 && y <= setup.AttackerMap.MaxY)
                             {
                                 Tile tile = setup.AttackerMap.Tile[x, y];
@@ -7129,7 +7130,7 @@ namespace Script
                                 {
                                     int blockX = 0;
                                     int blockY = 0;
-                                    FindNearestBlock(setup.AttackerMap, client.Player.Direction, ref blockX, ref blockY);
+                                    MovementProcessor.FindNearestBlock(setup.AttackerMap, client.Player.Direction, ref blockX, ref blockY);
                                     Messenger.PlayerWarp(client, map, blockX, blockY);
                                 }
                                 Messenger.PlaySoundToMap(setup.AttackerMap.MapID, "magic50.wav");
@@ -7149,7 +7150,7 @@ namespace Script
                                     Messenger.MapMsg(map.MapID, "An enemy was blown back!", Text.BrightCyan);
                                     int x = 0;
                                     int y = 0;
-                                    FindNearestBlock(setup.AttackerMap, client.Player.Direction, ref x, ref y);
+                                    MovementProcessor.FindNearestBlock(setup.AttackerMap, client.Player.Direction, ref x, ref y);
                                     MapNpc activeNpc = map.ActiveNpc[npc];
                                     activeNpc.X = x;
                                     activeNpc.Y = y;
@@ -8690,7 +8691,7 @@ namespace Script
                             //Chamber Key
                             int x = setup.Attacker.X;
                             int y = setup.Attacker.Y;
-                            MoveInDirection(setup.Attacker.Direction, 1, ref x, ref y);
+                            MovementProcessor.MoveInDirection(setup.Attacker.Direction, 1, ref x, ref y);
                             if (x >= 0 && x <= setup.AttackerMap.MaxX && y >= 0 && y <= setup.AttackerMap.MaxY)
                             {
                                 Tile tile = setup.AttackerMap.Tile[x, y];
@@ -8710,7 +8711,7 @@ namespace Script
                             //Chamber Key
                             int x = setup.Attacker.X;
                             int y = setup.Attacker.Y;
-                            MoveInDirection(setup.Attacker.Direction, 1, ref x, ref y);
+                            MovementProcessor.MoveInDirection(setup.Attacker.Direction, 1, ref x, ref y);
                             if (x >= 0 && x <= setup.AttackerMap.MaxX && y >= 0 && y <= setup.AttackerMap.MaxY)
                             {
                                 Tile tile = setup.AttackerMap.Tile[x, y];

@@ -42,6 +42,7 @@ namespace Script
     using Server.Tournaments;
     using Server.Database;
     using Server.Events;
+    using Server.AI;
 
     public partial class Main
     {
@@ -215,7 +216,7 @@ namespace Script
                 {
                     int x = setup.Attacker.X;
                     int y = setup.Attacker.Y;
-                    MoveInDirection(setup.Attacker.Direction, 1, ref x, ref y);
+                    MovementProcessor.MoveInDirection(setup.Attacker.Direction, 1, ref x, ref y);
                     if (x >= 0 && x <= setup.AttackerMap.MaxX && y >= 0 && y <= setup.AttackerMap.MaxY)
                     {
                         Tile tile = ((Recruit)setup.Attacker).Owner.Player.Map.Tile[x, y];
@@ -272,7 +273,7 @@ namespace Script
                 {
                     int x = setup.Attacker.X;
                     int y = setup.Attacker.Y;
-                    MoveInDirection(setup.Attacker.Direction, 1, ref x, ref y);
+                    MovementProcessor.MoveInDirection(setup.Attacker.Direction, 1, ref x, ref y);
                     if (x >= 0 && x <= setup.AttackerMap.MaxX && y >= 0 && y <= setup.AttackerMap.MaxY)
                     {
                         Tile tile = ((Recruit)setup.Attacker).Owner.Player.Map.Tile[x, y];
@@ -6564,7 +6565,7 @@ namespace Script
                         {//u-turn
                             int blockX = setup.Attacker.X;
                             int blockY = setup.Attacker.Y;
-                            FindNearestBlock(setup.AttackerMap, (Enums.Direction)(((int)setup.Attacker.Direction + 1) % 2 + (int)setup.Attacker.Direction / 2 * 2), ref blockX, ref blockY);
+                            MovementProcessor.FindNearestBlock(setup.AttackerMap, (Enums.Direction)(((int)setup.Attacker.Direction + 1) % 2 + (int)setup.Attacker.Direction / 2 * 2), ref blockX, ref blockY);
 
                             setup.Attacker.Y = blockY;
                             setup.Attacker.X = blockX;
@@ -6911,7 +6912,7 @@ namespace Script
                         {//camouflage
                             int x = setup.Attacker.X;
                             int y = setup.Attacker.Y;
-                            MoveInDirection(setup.Attacker.Direction, 1, ref x, ref y);
+                            MovementProcessor.MoveInDirection(setup.Attacker.Direction, 1, ref x, ref y);
                             if (x >= 0 && x <= setup.AttackerMap.MaxX && y >= 0 && y <= setup.AttackerMap.MaxY)
                             {
                                 Tile tile = setup.AttackerMap.Tile[x, y];
@@ -8200,7 +8201,7 @@ namespace Script
                         //if (((Recruit)setup.Attacker).Owner.Player.WaitingBattleMsg.FindIn
                         int x = setup.Attacker.X;
                         int y = setup.Attacker.Y;
-                        MoveInDirection(setup.Attacker.Direction, 1, ref x, ref y);
+                        MovementProcessor.MoveInDirection(setup.Attacker.Direction, 1, ref x, ref y);
                         if (x >= 0 && x <= setup.AttackerMap.MaxX && y >= 0 && y <= setup.AttackerMap.MaxY)
                         {
                             Tile tile = setup.AttackerMap.Tile[x, y];
