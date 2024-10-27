@@ -2482,10 +2482,9 @@ namespace Script
                                 Server.Logging.ChatLogger.AppendToChatLog("Guild Chat/" + client.Player.GuildName, client.Player.Name + ": " + joinedArgs);
                                 foreach (Client i in ClientManager.GetClients())
                                 {
-                                    if (i.IsPlaying() && (Ranks.IsAllowed(i, Enums.Rank.Scripter) || i.Player.GuildName == client.Player.GuildName))
+                                    if (i.IsPlaying() && i.Player.GuildName == client.Player.GuildName)
                                     {
                                         Messenger.PlayerMsg(i, client.Player.Name + " [" + client.Player.GuildName + "]: " + joinedArgs, System.Drawing.Color.MediumSpringGreen);
-
                                     }
                                 }
 
