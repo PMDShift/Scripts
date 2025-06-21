@@ -906,34 +906,6 @@ namespace Script
                             }
                         }
                         break;
-                    case "/plaza":
-                        {
-                            //if (Ranks.IsAllowed(client, Server.Enums.Rank.Monitor)) {
-                            IMap map = client.Player.Map;
-                            if (map.MapType == Enums.MapType.Standard)
-                            {
-                                exPlayer.Get(client).PlazaEntranceMap = client.Player.MapID;
-                                exPlayer.Get(client).PlazaEntranceX = client.Player.X;
-                                exPlayer.Get(client).PlazaEntranceY = client.Player.Y;
-
-                                Messenger.PlayerWarp(client, 1239, 25, 50);
-                                Messenger.PlayerMsg(client, "Welcome to the plaza!", Text.BrightGreen);
-                            }
-                            else
-                            {
-                                Messenger.PlayerMsg(client, "You cannot enter the plaza from here!", Text.BrightRed);
-                            }
-                        }
-                        break;
-                    //case "/leaveplaza": {
-                    //        IMap map = client.Player.Map;
-                    //        if (map.Name == "Delite Plaza") {
-                    //            if (!string.IsNullOrEmpty(exPlayer.Get(client).PlazaEntranceMap)) {
-                    //                Messenger.PlayerWarp(client, exPlayer.Get(client).PlazaEntranceMap, exPlayer.Get(client).PlazaEntranceX, exPlayer.Get(client).PlazaEntranceY);
-                    //            }
-                    //        }
-                    //    }
-                    //    break;
                     case "/endgame":
                         {
                             if (exPlayer.Get(client).SnowballGameInstance.GameLeader == client)
@@ -986,106 +958,6 @@ namespace Script
                             }
                         }
                         break;
-                    case "/packetcaching":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                Server.Globals.PacketCaching = !Server.Globals.PacketCaching;
-                                Messenger.PlayerMsg(client, "Packet caching is: " + (Server.Globals.PacketCaching ? "on!" : "off!"), Text.BrightGreen);
-                            }
-                        }
-                        break;
-                    case "/foolsstory":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                foreach (Client i in ClientManager.GetClients())
-                                {
-                                    //if (i != client) {
-                                    StoryManager.PlayStory(i, 369 - 1);
-                                    //}
-                                }
-                            }
-                        }
-                        break;
-                    case "/foolsmode":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                Server.Globals.FoolsMode = !Server.Globals.FoolsMode;
-                                Messenger.SendDataToAll(TcpPacket.CreatePacket("foolsmode", Server.Globals.FoolsMode.ToIntString()));
-                                Messenger.PlayerMsg(client, "April fool's mode is: " + (Server.Globals.FoolsMode ? "on!" : "off!"), Text.BrightGreen);
-                            }
-                        }
-                        break;
-                    case "/lokmovementall":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                Messenger.AdminMsg("[Staff] Movement locked...", Text.BrightBlue);
-                                foreach (Client i in ClientManager.GetClients())
-                                {
-                                    if (i.IsPlaying() && Ranks.IsDisallowed(i, Enums.Rank.Monitor))
-                                    {
-                                        i.Player.MovementLocked = true;
-
-                                        Messenger.PlayerMsg(i, "Movement has been locked, temporarily", Text.BrightGreen);
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case "/unlokmovementall":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                Messenger.AdminMsg("[Staff] Movement unlocked...", Text.BrightBlue);
-                                foreach (Client i in ClientManager.GetClients())
-                                {
-                                    if (i.IsPlaying())
-                                    {
-                                        i.Player.MovementLocked = false;
-
-                                        Messenger.PlayerMsg(i, "Movement has been unlocked [Debugging]", Text.BrightGreen);
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case "/lokmovementmap":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                Messenger.AdminMsg("[Staff] Movement locked...", Text.BrightBlue);
-                                foreach (Client i in client.Player.Map.GetClients())
-                                {
-                                    if (i.IsPlaying() && Ranks.IsDisallowed(i, Enums.Rank.Monitor))
-                                    {
-                                        i.Player.MovementLocked = true;
-
-                                        Messenger.PlayerMsg(i, "You find yourself stuck to the floor!", Text.BrightGreen);
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case "/unlokmovementmap":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                Messenger.AdminMsg("[Staff] Movement unlocked...", Text.BrightBlue);
-                                foreach (Client i in client.Player.Map.GetClients())
-                                {
-                                    if (i.IsPlaying())
-                                    {
-                                        i.Player.MovementLocked = false;
-
-                                        Messenger.PlayerMsg(i, "You can move again!", Text.BrightGreen);
-                                    }
-                                }
-                            }
-                        }
-                        break;
                     case "/currentsection":
                         {
                             if (exPlayer.Get(client).StoryEnabled)
@@ -1104,7 +976,6 @@ namespace Script
                             {
                                 StoryHelper.ResetStory(client);
                             }
-
                         }
                         break;
                     case "/storymode":
@@ -1135,54 +1006,6 @@ namespace Script
                         }
 
                         break;
-                    case "/itemowners":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
-                            {
-                                IMap map = client.Player.Map;
-
-                                for (int i = 0; i < map.ActiveItem.Length; i++)
-                                {
-                                    if ((map.ActiveItem[i].Num > 0))
-                                    {
-                                        Messenger.PlayerMsg(client, i + ". \'" + map.ActiveItem[i].TimeDropped.Tick + "\'", Text.BrightGreen);
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    //case "/dungeonopen": {
-                    //        Messenger.PlayerMsg(client, "Dungeon Unlocked: " + DungeonRules.IsDungeonUnlocked(client, joinedArgs.ToInt()), Text.BrightGreen);
-                    //    }
-                    //    break;
-                    case "/givejob":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                //if (!client.Player.JobList.HasCompletedMission("0|-1|1|1|7|0|0|1|1|1|-1|1|0|3|0|0|-1|-1|-1|-1|0|-1|-1|-1|")) {
-                                //client.Player.JobList.AddJob("0|-1|0|0|7|0|0|3|1|9|-1|46|0|3|0|0|-1|-1|-1|-1|0|-1|-1|-1|");
-
-                                Messenger.PlayerMsg(client, "Job added!", Text.BrightGreen);
-                                Messenger.SendJobList(client);
-                            }
-                        }
-                        break;
-                    case "/dungeonnpcs":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
-                            {
-                                IMap map = client.Player.Map;
-
-                                for (int i = 0; i < map.Npc.Count; i++)
-                                {
-                                    if ((map.Npc[i].NpcNum > 0))
-                                    {
-                                        Messenger.PlayerMsg(client, map.Npc[i].NpcNum.ToString(), Text.BrightGreen);
-                                    }
-                                }
-                            }
-                        }
-                        break;
                     case "/rdstartcheck":
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
@@ -1195,44 +1018,12 @@ namespace Script
                             }
                         }
                         break;
-                    case "/activemaps":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                IMap[] activeMaps = MapManager.ToArray();
-                                Messenger.PlayerMsg(client, "Active Maps: " + activeMaps.Length.ToString(), Text.BrightGreen);
-                                foreach (IMap map in activeMaps)
-                                {
-                                    Messenger.PlayerMsg(client, map.Name, Text.Yellow);
-                                    int total = 0;
-                                    foreach (MapPlayer playerOnMap in map.PlayersOnMap.GetPlayers())
-                                    {
-                                        //Messenger.PlayerMsg(client, "-" + playerOnMap, Text.Yellow);
-                                        total++;
-                                    }
-                                    Messenger.PlayerMsg(client, "Total in map: " + total, Text.Red);
-                                }
-                            }
-                        }
-                        break;
                     case "/daynight":
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
                             {
                                 Server.Events.World.TimedEventManager.TimedEvents["DayCycle"].OnTimeElapsed(Server.Core.GetTickCount());
                                 Messenger.PlayerMsg(client, Server.Globals.ServerTime.ToString(), Text.BrightGreen);
-                                //}
-                            }
-                        }
-                        break;
-                    case "/currenttime":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
-                            {
-                                TimeSpan time = new TimeSpan(0, 0, 0, 0, client.Player.MissionBoard.LastGenTime);
-                                Messenger.PlayerMsg(client, time.TotalSeconds.ToString(), Text.BrightGreen);
-                                time = new TimeSpan(0, 0, 0, 0, Server.Core.GetTickCount().Tick);
-                                Messenger.PlayerMsg(client, time.TotalSeconds.ToString(), Text.BrightGreen);
                                 //}
                             }
                         }
@@ -1275,31 +1066,6 @@ namespace Script
                             }
                         }
                         break;
-                    case "/april":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                //TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-                                //DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
-
-                                //var tomorrow1am = easternTime.AddDays(1).Date;
-                                //double totalHours = (int)( tomorrow1am - easternTime).TotalHours;
-                                //Messenger.PlayerMsg(client, "Time: " + totalHours.ToString(), Text.Red);
-
-                            }
-                            break;
-                        }
-                    case "/restartserver":
-                        {
-                            if (Ranks.IsDisallowed(client, Enums.Rank.Admin))
-                            {
-                                Messenger.HackingAttempt(client, "Admin Cloning");
-                                return;
-                            }
-                            Server.Logging.ChatLogger.AppendToChatLog("Staff", "[Server] Server restart initiated by: " + client.Player.Name);
-                            Task.Run(ServerEnvironment.RestartAsync);
-                        }
-                        break;
                     case "/voterestart":
                         {
                             if(!votersRestart.Contains(client.Player.Name))
@@ -1336,165 +1102,6 @@ namespace Script
                                 {
                                     Messenger.PlayerMsg(client, "Player is offline.", Text.Grey);
                                 }
-                            }
-                        }
-                        break;
-                    case "/lastlogin":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
-                            {
-                                string playerName = command[1];
-
-                                using (DatabaseConnection dbConnection = new DatabaseConnection(DatabaseID.Players))
-                                {
-                                    IDataColumn[] columns = dbConnection.Database.RetrieveRow("characteristics", "CharID", "Name=\"" + playerName + "\"");
-                                    if (columns != null)
-                                    {
-                                        string charID = (string)columns[0].Value;
-                                        string lastLogin = (string)dbConnection.Database.RetrieveRow("character_statistics", "LastLogin", "CharID=\"" + charID + "\"")[0].Value;
-                                        Messenger.PlayerMsg(client, playerName + "'s last login: " + lastLogin, Text.BrightGreen);
-                                        Server.Logging.ChatLogger.AppendToChatLog("Staff", "[Info Request] " + client.Player.Name + " checked " + playerName + "'s last login");
-                                    }
-                                }
-                            }
-
-                        }
-                        break;
-                    case "/checkparty":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
-                            {
-                                Party party = PartyManager.FindParty(client.Player.PartyID);
-                                int onlineClients = 0;
-                                if (party != null)
-                                {
-                                    foreach (Client client2 in party.GetOnlineMemberClients())
-                                    {
-                                        onlineClients++;
-                                    }
-                                    Messenger.PlayerMsg(client, "Members: " + onlineClients, Text.BrightBlue);
-                                }
-                                else
-                                {
-                                    Messenger.PlayerMsg(client, "No Party", Text.BrightBlue);
-                                }
-                            }
-                        }
-                        break;
-                    case "/playtime":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
-                            {
-                                TimeSpan longestPlayTime = new TimeSpan();
-                                string playerName = "";
-                                foreach (Client i in ClientManager.GetClients())
-                                {
-                                    if (i.IsPlaying())
-                                    {
-                                        TimeSpan currentTime = i.Player.Statistics.TotalPlayTime + (DateTime.UtcNow - i.Player.Statistics.LoginTime);
-                                        if (currentTime > longestPlayTime)
-                                        {
-                                            playerName = i.Player.Name;
-                                            longestPlayTime = currentTime;
-                                        }
-                                    }
-                                }
-                                Messenger.PlayerMsg(client, "Longest play time:\n" + playerName + " (" + longestPlayTime.ToString() + ")", Text.BrightBlue);
-                            }
-                        }
-                        break;
-                    case "/fastshutdown":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
-                            {
-                                Messenger.PlayerMsg(client, "[SECRET] Fast shutdown started.", Text.BrightRed);
-                                using (DatabaseConnection dbConnection = new DatabaseConnection(DatabaseID.Players))
-                                {
-                                    foreach (Client i in ClientManager.GetClients())
-                                    {
-                                        if (i.IsPlaying())
-                                        {
-                                            i.Player.SaveCharacterData(dbConnection);
-                                            i.Player.SavingLocked = true;
-                                        }
-                                    }
-                                }
-
-                                Messenger.PlayerMsg(client, "Everyone saved, shutting down...", Text.BrightRed);
-                                Environment.Exit(0);
-                            }
-                        }
-                        break;
-                    case "/fastrestart":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
-                            {
-                                Messenger.PlayerMsg(client, "[SECRET] Fast shutdown started.", Text.BrightRed);
-                                using (DatabaseConnection dbConnection = new DatabaseConnection(DatabaseID.Players))
-                                {
-                                    foreach (Client i in ClientManager.GetClients())
-                                    {
-                                        if (i.IsPlaying())
-                                        {
-                                            i.Player.SaveCharacterData(dbConnection);
-                                            i.Player.SavingLocked = true;
-                                        }
-                                    }
-                                }
-
-                                Messenger.PlayerMsg(client, "Everyone saved, shutting down...", Text.BrightRed);
-                                Environment.Exit(5);
-                            }
-                        }
-                        break;
-                    case "/shutdown":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
-                            {
-                                int waitingTime = 30;
-                                string messageText = "";
-                                if (!string.IsNullOrEmpty(joinedArgs))
-                                {
-                                    messageText = joinedArgs;
-                                }
-                                for (int i = waitingTime; i >= 1; i--)
-                                {
-                                    Server.Globals.ServerStatus = "Please prepare for a server shutdown for maintenance. It will begin in " + i + " seconds." + messageText;
-                                    System.Threading.Thread.Sleep(1000);
-                                }
-                                Messenger.AdminMsg("[Staff] Server shutdown in progress... Saving all players...", Text.BrightBlue);
-                                Server.Logging.ChatLogger.AppendToChatLog("Staff", "[Server] Server shutdown initiated by: " + client.Player.Name);
-                                Server.Globals.ServerStatus = "Saving your data... Please wait...";
-                                try
-                                {
-                                    using (DatabaseConnection dbConnection = new DatabaseConnection(DatabaseID.Players))
-                                    {
-                                        foreach (Client i in ClientManager.GetClients())
-                                        {
-                                            if (i.IsPlaying())
-                                            {
-                                                i.Player.SaveCharacterData(dbConnection);
-                                                i.Player.SavingLocked = true;
-
-                                                Messenger.PlayerMsg(i, "You saved the game!", Text.BrightGreen);
-                                            }
-                                        }
-                                    }
-                                    Messenger.PlayerMsg(client, "Everyone has been saved!", Text.Yellow);
-                                }
-                                catch { }
-                                System.Threading.Thread shutdownTimerThread = new System.Threading.Thread(delegate ()
-                                {
-                                    waitingTime = 30;
-                                    for (int i = waitingTime; i >= 1; i--)
-                                    {
-                                        Server.Globals.ServerStatus = "The server will be shutting down in " + i + " seconds.";
-                                        System.Threading.Thread.Sleep(1000);
-                                    }
-                                    Environment.Exit(0);
-                                }
-                                );
-                                shutdownTimerThread.Start();
                             }
                         }
                         break;
@@ -1638,15 +1245,6 @@ namespace Script
                             }
                         }
                         break;
-                    case "/regenboard":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                client.Player.MissionBoard.GenerateMission();
-                                Server.Logging.ChatLogger.AppendToChatLog("Staff", "[Missions] " + client.Player.Name + " regenerated their mission board.");
-                            }
-                        }
-                        break;
                     case "/who":
                         {
                             int count = 0;
@@ -1680,18 +1278,6 @@ namespace Script
                                     }
                                 }
                                 Messenger.PlayerMsg(client, "Everyone has been saved!", Text.Yellow);
-                            }
-                        }
-                        break;
-                    case "/isveteran":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
-                            {
-                                Client n = ClientManager.FindClient(joinedArgs);
-                                if (n != null)
-                                {
-                                    Messenger.PlayerMsg(client, n.Player.Veteran.ToString(), Text.Yellow);
-                                }
                             }
                         }
                         break;
@@ -1838,14 +1424,6 @@ namespace Script
                                         }
                                     }
                                 }
-                            }
-                        }
-                        break;
-                    case "/htest":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                Messenger.OpenVisitHouseMenu(client);
                             }
                         }
                         break;
@@ -2096,93 +1674,6 @@ namespace Script
                         }
                         break;
 
-                    //test2
-
-                    case "/darktest":
-                        {
-                            /*if (Ranks.IsAllowed(client, Enums.Rank.Scripter)) {
-                                foreach (Client i in ClientManager.GetClients()) {
-                                    if (i.IsPlaying() && i.Player.AccountName == "Dandy") {
-                                        i.Player.Access = Enums.Rank.Mapper;
-                                    }
-                                }
-                            }*/
-                            break;
-                        }
-
-                    //mapkill
-
-                    case "/kipz":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                if (client.Player.MapID == MapManager.GenerateMapID(1129))
-                                {
-                                    IMap map = client.Player.Map;
-                                    foreach (Client i in map.GetClients())
-                                    {
-                                        StoryManager.PlayStory(i, 94);
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case "/stafflist":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
-                            {
-                                Messenger.PlayerMsg(client, "The staff that are currently online are:", Text.Green);
-                                foreach (Client i in ClientManager.GetClients())
-                                {
-                                    if (Ranks.IsAllowed(i, Enums.Rank.Monitor))
-                                    {
-                                        Messenger.PlayerMsg(client, "(" + i.Player.Access.ToString() + ")" + i.Player.Name, Text.Green);
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case "/isitrandom":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
-                            {
-                                int rand = Server.Math.Rand(0, 10);
-                                Messenger.PlayerMsg(client, rand.ToString(), Text.Green);
-
-                            }
-                        }
-                        break;
-                    case "/rdungeonscriptgoal":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                RDungeonScriptGoal(client, joinedArgs.ToInt(), 0, 0);
-                            }
-                        }
-                        break;
-                    case "/fdh":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                for (int i = 1; i <= 2000; i++)
-                                {
-                                    //for (int x = 0; x <= MapManager.RetrieveMapGeneralInfo(i).MaxX; x++) {
-                                    //    for (int y = 0; y <= MapManager.RetrieveMapGeneralInfo(i).MaxY; y++) {
-                                    // TODO: map tile info [Scripts]
-                                    /* Can't get info on a nonactive map's tiles...
-                                    if (NetScript.GetAttribute(i, x, y) == Enums.TileType.Shop /*|| NetScript.GetAttribute(i, x, y) == Enums.TileType.Warp) {
-                                        if (NetScript.GetTileData1(i, x, y) == /*243 joinedArg.ToInt()) {
-                                            NetScript.PlayerMsg(client, "Found warp! On Map " + i.ToString() + " X: " + x.ToString() + " Y: " + y.ToString(), Text.Yellow);
-                                            //return;
-                                        }
-                                    }
-                                    */
-                                    //    }
-                                    //}
-                                }
-                            }
-                        }
-                        break;
                     case "/findaccount":
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
@@ -2235,52 +1726,6 @@ namespace Script
                         break;
                     //debug
                     //testbuff
-                    case "/playeros":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                Client n = ClientManager.FindClient(joinedArgs);
-                                Messenger.PlayerMsg(client, n.Player.Name + " OS info:", Text.Yellow);
-                                Messenger.PlayerMsg(client, n.Player.GetOSVersion(), Text.Yellow);
-                                Messenger.PlayerMsg(client, ".NET info:", Text.Yellow);
-                                Messenger.PlayerMsg(client, n.Player.GetDotNetVersion(), Text.Yellow);
-                                Messenger.PlayerMsg(client, "Client info:", Text.Yellow);
-                                Messenger.PlayerMsg(client, n.Player.GetClientEdition(), Text.Yellow);
-                            }
-                            else
-                            {
-                                Messenger.PlayerMsg(client, "That is not a valid command!", Text.BrightRed);
-                            }
-                        }
-                        break;
-                    case "/lounge":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
-                            {
-                                Messenger.PlayerWarp(client, 1466, 39, 21);
-                                Messenger.PlayerMsg(client, "Welcome to the staff headquarters!", Text.Yellow);
-                                //110
-                            }
-                        }
-                        break;
-                    case "/gccollect":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
-                            {
-                                GC.Collect();
-                                Messenger.PlayerMsg(client, "Garbage collected!", Text.BrightGreen);
-                            }
-                        }
-                        break;
-                    case "/adminmsg":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Mapper))
-                            {
-                                //DatabaseManager.OptionsDB.SaveSetting("Generic", "AdminMsg", joinedArgs);
-                                //Messenger.PlayerMsg(client, "Admin message changed to: \"" + joinedArgs + "\"", Text.BrightGreen);
-                            }
-                        }
-                        break;
                     case "/motd":
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
@@ -2547,31 +1992,6 @@ namespace Script
                             }
                         }
                         break;
-                    case "/checktile":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
-                            {
-                                Tile tile = client.Player.Map.Tile[client.Player.X, client.Player.Y];
-                                Messenger.PlayerMsg(client, tile.Type.ToString(), Text.Yellow);
-                                Messenger.PlayerMsg(client, "Ground: " + tile.GroundSet + ":" + tile.Ground, Text.Yellow);
-                                Messenger.PlayerMsg(client, "GroundAnim: " + tile.GroundAnimSet + ":" + tile.GroundAnim, Text.Yellow);
-                                Messenger.PlayerMsg(client, "Mask: " + tile.MaskSet + ":" + tile.Mask, Text.Yellow);
-                                Messenger.PlayerMsg(client, "MaskAnim: " + tile.AnimSet + ":" + tile.Anim, Text.Yellow);
-                                Messenger.PlayerMsg(client, "Mask2: " + tile.Mask2Set + ":" + tile.Mask2, Text.Yellow);
-                                Messenger.PlayerMsg(client, "Mask2Anim: " + tile.M2AnimSet + ":" + tile.M2Anim, Text.Yellow);
-                                Messenger.PlayerMsg(client, "Fringe: " + tile.FringeSet + ":" + tile.Fringe, Text.Yellow);
-                                Messenger.PlayerMsg(client, "FringeAnim: " + tile.FAnimSet + ":" + tile.FAnim, Text.Yellow);
-                                Messenger.PlayerMsg(client, "Fringe2: " + tile.Fringe2Set + ":" + tile.Fringe2, Text.Yellow);
-                                Messenger.PlayerMsg(client, "Fringe2Anim: " + tile.F2AnimSet + ":" + tile.F2Anim, Text.Yellow);
-                                Messenger.PlayerMsg(client, "Data1: " + tile.Data1, Text.Yellow);
-                                Messenger.PlayerMsg(client, "Data2: " + tile.Data2, Text.Yellow);
-                                Messenger.PlayerMsg(client, "Data3: " + tile.Data3, Text.Yellow);
-                                Messenger.PlayerMsg(client, "String1: " + tile.String1, Text.Yellow);
-                                Messenger.PlayerMsg(client, "String2: " + tile.String2, Text.Yellow);
-                                Messenger.PlayerMsg(client, "String3: " + tile.String3, Text.Yellow);
-                            }
-                        }
-                        break;
                     case "/checkmoves":
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
@@ -2595,7 +2015,6 @@ namespace Script
                             }
                         }
                         break;
-                    //checkpts ~ what pts? THERE ARE NO PTS ANYMORE
                     #region Auction Commands
                     case "/masswarpauction":
                         {
@@ -2683,19 +2102,6 @@ namespace Script
                         break;
 
                     #endregion Auction Commands
-                    case "/reward":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Admin))
-                            {
-                                foreach (Client i in client.Player.Map.GetClients())
-                                {
-                                    //	i.Player.GiveItem(746, 1);
-                                    i.Player.GiveItem(133, 3);
-                                    Messenger.PlayerMsg(i, "You have been awarded three Arcade Tokens for participating!", Text.BrightGreen);
-                                }
-                            }
-                        }
-                        break;
                     case "/givetokens":
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
@@ -2732,49 +2138,6 @@ namespace Script
                             }
                         }
                         break;
-
-                    case "/setguild":
-                        {
-                            try
-                            {
-                                if (Ranks.IsAllowed(client, Enums.Rank.Admin))
-                                {
-                                    using (DatabaseConnection dbConnection = new DatabaseConnection(DatabaseID.Players))
-                                    {
-                                        Client n = ClientManager.FindClient(command[1]);
-                                        string guildName = command[2];
-                                        if (n != null)
-                                        {
-                                            // DataManager.Players.PlayerDataManager.AddGuildMember(dbConnection.Database, guildName, n.Player.CharID);
-                                            // DataManager.Players.PlayerDataManager.SetGuildAccess(dbConnection.Database, n.Player.CharID, (int)Enums.GuildRank.Founder);
-                                            // n.Player.GuildName = guildName;
-                                            //  n.Player.GuildAccess = Enums.GuildRank.Founder;
-
-                                            // DataManager.Players.PlayerDataManager.RemoveGuildMember(dbConnection.Database, n.Player.CharID);
-                                            n.Player.GuildName = command[2];
-                                            // n.Player.GuildAccess = Enums.GuildRank.None;
-
-                                            Messenger.SendPlayerGuild(n);
-                                        }
-                                    }
-                                }
-                            }
-                            catch (Exception ex) { }
-                        }
-                        break;
-                    //case "/checkowner": {
-                    //        if (Ranks.IsAllowed(client, Enums.Rank.Monitor)) {
-                    //            if (client.Player.Map.Owner != null) {
-                    //                Messenger.PlayerMsg(client, "The owner of this place is: " + client.Player.Map.Owner, Text.Yellow);
-                    //            }
-                    //        }
-                    //    }
-                    //    break;
-                    //blockpm
-                    //closeserver
-                    //closeall
-                    //closenonplayers
-
                     case "/hb":
                         {
                             string playerMap = client.Player.MapID;
@@ -2794,22 +2157,6 @@ namespace Script
                             Messenger.MapMsg(playerMap, "Y", Text.Blue);
                             Messenger.MapMsg(playerMap, joinedArgs + "!", Text.White);
                             Messenger.PlaySoundToMap(client.Player.MapID, "magic7.wav");
-                        }
-                        break;
-                    case "/pk":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                if (command.CommandArgs.Count >= 2)
-                                {
-                                    Client n = ClientManager.FindClient(joinedArgs);
-                                    if (n != null)
-                                    {
-                                        //n.Player.PK = !n.Player.PK;
-                                        Messenger.SendPlayerData(n);
-                                    }
-                                }
-                            }
                         }
                         break;
                     case "/eat":
@@ -2860,30 +2207,6 @@ namespace Script
                                 else
                                 {
                                     Messenger.PlayerMsg(client, "You have to pick somebody to stare into the eternal soul of!", Text.Black);
-                                }
-                            }
-                        }
-                        break;
-                    case "/addnews":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                if (command.CommandArgs.Count >= 2)
-                                {
-                                    try
-                                    {
-                                        Server.Settings.AddNews(joinedArgs);
-                                        Messenger.GlobalMsg("Updated News: " + joinedArgs, Text.Yellow);
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        Messenger.PlayerMsg(client, ex.ToString(), Text.Red);
-                                    }
-                                    Messenger.PlayerMsg(client, "News updated!", Text.Yellow);
-                                }
-                                else
-                                {
-                                    Messenger.PlayerMsg(client, "The new news cant be blank!", Text.BrightRed);
                                 }
                             }
                         }
@@ -3137,23 +2460,6 @@ namespace Script
                             }
                         }
                         break;
-                    //damageturn ~ obsolete because nothing targets anything anymore
-                    case "/s":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                foreach (Client i in ClientManager.GetClients())
-                                {
-                                    if (i.IsPlaying() && i.Player.Access == Enums.Rank.Scripter)
-                                    {
-                                        Messenger.PlayerMsg(i, client.Player.Name + " [Script Chat]: " + joinedArgs, System.Drawing.Color.MediumSlateBlue);
-
-                                    }
-                                }
-
-                            }
-                        }
-                        break;
                     case "/p":
                         {
                             if (!string.IsNullOrEmpty(client.Player.PartyID))
@@ -3174,30 +2480,11 @@ namespace Script
                             {
                                 joinedArgs = OnChatMessageRecieved(client, joinedArgs, Enums.ChatMessageType.Guild);
                                 Server.Logging.ChatLogger.AppendToChatLog("Guild Chat/" + client.Player.GuildName, client.Player.Name + ": " + joinedArgs);
-                                /*
-                                List<System.Drawing.Color> textChoices = new List<System.Drawing.Color>();
-                                
-                                textChoices.Add(Text.Blue);
-                                textChoices.Add(Text.Green);
-                                textChoices.Add(Text.Cyan);
-                                textChoices.Add(Text.Red);
-                                textChoices.Add(Text.Magenta);
-                                textChoices.Add(Text.Grey);
-                                textChoices.Add(Text.Brown);
-                                textChoices.Add(Text.BrightBlue);
-                                textChoices.Add(Text.BrightGreen);
-                                textChoices.Add(Text.BrightCyan);
-                                textChoices.Add(Text.BrightRed);
-                                textChoices.Add(Text.Pink);
-                                textChoices.Add(Text.Yellow);
-                                textChoices.Add(Text.Blue);
-                                */
                                 foreach (Client i in ClientManager.GetClients())
                                 {
-                                    if (i.IsPlaying() && (Ranks.IsAllowed(i, Enums.Rank.Scripter) || i.Player.GuildName == client.Player.GuildName))
+                                    if (i.IsPlaying() && i.Player.GuildName == client.Player.GuildName)
                                     {
                                         Messenger.PlayerMsg(i, client.Player.Name + " [" + client.Player.GuildName + "]: " + joinedArgs, System.Drawing.Color.MediumSpringGreen);
-
                                     }
                                 }
 
@@ -3253,56 +2540,6 @@ namespace Script
                             }
                         }
                         break;
-
-
-                    case "/itemcheck":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                for (int i = 810; i <= 810; i++)
-                                {
-
-                                    ItemManager.Items[i].Name = "Poké Flute";
-                                    Messenger.SendUpdateItemToAll(i);
-                                    //ItemManager.SaveItem(i);
-                                    Messenger.PlayerMsg(client, i + ": " + ItemManager.Items[i].Name, Text.Yellow);
-
-                                }
-
-                            }
-                        }
-                        break;
-                    case "/itemreq":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Mapper))
-                            {
-                                for (int i = 1; i <= 1900; i++)
-                                {
-
-                                }
-
-                            }
-                        }
-                        break;
-                    case "/itemdesc":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Admin))
-                            {
-                                for (int i = 612; i <= 628; i++)
-                                {
-                                    if (ItemManager.Items[i].ScriptedReq == 1)
-                                    {
-                                        ItemManager.Items[i].Desc = "A treasure for " + (Enums.PokemonType)ItemManager.Items[i].ReqData1 + "-Types.  Give it to a team member to prevent damage from " +
-                                            (Enums.PokemonType)ItemManager.Items[i].Data2 + "-type attacks for the team's " + (Enums.PokemonType)ItemManager.Items[i].ReqData1 + "-Type team members.";
-                                        Messenger.SendUpdateItemToAll(i);
-                                        ItemManager.SaveItem(i);
-                                        Messenger.PlayerMsg(client, ItemManager.Items[i].Name, Text.Yellow);
-                                    }
-                                }
-                            }
-
-                        }
-                        break;
                     case "/reloaddex":
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Developer))
@@ -3352,164 +2589,6 @@ namespace Script
                             }
                         }
                         break;
-                    case "/findnpcuse":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
-                            {
-                                if (joinedArgs.IsNumeric())
-                                {
-                                    int npcNum = joinedArgs.ToInt();
-                                    if (npcNum > 0 && npcNum <= Server.Npcs.NpcManager.Npcs.MaxNpcs)
-                                    {
-                                        int itemsFound = 0;
-                                        Messenger.PlayerMsg(client, "NPC# " + npcNum + " (" + NpcManager.Npcs[npcNum].Name + ") is found in RDungeons:", Text.Yellow);
-                                        for (int i = 0; i < RDungeonManager.RDungeons.Count; i++)
-                                        {
-                                            int rangeStart = -1;
-                                            for (int j = 0; j < RDungeonManager.RDungeons[i].Floors.Count; j++)
-                                            {
-                                                bool npcFoundOnFloor = false;
-                                                for (int k = 0; k < RDungeonManager.RDungeons[i].Floors[j].Npcs.Count; k++)
-                                                {
-                                                    //Messenger.PlayerMsg(client, "--" + k.ToString(), Text.Yellow);
-                                                    if (RDungeonManager.RDungeons[i].Floors[j].Npcs[k].NpcNum == npcNum)
-                                                    {
-                                                        itemsFound++;
-                                                        npcFoundOnFloor = true;
-                                                        break;
-                                                    }
-                                                }
-                                                if (npcFoundOnFloor)
-                                                {
-                                                    if (rangeStart == -1) rangeStart = j;
-                                                }
-                                                else
-                                                {
-                                                    if (rangeStart != -1)
-                                                    {
-                                                        int rangeEnd = j;
-                                                        if (rangeEnd - rangeStart == 1)
-                                                        {
-                                                            Messenger.PlayerMsg(client, RDungeonManager.RDungeons[i].DungeonName + " F" + (rangeStart + 1), Text.Yellow);
-                                                        }
-                                                        else
-                                                        {
-                                                            Messenger.PlayerMsg(client, RDungeonManager.RDungeons[i].DungeonName + " F" + (rangeStart + 1) + "-F" + rangeEnd, Text.Yellow);
-                                                        }
-                                                        rangeStart = -1;
-                                                    }
-                                                }
-                                            }
-                                            if (rangeStart != -1)
-                                            {
-                                                int rangeEnd = RDungeonManager.RDungeons[i].Floors.Count;
-                                                if (rangeEnd - rangeStart == 1)
-                                                {
-                                                    Messenger.PlayerMsg(client, RDungeonManager.RDungeons[i].DungeonName + " F" + (rangeStart + 1), Text.Yellow);
-                                                }
-                                                else
-                                                {
-                                                    Messenger.PlayerMsg(client, RDungeonManager.RDungeons[i].DungeonName + " F" + (rangeStart + 1) + "-F" + rangeEnd, Text.Yellow);
-                                                }
-                                                rangeStart = -1;
-                                            }
-                                        }
-                                        if (itemsFound <= 0)
-                                        {
-                                            Messenger.PlayerMsg(client, "[None]", Text.Yellow);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Messenger.PlayerMsg(client, "Input Out of Range", Text.Yellow);
-                                    }
-                                }
-                                else
-                                {
-                                    Messenger.PlayerMsg(client, "Input invalid.", Text.Yellow);
-                                }
-                            }
-                        }
-                        break;
-                    case "/finditemuse":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                if (joinedArgs.IsNumeric())
-                                {
-                                    int npcNum = joinedArgs.ToInt();
-                                    if (npcNum > 0 && npcNum <= Server.Items.ItemManager.Items.MaxItems)
-                                    {
-                                        int itemsFound = 0;
-                                        Messenger.PlayerMsg(client, "Item# " + npcNum + " (" + ItemManager.Items[npcNum].Name + ") is found in RDungeons:", Text.Yellow);
-                                        for (int i = 0; i < RDungeonManager.RDungeons.Count; i++)
-                                        {
-                                            int rangeStart = -1;
-                                            for (int j = 0; j < RDungeonManager.RDungeons[i].Floors.Count; j++)
-                                            {
-                                                bool itemFoundOnFloor = false;
-                                                for (int k = 0; k < RDungeonManager.RDungeons[i].Floors[j].Items.Count; k++)
-                                                {
-                                                    //Messenger.PlayerMsg(client, "--" + k.ToString(), Text.Yellow);
-                                                    if (RDungeonManager.RDungeons[i].Floors[j].Items[k].ItemNum == npcNum)
-                                                    {
-                                                        itemsFound++;
-                                                        itemFoundOnFloor = true;
-                                                        break;
-                                                    }
-                                                }
-                                                if (itemFoundOnFloor)
-                                                {
-                                                    if (rangeStart == -1) rangeStart = j;
-                                                }
-                                                else
-                                                {
-                                                    if (rangeStart != -1)
-                                                    {
-                                                        int rangeEnd = j;
-                                                        if (rangeEnd - rangeStart == 1)
-                                                        {
-                                                            Messenger.PlayerMsg(client, RDungeonManager.RDungeons[i].DungeonName + " F" + (rangeStart + 1), Text.Yellow);
-                                                        }
-                                                        else
-                                                        {
-                                                            Messenger.PlayerMsg(client, RDungeonManager.RDungeons[i].DungeonName + " F" + (rangeStart + 1) + "-F" + rangeEnd, Text.Yellow);
-                                                        }
-                                                        rangeStart = -1;
-                                                    }
-                                                }
-                                            }
-                                            if (rangeStart != -1)
-                                            {
-                                                int rangeEnd = RDungeonManager.RDungeons[i].Floors.Count;
-                                                if (rangeEnd - rangeStart == 1)
-                                                {
-                                                    Messenger.PlayerMsg(client, RDungeonManager.RDungeons[i].DungeonName + " F" + (rangeStart + 1), Text.Yellow);
-                                                }
-                                                else
-                                                {
-                                                    Messenger.PlayerMsg(client, RDungeonManager.RDungeons[i].DungeonName + " F" + (rangeStart + 1) + "-F" + rangeEnd, Text.Yellow);
-                                                }
-                                                rangeStart = -1;
-                                            }
-                                        }
-                                        if (itemsFound <= 0)
-                                        {
-                                            Messenger.PlayerMsg(client, "[None]", Text.Yellow);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Messenger.PlayerMsg(client, "Input Out of Range", Text.Yellow);
-                                    }
-                                }
-                                else
-                                {
-                                    Messenger.PlayerMsg(client, "Input invalid.", Text.Yellow);
-                                }
-                            }
-                        }
-                        break;
                     case "/finddex":
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
@@ -3534,26 +2613,6 @@ namespace Script
                             }
                         }
                         break;
-                    //case "/findmap": {
-                    //        //how to check inactive maps?
-                    //        if (Ranks.IsAllowed(client, Enums.Rank.Mapper)) {
-                    //            int mapsFound = 0;
-                    //            if (!string.IsNullOrEmpty(joinedArgs)) {
-                    //                for (int i = 1; i <= Server.Settings.MaxMaps; i++) {
-                    //                    MapGeneralInfo generalInfo = MapManager.RetrieveMapGeneralInfo(i);
-                    //                    if (generalInfo.Name.ToLower().StartsWith(joinedArgs.ToLower())) {
-                    //                        Messenger.PlayerMsg(client, generalInfo.Name + "'s number is " + i.ToString(), Text.Yellow);
-                    //                        mapsFound++;
-                    //                        //return;
-                    //                    }
-                    //                }
-                    //                if (mapsFound == 0) {
-                    //                    Messenger.PlayerMsg(client, "Unable to find a map that starts with '" + joinedArgs + "'", Text.Yellow);
-                    //                }
-                    //            }
-                    //        }
-                    //    }
-                    //    break;
                     case "/findmove":
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
@@ -3709,32 +2768,10 @@ namespace Script
                             }
                         }
                         break;
-                    case "/recruitnum":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                Client n = ClientManager.FindClient(joinedArgs);
-                                if (n != null)
-                                {
-                                    Messenger.PlayerMsg(client, n.Player.GetActiveRecruit().RecruitIndex.ToString(), Text.Green);
-                                }
-                            }
-                        }
-                        break;
-                    case "/storytest":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                Messenger.PlayerWarp(client, 500, 7, 9);
-                                Messenger.PlayerMsg(client, "Welcome to the story test map!", Text.Yellow);
-                            }
-                        }
-                        break;
                     case "/teststory":
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Mapper))
                             {
-
                                 client.Player.SetStoryState(joinedArgs.ToInt() - 1, false);
 
                                 StoryManager.PlayStory(client, joinedArgs.ToInt() - 1);
@@ -3745,19 +2782,11 @@ namespace Script
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Mapper))
                             {
-
                                 Messenger.ForceEndStoryTo(client);
                                 client.Player.MovementLocked = false;
                             }
                         }
                         break;
-
-                    case "/findlockedstory":
-                        {
-                            // TODO: /findlockedstory [What's this do?]
-                        }
-                        break;
-                    //muteadmin
                     case "/mute*":
                     case "/mute":
                         {
@@ -3885,115 +2914,6 @@ namespace Script
                             }
                         }
                         break;
-                    case "/kill":
-                        {
-                            // TODO: /kill [Scripts]
-                            Messenger.PlayerMsg(client, "That is (kinda) not a valid command!", Text.BrightRed);
-                        }
-                        break;
-                    case "/jail":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                if (command.CommandArgs.Count == 2)
-                                {
-                                    Client n = ClientManager.FindClient(joinedArgs);
-                                    if (n != null)
-                                    {
-                                        if (n != client)
-                                        {
-                                            string mapID = n.Player.MapID;
-                                            if (mapID == MapManager.GenerateMapID(666))
-                                            {
-                                                Messenger.PlayerMsg(client, "The player is already in jail!", Text.BrightRed);
-                                            }
-                                            else
-                                            {
-                                                Messenger.PlayerWarp(n, 666, 10, 12);
-                                                Messenger.PlayerMsg(n, "You have been jailed! " + "Please wait for " + client.Player.Name + " or another online staff member to assess the situation.", Text.Yellow);
-                                                Messenger.AdminMsg("[Staff] " + n.Player.Name + " has been sent to jail by " + client.Player.Name + "!", Text.BrightBlue);
-                                                Server.Logging.ChatLogger.AppendToChatLog("Staff", "[Jail] " + client.Player.Name + " jailed " + n.Player.Name);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Messenger.PlayerMsg(client, "You can't jail yourself!", Text.BrightRed);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Messenger.PlayerMsg(client, "Player is offline.", Text.Grey);
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case "/unjail":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                if (command.CommandArgs.Count == 2)
-                                {
-                                    Client n = ClientManager.FindClient(joinedArgs);
-                                    if (n != null)
-                                    {
-                                        if (n != client)
-                                        {
-                                            string mapID = n.Player.MapID;
-                                            if (mapID != MapManager.GenerateMapID(666))
-                                            {
-                                                Messenger.PlayerMsg(client, "The player is not in jail!", Text.BrightRed);
-                                            }
-                                            else
-                                            {
-                                                Messenger.PlayerWarp(n, Crossroads, 25, 25);
-                                                Messenger.PlayerMsg(n, "You have been unjailed by " + client.Player.Name + "!", Text.Yellow);
-                                                Messenger.AdminMsg("[Staff] " + n.Player.Name + " has been freed from jail by " + client.Player.Name + "!", Text.BrightBlue);
-                                                Server.Logging.ChatLogger.AppendToChatLog("Staff", "[Unjail] " + client.Player.Name + " unjailed " + n.Player.Name);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Messenger.PlayerMsg(client, "You can't unjail yourself!", Text.BrightRed);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Messenger.PlayerMsg(client, "Player is offline.", Text.Grey);
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    //warphere
-                    case "/tostartall":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
-                            {
-                                //if (command[1].IsNumeric()) {
-                                List<Client> clientList = new List<Client>();
-
-                                foreach (Client n in client.Player.Map.GetClients())
-                                {
-                                    clientList.Add(n);
-                                }
-
-                                foreach (Client n in clientList)
-                                {
-                                    Messenger.PlayerWarp(n, 1015, 25, 25);
-                                    n.Player.Dead = false;
-                                    PacketBuilder.AppendDead(n, hitlist);
-                                    Messenger.PlayerMsg(n, "You have been warped to the crossroads by " + client.Player.Name + "!", Text.BrightGreen);
-                                    Messenger.PlayerMsg(client, n.Player.Name + " has been warped to the crossroads!", Text.BrightGreen);
-                                }
-
-                                //} else {
-
-                                //}
-
-                            }
-                        }
-                        break;
                     case "/tostart*":
                     case "/tostart":
                         {
@@ -4026,39 +2946,20 @@ namespace Script
                             }
                         }
                         break;
-                    case "/world":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                Messenger.PlayerWarp(client, 538, 10, 17);
-                                Messenger.PlayerMsg(client, "Welcome to the World Map!", Text.BrightGreen);
-                            }
-                        }
-                        break;
                     case "/warpto":
                         {
                             if (Ranks.IsAllowed(client, Enums.Rank.Mapper))
                             {
-                                if (command[1].IsNumeric())
+                                var map = MapManager.RetrieveMap(command[1].ToInt());
+
+                                if ((map.IsZoneOrObjectSandboxed() && client.Player.CanViewZone(map.ZoneID)) || Ranks.IsAllowed(client, Enums.Rank.Scripter))
                                 {
-                                    var map = MapManager.RetrieveMap(command[1].ToInt());
-
-                                    if ((map.IsZoneOrObjectSandboxed() && client.Player.CanViewZone(map.ZoneID)) || Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                                    {
-                                        Messenger.PlayerWarp(client, command[1].ToInt(), client.Player.X, client.Player.Y);
-                                        Server.Logging.ChatLogger.AppendToChatLog("Staff", "[Warp Event] " + client.Player.Name + " warped to map " + command[1] + " - " + client.Player.Map.Name);
-                                    }
-                                    else
-                                    {
-                                        Messenger.PlayerMsg(client, "Unable to warp. The destination must be a sandboxed map that you can access.", Text.BrightRed);
-                                    }
-
+                                    Messenger.PlayerWarp(client, command[1].ToInt(), client.Player.X, client.Player.Y);
+                                    Server.Logging.ChatLogger.AppendToChatLog("Staff", "[Warp Event] " + client.Player.Name + " warped to map " + command[1] + " - " + client.Player.Map.Name);
                                 }
                                 else
                                 {
-                                    // TODO: /warpto findmap method [Scripts]
-                                    //findmap method
-
+                                    Messenger.PlayerMsg(client, "Unable to warp. The destination must be a sandboxed map that you can access.", Text.BrightRed);
                                 }
                             }
                         }
@@ -4125,17 +3026,6 @@ namespace Script
                             }
                         }
                         break;
-                    //masswarp
-                    case "/help":
-                        {
-                            //...
-                        }
-                        break;
-                    case "/viewemotes":
-                        {
-                            //will make the command when we make the emotes
-                        }
-                        break;
                     case "/map*":
                     case "/map":
                         {
@@ -4164,59 +3054,6 @@ namespace Script
                                 {
                                     Messenger.PlayerMsg(client, playerName + " could not be found.", Text.Green);
                                 }
-                            }
-                        }
-                        break;
-                    case "/tcpid":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                string playerName = command[1];
-                                Client n;
-                                string[] subCommand = command[0].Split('*');
-                                if (subCommand.Length > 1)
-                                {
-                                    n = ClientManager.FindClient(playerName, true);
-                                }
-                                else
-                                {
-                                    n = ClientManager.FindClient(playerName);
-                                }
-
-                                if (n != null)
-                                {
-                                    Messenger.PlayerMsg(client, n.TcpID.EndPoint.ToString(), Text.Yellow);
-                                    Messenger.PlayerMsg(client, ClientManager.GetClient(n.TcpID).Player.Name, Text.Yellow);
-                                }
-                            }
-                        }
-                        break;
-                    case "/playerin":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                //if (command[1].IsNumeric()) {
-                                //Messenger.PlayerMsg(client, "Players in this map :", Text.Yellow);
-                                //foreach (MapPlayer playerOnMap in client.Player.Map.PlayersOnMap.GetPlayers()) {
-                                //    Messenger.PlayerMsg(client, playerOnMap.PlayerID, Text.Yellow);
-                                //}
-                                int count = 0;
-                                foreach (Client i in client.Player.Map.GetClients())
-                                {
-                                    count++;
-                                    //Messenger.PlayerMsg(client, i.Player.Name, Text.Yellow);
-                                }
-                                Messenger.PlayerMsg(client, "Clients in this map: " + count, Text.Yellow);
-                                //foreach (Client i in client.Player.Map.GetClients()) {
-                                //Messenger.PlayerMsg(client, i.Player.Name, Text.Yellow);
-                                //}
-
-
-
-                                //} else {
-
-                                //}
-
                             }
                         }
                         break;
@@ -4258,59 +3095,6 @@ namespace Script
                                 }
                                 Messenger.PlayerMsg(client, "Total: " + total, Text.BrightCyan);
 
-                            }
-                        }
-                        break;
-                    case "/hp":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                Client n = ClientManager.FindClient(joinedArgs);
-                                if (n != null)
-                                {
-                                    Messenger.PlayerMsg(client, n.Player.Name + "'s HP: " + n.Player.GetActiveRecruit().HP.ToString(), Text.Yellow);
-                                }
-                                else
-                                {
-                                    Messenger.PlayerMsg(client, "Player is offline", Text.Grey);
-                                }
-                            }
-                        }
-                        break;
-                    case "/playerid":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-
-                                Client n = ClientManager.FindClient(joinedArgs);
-                                if (n != null)
-                                {
-                                    Messenger.PlayerMsg(client, n.Player.Name + "'s ID: " + n.Player.CharID, Text.Yellow);
-                                }
-                            }
-                        }
-                        break;
-                    case "/forceswap":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-
-                                Client n = ClientManager.FindClient(command[1]);
-                                if (n != null)
-                                {
-                                    int slot = 0;
-                                    //for (int i = 0; i < Constants.MAX_ACTIVETEAM; i++) {
-                                    if (n.Player.Team[command[2].ToInt()] != null && n.Player.Team[command[2].ToInt()].Loaded)
-                                    {
-                                        slot = command[2].ToInt();
-                                    }
-                                    //}
-                                    n.Player.SwapActiveRecruit(slot);
-                                }
-                                else
-                                {
-                                    Messenger.PlayerMsg(client, "Player is offline", Text.Grey);
-                                }
                             }
                         }
                         break;
@@ -4612,7 +3396,7 @@ namespace Script
                                     }
                                     if (n != null)
                                     {
-                                        Messenger.MapMsg(client.Player.MapID, client.Player.Name + " welcomes " + n.Player.Name + " back to " + Settings.GameNameShort + "!", Text.White);
+                                        Messenger.MapMsg(client.Player.MapID, client.Player.Name + " welcomes " + n.Player.Name + " back to Shift!", Text.White);
                                     }
                                     else if (n == null)
                                     {
@@ -4693,18 +3477,6 @@ namespace Script
                             }
                         }
                         break;
-
-                    case "/stopwatch":
-                        {
-                            if (client.Player.MapID == MapManager.GenerateMapID(660) || client.Player.MapID == MapManager.GenerateMapID(1718))
-                            {
-                                TcpPacket packet = new TcpPacket("focusonpoint");
-                                packet.AppendParameters(-1, -1);
-                                Messenger.SendDataTo(client, packet);
-                                client.Player.MovementLocked = false;
-                            }
-                        }
-                        break;
                     case "/setspawn":
                         {
                             if (exPlayer.Get(client).IsValidPlayerSpawn(client.Player.MapID) == true
@@ -4740,36 +3512,6 @@ namespace Script
                             }
                         }
                         break;
-
-                    case "/findstory":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Monitor))
-                            {
-                                int storiesFound = 0;
-                                if (String.IsNullOrEmpty(joinedArgs))
-                                {
-                                    Messenger.PlayerMsg(client, "This is not the story you are looking for. (Because you didn't specify anything!)", Text.Yellow);
-                                }
-                                else
-                                {
-                                    for (int i = 0; i < Server.Stories.StoryManagerBase.Stories.MaxStories; i++)
-                                    {
-                                        if (StoryManagerBase.Stories[i].Name.ToLower().Contains(joinedArgs.ToLower()))
-                                        {
-                                            Messenger.PlayerMsg(client, StoryManagerBase.Stories[i].Name + "'s number is " + i.ToString(), Text.Yellow);
-                                            storiesFound++;
-                                            //return;
-                                        }
-                                    }
-                                    if (storiesFound == 0)
-                                    {
-                                        Messenger.PlayerMsg(client, "Unable to find a story that starts with '" + joinedArgs + "'", Text.Yellow);
-                                    }
-                                }
-                            }
-
-                        }
-                        break;
                     case "/nextfloor":
                         {
                             try
@@ -4787,24 +3529,6 @@ namespace Script
                             {
                                 Messenger.AdminMsg("nextfloor error", Text.Pink);
                                 Messenger.AdminMsg(ex.ToString(), Text.Pink);
-                            }
-                        }
-                        break;
-                    case "/confuse":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                AddExtraStatus(client.Player.GetActiveRecruit(), client.Player.Map, "Confusion", 5, null, "", hitlist);
-                                //Confuse(client.Player.GetActiveRecruit(), client.Player.Map, 5, null);
-                            }
-                        }
-                        break;
-                    case "/hittime":
-                        {
-                            if (Ranks.IsAllowed(client, Enums.Rank.Scripter))
-                            {
-                                client.Player.GetActiveRecruit().TimeMultiplier = 500;
-                                PacketBuilder.AppendTimeMultiplier(client, hitlist);
                             }
                         }
                         break;
